@@ -8,9 +8,11 @@ import clsx from 'clsx';
 
 import styles from './MainLayout.module.scss';
 
+import { NavBar } from '../../features/NavBar/NavBar';
+
 const Component = ({className, children}) => (
   <div className={clsx(className, styles.root)}>
-    <h2>MainLayout</h2>
+    <NavBar />
     {children}
   </div>
 );

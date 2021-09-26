@@ -1,0 +1,59 @@
+@import '../../../styles/settings.scss';
+
+.root {
+  .navbar {
+    padding: 0;
+
+    .container {
+      align-items: flex-start;
+      //background: lavenderblush;
+
+      .logo_wrapper {
+        //background: lightskyblue;
+        padding: 6px 0;
+
+        .logo {
+          background: transparent;
+          border: none;
+          font-size: 24px;
+          line-height: 18px;
+          padding: 12px 18px;
+        }
+      }
+
+      .menu {
+        //background: peru;
+        margin: auto 0;
+
+        .hamburger {
+          border: none;
+        }
+
+        .nav_collapse {
+          .nav {
+            .nav_link {
+              text-transform: uppercase;
+              font-weight: 500;
+              padding: 12px 20px;
+            }
+          }
+        }
+      }
+
+      .right_buttons {
+        order: 3;
+        //background: teal;
+        text-align: right;
+        padding: 6px 0;
+
+        button {
+          background: transparent;
+          border: none;
+          text-transform: uppercase;
+          font-weight: 500;
+          padding: 12px 20px;
+        }
+      }
+    }
+  }
+}
