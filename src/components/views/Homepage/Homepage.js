@@ -9,10 +9,12 @@ import clsx from 'clsx';
 import styles from './Homepage.module.scss';
 
 import { Header } from '../../layout/Header/Header';
+import { InfoBoxes } from '../../features/InfoBoxes/InfoBoxes';
 
 const Component = ({className, children}) => (
   <div className={clsx(className, styles.root)}>
     <Header />
+    <InfoBoxes />
     {children}
   </div>
 );
