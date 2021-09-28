@@ -16,36 +16,31 @@ import Col from 'react-bootstrap/Col';
 
 const Component = ({className, children}) => (
   <div className={clsx(className, styles.root)}>
-    <Navbar className={styles.navbar} expand="md" fixed="top">
+    <Navbar className={styles.navbar} expand="md" fixed="top" variant="dark">
       <Container className={styles.container}>
-        <Col className={styles.logo_wrapper}
-          xs={{ order: 2 }}
-          md={{ order: 1 }}
-        >
-          <Button className={styles.logo} href="/" variant="light">squizzy</Button>
+
+        <Col className={styles.logo_wrapper} xs='auto'>
+          <Button className={styles.logo} href="/">squizzy</Button>
         </Col>
 
-        <Col className={clsx('', styles.menu)}
-          xs={{ order: 1 }}
-          md={{ order: 2 }}
+        <Col className={clsx('ms-md-auto', styles.menu_wrapper)}
+          xs={3}
+          md='auto'
         >
           <Navbar.Toggle className={styles.hamburger} aria-controls="basic-navbar-nav" />
           <Navbar.Collapse className={styles.nav_collapse} id="basic-navbar-nav">
             <Nav className={clsx('ms-auto', styles.nav)}>
               <Nav.Link className={styles.nav_link} href="/">Home</Nav.Link>
-              <Nav.Link className={styles.nav_link} href="/cart">Cart</Nav.Link>
-              <Nav.Link className={styles.nav_link} href="/order">Order</Nav.Link>
+              <Nav.Link className={styles.nav_link} href="/cart">Products</Nav.Link>
+              <Nav.Link className={styles.nav_link} href="/order">contact</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Col>
 
-        <Col className={styles.right_buttons}
-          md={3}
-        >
-          <Button variant="light">Login</Button>
-          <Button variant="light">Cart</Button>
+        <Col className={styles.right_nav_wrapper} xs='auto'>
+          <Nav.Link className={styles.nav_link} href="/">Login</Nav.Link>
+          <Nav.Link className={styles.nav_link} href="/cart">Cart (<span>0</span>)</Nav.Link>
         </Col>
-
       </Container>
     </Navbar>
   </div>
