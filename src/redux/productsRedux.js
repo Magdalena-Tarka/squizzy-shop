@@ -1,5 +1,8 @@
 /* selectors */
 export const getAll = ({products}) => products.data;
+export const getFruity = ({products}) => products.data.filter(item => item.fruit === true);
+export const getVege = ({products}) => products.data.filter(item => item.vege === true);
+export const getJuices = ({products}) => products.data.filter(item => item.pressedJuice === true);
 
 /* action name creator */
 const reducerName = 'products';

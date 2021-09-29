@@ -10,11 +10,13 @@ import styles from './Homepage.module.scss';
 
 import { Header } from '../../layout/Header/Header';
 import { InfoBoxes } from '../../features/InfoBoxes/InfoBoxes';
+import { ProductsList } from '../../features/ProductsList/ProductsList';
 
 const Component = ({className, children}) => (
   <div className={clsx(className, styles.root)}>
     <Header />
     <InfoBoxes />
+    <ProductsList />
     {children}
   </div>
 );
