@@ -3,19 +3,29 @@ export const initialState = {
     data: [
       {
         id: '1',
-        name: 'name 1',
-        price: 9,
+        name: 'vegetable red smoothie',
+        //price: 9,
         description: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.',
         image: '/images/1.jpeg',
-        params: {
-          size: {
+        ingredients: [
+          'radish',
+          'beetroot',
+          'celery',
+          'parsley',
+        ],
+        options: [
+          { size: '300ml', price: 9, default: true },
+          { size: '500ml', price: 12 },
+        ],
+        params: [
+          {
             label: 'size',
-            options: {
-              small: { label: '300ml', price: 0, default: true },
-              big: { label: '500ml', price: 3 },
-            },
+            options: [
+              { label: '300ml', price: 9, default: true },
+              { label: '500ml', price: 12 },
+            ],
           },
-        },
+        ],
         fruit: false,
         vege: true,
         pressedJuice: false,

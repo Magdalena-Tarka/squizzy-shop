@@ -69,8 +69,11 @@ const Component = ({ className, products, getFruity, getVege, getJuices }) => {
               md={4}
               lg={3}
             >
-              <Card className={styles.product_card}>
-                <Card.Body className={clsx('p-4'), styles.card_body}>
+              <Card className={styles.product_card}
+                as={Nav.Link}
+                href={`/product/${product.id}`}
+              >
+                <Card.Body className={clsx(styles.card_body)}>
                   <Card.Img className={clsx('mb-2', styles.card_img)}
                     src={product.image}
                     variant="top"
