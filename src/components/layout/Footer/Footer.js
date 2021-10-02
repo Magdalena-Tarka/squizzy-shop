@@ -6,21 +6,25 @@ import clsx from 'clsx';
 // import { connect } from 'react-redux';
 // import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux.js';
 
-import styles from './MainLayout.module.scss';
+import styles from './Footer.module.scss';
 
-import { NavBar } from '../../features/NavBar/NavBar';
-import { Footer } from '../Footer/Footer';
+import Col from 'react-bootstrap/Col';
+import Nav from 'react-bootstrap/Nav';
 
-const Component = ({className, children}) => (
+const Component = ({className}) => (
   <div className={clsx(className, styles.root)}>
-    <NavBar />
-    {children}
-    <Footer />
+    <Col className={styles.icons}>
+      <Nav.Link><i className="bi bi-facebook"></i></Nav.Link>
+      <Nav.Link><i className="bi bi-instagram"></i></Nav.Link>
+      <Nav.Link><i className="bi bi-twitter"></i></Nav.Link>
+    </Col>
+    <Col className={styles.paragraph}>
+      <p>&copy; 2021 <span>squizzy</span> Group. All rights reserved.</p>
+    </Col>
   </div>
 );
 
 Component.propTypes = {
-  children: PropTypes.node,
   className: PropTypes.string,
 };
 
@@ -35,7 +39,7 @@ Component.propTypes = {
 // const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
 
 export {
-  Component as MainLayout,
-  // Container as MainLayout,
-  Component as MainLayoutComponent,
+  Component as Footer,
+  // Container as Footer,
+  Component as FooterComponent,
 };
