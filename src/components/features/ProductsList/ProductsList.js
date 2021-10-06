@@ -37,7 +37,7 @@ const Component = ({ className, products, getFruity, getVege, getJuices }) => {
   return (
     <div className={clsx(className, styles.root)}>
       <div className={styles.div1}></div>
-      <Container className={styles.container}>
+      <Container className={clsx('glassEffect', styles.container)}>
 
         <Nav className={clsx('justify-content-center', styles.tabs)}
           //variant="tabs"

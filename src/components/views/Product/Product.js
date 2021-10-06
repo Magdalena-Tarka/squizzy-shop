@@ -40,7 +40,7 @@ const Component = ({ className, products, ...props }) => {
     <div className={clsx(className, styles.root)}>
       <Container className={styles.container}>
 
-        <Col className={styles.product_wrapper}
+        <Col className={clsx('glassEffect', styles.product_wrapper)}
           xs={11}
           sm={12}
           lg={11}

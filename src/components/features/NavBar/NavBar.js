@@ -17,7 +17,7 @@ import Col from 'react-bootstrap/Col';
 const Component = ({className, children}) => (
   <div className={clsx(className, styles.root)}>
     <Navbar className={styles.navbar} expand="md" fixed="top" variant="dark">
-      <Container className={styles.container}>
+      <Container className={clsx('glassEffect', styles.container)}>
 
         <Col className={styles.logo_wrapper} xs='auto'>
           <Button className={styles.logo} href="/">squizzy</Button>

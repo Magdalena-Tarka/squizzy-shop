@@ -14,19 +14,10 @@ $header-logo-text-color: #242322;
   display: flex;
   margin-bottom: 36px;
 
-  //z-index: 999;
-
   .container {
     position: relative;
 
     .glass_wrapper {
-      box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.5);
-      border-radius: 15px;
-      background: rgba(75, 74, 74, 0.3);
-      overflow: hidden;
-      border-top: 1px solid rgba(255, 255, 255, 0.5);
-      border-left: 1px solid rgba(255, 255, 255, 0.5);
-      backdrop-filter: blur(9px);
       height: 108%;
       width: 60%;
       margin-top: -3%;

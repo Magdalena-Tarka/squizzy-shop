@@ -17,7 +17,7 @@ const Component = ({className, children}) => (
   <div className={clsx(className, styles.root)}>
     <Container className={styles.container}>
 
-      <Col className={styles.glass_wrapper}
+      <Col className={clsx('glassEffect', styles.glass_wrapper)}
         xs='auto'
         lg={7}
       >
