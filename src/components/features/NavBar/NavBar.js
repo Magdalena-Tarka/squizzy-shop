@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
 
 import clsx from 'clsx';
 
@@ -30,16 +31,16 @@ const Component = ({className, children}) => (
           <Navbar.Toggle className={styles.hamburger} aria-controls="basic-navbar-nav" />
           <Navbar.Collapse className={styles.nav_collapse} id="basic-navbar-nav">
             <Nav className={clsx('ms-auto', styles.nav)}>
-              <Nav.Link className={styles.nav_link} href="/">Home</Nav.Link>
-              <Nav.Link className={styles.nav_link} href="/cart">Products</Nav.Link>
-              <Nav.Link className={styles.nav_link} href="/order">contact</Nav.Link>
+              <Nav.Link className={styles.nav_link} as={NavLink} to="/">Home</Nav.Link>
+              <Nav.Link className={styles.nav_link} as={NavLink} to="/cart">Products</Nav.Link>
+              <Nav.Link className={styles.nav_link} as={NavLink} to="/order">contact</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Col>
 
         <Col className={styles.right_nav_wrapper} xs='auto'>
-          <Nav.Link className={styles.nav_link} href="/">Login</Nav.Link>
-          <Nav.Link className={styles.nav_link} href="/cart">Cart (<span>0</span>)</Nav.Link>
+          <Nav.Link className={styles.nav_link} as={NavLink} to="/">Login</Nav.Link>
+          <Nav.Link className={styles.nav_link} as={NavLink} to="/cart">Cart (<span>0</span>)</Nav.Link>
         </Col>
       </Container>
     </Navbar>

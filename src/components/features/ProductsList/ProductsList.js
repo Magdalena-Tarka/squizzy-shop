@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
 
 import clsx from 'clsx';
 
@@ -70,8 +71,8 @@ const Component = ({ className, products, getFruity, getVege, getJuices }) => {
               lg={3}
             >
               <Card className={styles.product_card}
-                as={Nav.Link}
-                href={`/product/${product.id}`}
+                as={NavLink}
+                to={`/product/${product.id}`}
               >
                 <Card.Body className={clsx(styles.card_body)}>
                   <Card.Img className={clsx('mb-2', styles.card_img)}
