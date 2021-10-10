@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router';
 
 import clsx from 'clsx';
 
@@ -15,7 +16,6 @@ import Row from 'react-bootstrap/Row';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { useHistory } from 'react-router';
 
 const Component = ({ className, products, addToCart, ...props }) => {
 
@@ -24,44 +24,41 @@ const Component = ({ className, products, addToCart, ...props }) => {
   const defaultSize = product.options.filter(option => option.default === true)[0].size;
   //console.log('product', product);
 
-  const [itemToCart, setItemToCart] = useState({
+  const [ size, setSize ] = useState(defaultSize);
+  const [ price, setPrice ] = useState(defaultPrice);
+  const [ qnty, setQnty ] = useState(1);
+  const history = useHistory();
+
+  const itemToCart = {
     id: product.id,
     name: product.name,
     image: product.image,
     ingredients: product.ingredients,
-    size: defaultSize,
-    priceSingle: defaultPrice,
-    quantity: 1,
-  });
-  const history = useHistory();
+    size: size,
+    priceSingle: price,
+    quantity: qnty,
+  };
 
   const total = itemToCart.priceSingle * itemToCart.quantity;
 
-  const handleInputsChange = event => {
-    event.preventDefault();
-    if(event.target.name === 'size') {
-      setItemToCart({...itemToCart,
-        size: event.target.id,
-        priceSingle: event.target.value,
-      });
-    } else if(event.target.name === 'quantity') {
-      setItemToCart({...itemToCart,
-        quantity: event.target.value,
-      });
-    }
+  const handleSizeChange = event => {
+    setSize(event.target.id);
+    setPrice(event.target.value);
+  };
+
+  const handleQntyChange = event => {
+    setQnty(event.target.value);
   };
 
   const handleAddToCart = event => {
     event.preventDefault();
     addToCart(itemToCart);
-    //setItemToCart('');
     history.push('/');
   };
 
   return (
     <div className={clsx(className, styles.root)}>
       <Container className={styles.container}>
-
         <Col className={clsx('glassEffect', styles.product_wrapper)}
           xs={11}
           sm={12}
@@ -87,7 +84,6 @@ const Component = ({ className, products, addToCart, ...props }) => {
                 >
                   <Card.Title className={styles.card_title}>{product.name}</Card.Title>
                   <Card.Text className={styles.card_description}>{product.description}</Card.Text>
-
                   <Card.Text className={styles.card_ingredients}>
                     <span>ingredients: </span>
                     {product.ingredients.join(', ')}.
@@ -109,9 +105,7 @@ const Component = ({ className, products, addToCart, ...props }) => {
                               value={option.price}
                               label={`${option.size} ${option.price}$`}
                               defaultChecked={option.default}
-                              //checked={defaultPrice}
-                              //checked={parseInt(price) === parseInt(option.price)}
-                              onChange={handleInputsChange}
+                              onChange={handleSizeChange}
                             ></input>
                             <span className={styles.checkmark}></span>
                           </label>
@@ -127,7 +121,7 @@ const Component = ({ className, products, addToCart, ...props }) => {
                         type='number'
                         name='quantity'
                         value={itemToCart.quantity}
-                        onChange={handleInputsChange}
+                        onChange={handleQntyChange}
                         min={1}
                         max={10}
                         step={1}
