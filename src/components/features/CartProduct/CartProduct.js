@@ -43,12 +43,17 @@ const Component = ({className, updateQnty, removeItem, ...props}) => {
           <p className={styles.cartProduct_size}>{size}</p>
         </div>
 
-        <Button className={styles.cartProduct_btn}
-          onClick={handleRemoveItem}
-        ><i className="bi bi-trash-fill" />remove item</Button>
+        <textarea className={styles.cartProduct_textarea}
+          name='note'
+          id='note'
+          placeholder='You can add some note...'
+          maxLength='70'
+          //onChange={}
+        ></textarea>
       </Col>
 
       <Col className={styles.cartProduct_details} sm={2}>
+        <p>{parseInt(priceSingle) * parseInt(amountInput)}$</p>
         <div className={styles.cartProduct_qnty}>
           <input
             type='number'
@@ -61,7 +66,9 @@ const Component = ({className, updateQnty, removeItem, ...props}) => {
             step={1}
           ></input>
         </div>
-        <p>{parseInt(priceSingle) * parseInt(amountInput)}$</p>
+        <Button className={styles.cartProduct_btn}
+          onClick={handleRemoveItem}
+        ><i className="bi bi-trash-fill" />remove</Button>
       </Col>
     </div>
   );
