@@ -1,0 +1,121 @@
+@import '../../../styles/settings.scss';
+
+$order-text-color: #212529;
+$order-wrapper-height-lg: 100px;
+$order-wrapper-height-xs: 90px;
+$order-wrapper-height-xxs: 80px;
+
+.root {
+  display: flex;
+  justify-content: center;
+  max-height: 144px;
+  color: $order-text-color;
+
+  p {
+    margin: 0;
+  }
+
+  .orderListItem_img {
+    display: flex;
+    height: $order-wrapper-height-lg;
+    width: 100px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 15px;
+    }
+
+    @include extra-small {
+      height: $order-wrapper-height-xs;
+      width: 100px;
+    }
+    @include extra-extra-small {
+      height: $order-wrapper-height-xxs;
+      width: 80px;
+    }
+  }
+
+  .orderListItem_description {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 0 12px;
+    height: $order-wrapper-height-lg;
+    font-size: 14px;
+    font-weight: 700;
+
+    .orderListItem_title {
+      text-transform: uppercase;
+    }
+
+    .orderListItem_note {
+      font-weight: 500;
+      span {
+        text-transform: uppercase;
+        font-size: 13px;
+      }
+    }
+
+    @include extra-small {
+      font-size: smaller;
+      height: $order-wrapper-height-xs;
+      padding: 0 4px 0 10px;
+    }
+    @include extra-extra-small {
+      height: $order-wrapper-height-xxs;
+      justify-content: space-around;
+      padding: 0 10px;
+      font-size: 12px;
+      font-weight: 500;
+      width: 60%;
+
+      .orderListItem_note {
+        display: none;
+      }
+    }
+  }
+
+  .orderListItem_details {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    height: $order-wrapper-height-lg;
+    padding: 8px 0;
+
+    @include extra-small {
+      height: $order-wrapper-height-xs;
+      font-size: 14px;
+    }
+    @include extra-extra-small {
+      height: $order-wrapper-height-xxs;
+      justify-content: space-around;
+      font-size: 13px;
+      padding: 0;
+    }
+  }
+
+  .orderListItem_note_XXSsize {
+    display: none;
+  }
+
+  @include extra-extra-small {
+    flex-wrap: wrap;
+    padding: 0;
+    max-height: 100%;
+
+    .orderListItem_note_XXSsize {
+      display: block;
+      font-size: 13px;
+      padding: 8px 8px 0 8px;
+
+      span {
+        text-transform: uppercase;
+        font-size: 12px;
+        margin-right: 4px;
+      }
+    }
+  }
+}
