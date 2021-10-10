@@ -125,6 +125,21 @@ $cart-btn-bg-color: #eac000;
     }
   }
 
+  .emptyCardInfo {
+    text-align: center;
+
+    button {
+      padding: 4px 18px;
+      border-radius: 12px;
+      background: $cart-btn-bg-color;
+      color: $cart-text-color;
+      opacity: 0.9;
+      text-transform: uppercase;
+      font-size: 14px;
+      font-weight: 500;
+    }
+  }
+
   @include extra-small {
     padding-top: 58px;
   }

@@ -4,7 +4,6 @@ export const initialState = {
       {
         id: '1',
         name: 'vegetable red smoothie',
-        //price: 9,
         description: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.',
         image: '/images/1.jpeg',
         ingredients: [
@@ -17,15 +16,6 @@ export const initialState = {
           { size: '300ml', price: 9, default: true },
           { size: '500ml', price: 12 },
         ],
-        params: [
-          {
-            label: 'size',
-            options: [
-              { label: '300ml', price: 9, default: true },
-              { label: '500ml', price: 12 },
-            ],
-          },
-        ],
         fruit: false,
         vege: true,
         pressedJuice: false,
@@ -33,19 +23,18 @@ export const initialState = {
       },
       {
         id: '2',
-        name: 'name 2',
-        price: 9,
+        name: 'yellow pressed juice',
         description: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.',
         image: '/images/2.jpeg',
-        params: {
-          size: {
-            label: 'size',
-            options: {
-              small: { label: '300ml', price: 0, default: true },
-              big: { label: '500ml', price: 3 },
-            },
-          },
-        },
+        ingredients: [
+          'orange',
+          'lemon',
+          'ginger',
+        ],
+        options: [
+          { size: '300ml', price: 7, default: true },
+          { size: '500ml', price: 10 },
+        ],
         fruit: true,
         vege: true,
         pressedJuice: true,
@@ -53,19 +42,19 @@ export const initialState = {
       },
       {
         id: '3',
-        name: 'name 3',
-        price: 9,
+        name: 'milky red smoothie',
         description: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.',
         image: '/images/3.jpeg',
-        params: {
-          size: {
-            label: 'size',
-            options: {
-              small: { label: '300ml', price: 0, default: true },
-              big: { label: '500ml', price: 3 },
-            },
-          },
-        },
+        ingredients: [
+          'strawberies',
+          'banana',
+          'milk',
+          'vanilla',
+        ],
+        options: [
+          { size: '300ml', price: 9, default: true },
+          { size: '500ml', price: 12 },
+        ],
         fruit: true,
         vege: false,
         pressedJuice: false,
@@ -216,5 +205,8 @@ export const initialState = {
       active: false,
       error: false,
     },
+  },
+  cart: {
+    items: [],
   },
 };

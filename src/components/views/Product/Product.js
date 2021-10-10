@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 import clsx from 'clsx';
 
 import { connect } from 'react-redux';
-import { getAll/*, reduxActionCreator*/ } from '../../../redux/productsRedux.js';
+import { getAll } from '../../../redux/productsRedux.js';
+import { addToCart } from '../../../redux/cartRedux.js';
 
 import styles from './Product.module.scss';
 
@@ -14,26 +15,47 @@ import Row from 'react-bootstrap/Row';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import { useHistory } from 'react-router';
 
-const Component = ({ className, products, ...props }) => {
+const Component = ({ className, products, addToCart, ...props }) => {
 
   const product = products.filter(product => product.id === props.match.params.id)[0];
   const defaultPrice = product.options.filter(option => option.default === true)[0].price;
+  const defaultSize = product.options.filter(option => option.default === true)[0].size;
   //console.log('product', product);
 
-  const [amount, setAmount] = useState(1);
-  const [price, setPrice] = useState(defaultPrice);
+  const [itemToCart, setItemToCart] = useState({
+    id: product.id,
+    name: product.name,
+    image: product.image,
+    ingredients: product.ingredients,
+    size: defaultSize,
+    priceSingle: defaultPrice,
+    quantity: 1,
+  });
+  const history = useHistory();
 
-  const total = price * amount;
+  const total = itemToCart.priceSingle * itemToCart.quantity;
 
-  const changeAmount = event => {
+  const handleInputsChange = event => {
     event.preventDefault();
-    setAmount(event.target.value);
+    if(event.target.name === 'size') {
+      setItemToCart({...itemToCart,
+        size: event.target.id,
+        priceSingle: event.target.value,
+      });
+    } else if(event.target.name === 'quantity') {
+      setItemToCart({...itemToCart,
+        quantity: event.target.value,
+      });
+    }
   };
 
-  const changePrice = event => {
+  const handleAddToCart = event => {
     event.preventDefault();
-    setPrice(event.target.value);
+    addToCart(itemToCart);
+    //setItemToCart('');
+    history.push('/');
   };
 
   return (
@@ -55,7 +77,7 @@ const Component = ({ className, products, ...props }) => {
                 >
                   <img className={clsx(styles.img)}
                     src={product.image}
-                    alt={product.image}
+                    alt={product.name}
                   />
                 </Col>
 
@@ -89,7 +111,7 @@ const Component = ({ className, products, ...props }) => {
                               defaultChecked={option.default}
                               //checked={defaultPrice}
                               //checked={parseInt(price) === parseInt(option.price)}
-                              onChange={changePrice}
+                              onChange={handleInputsChange}
                             ></input>
                             <span className={styles.checkmark}></span>
                           </label>
@@ -103,8 +125,9 @@ const Component = ({ className, products, ...props }) => {
                       </Card.Text>
                       <input
                         type='number'
-                        value={amount}
-                        onChange={changeAmount}
+                        name='quantity'
+                        value={itemToCart.quantity}
+                        onChange={handleInputsChange}
                         min={1}
                         max={10}
                         step={1}
@@ -120,6 +143,7 @@ const Component = ({ className, products, ...props }) => {
                   <Button className={styles.card_btn}
                     type="button"
                     variant="warning"
+                    onClick={handleAddToCart}
                   >add to cart</Button>
                 </Col>
               </Row>
@@ -136,17 +160,18 @@ Component.propTypes = {
   className: PropTypes.string,
   match: PropTypes.object,
   products: PropTypes.array,
+  addToCart: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
   products: getAll(state),
 });
 
-// const mapDispatchToProps = dispatch => ({
-//   someAction: arg => dispatch(reduxActionCreator(arg)),
-// });
+const mapDispatchToProps = dispatch => ({
+  addToCart: arg => dispatch(addToCart(arg)),
+});
 
-const ProductContainer = connect(mapStateToProps/*, mapDispatchToProps*/)(Component);
+const ProductContainer = connect(mapStateToProps, mapDispatchToProps)(Component);
 
 export {
   //Component as Product,
