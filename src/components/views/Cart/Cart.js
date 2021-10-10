@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
 
 import clsx from 'clsx';
 
@@ -50,10 +51,12 @@ const Component = ({ className, cartItems }) => {
 
               {!cartItems.length ? (
                 <Col className={styles.emptyCardInfo}>
-                  <p>There is no any item in your cart yet</p>
+                  <p>There is no any items in your cart yet</p>
                   <Button className={styles.cart_btn}
                     type="button"
                     variant="warning"
+                    as={NavLink}
+                    to='/'
                   >go to homepage</Button>
                 </Col>
               ) : (
