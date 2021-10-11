@@ -76,7 +76,7 @@ const Component = ({ className, cartItems }) => {
                   >
                     <div className={styles.cartSummary}>
                       <Card.Text className={styles.subtotal}>
-                        <span>subtotal: </span>{totalPrice}$
+                        <span>subtotal: </span>{subtotalPrice}$
                       </Card.Text>
                       <Card.Text className={styles.delivery}>
                         <span>delivery: </span>{delivery}$
@@ -87,7 +87,9 @@ const Component = ({ className, cartItems }) => {
                       <Button className={styles.cart_btn}
                         type="button"
                         variant="warning"
-                      >order</Button>
+                        as={NavLink}
+                        to='/order'
+                      >make order</Button>
                     </div>
                   </Col>
                 </div>

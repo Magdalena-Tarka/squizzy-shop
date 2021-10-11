@@ -12,10 +12,10 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 
 const Component = ({className, updateQnty, updateNote, removeItem, ...props}) => {
-  const {id, image, name, ingredients, priceSingle, quantity, size} = props;
+  const {id, image, name, note, ingredients, priceSingle, quantity, size} = props;
 
   const [amountInput, setAmountInput] = useState(quantity);
-  const [noteInput, setNotetInput] = useState('');
+  const [noteInput, setNotetInput] = useState(note);
 
   const handleInputAmount = event => {
     setAmountInput(event.target.value);
@@ -87,6 +87,7 @@ Component.propTypes = {
   id: PropTypes.string,
   image: PropTypes.string,
   name: PropTypes.string,
+  note: PropTypes.string,
   ingredients: PropTypes.array,
   priceSingle: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   quantity: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),

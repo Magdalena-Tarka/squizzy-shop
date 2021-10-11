@@ -209,4 +209,7 @@ export const initialState = {
   cart: {
     items: [],
   },
+  order: {
+    data: [],
+  },
 };
