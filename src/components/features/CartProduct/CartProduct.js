@@ -4,21 +4,27 @@ import PropTypes from 'prop-types';
 import clsx from 'clsx';
 
 import { connect } from 'react-redux';
-import { updateItemQnty, removeItem } from '../../../redux/cartRedux.js';
+import { updateItemQnty, updateItemNote, removeItem } from '../../../redux/cartRedux.js';
 
 import styles from './CartProduct.module.scss';
 
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 
-const Component = ({className, updateQnty, removeItem, ...props}) => {
+const Component = ({className, updateQnty, updateNote, removeItem, ...props}) => {
   const {id, image, name, ingredients, priceSingle, quantity, size} = props;
 
   const [amountInput, setAmountInput] = useState(quantity);
+  const [noteInput, setNotetInput] = useState('');
 
-  const handleInputChange = event => {
+  const handleInputAmount = event => {
     setAmountInput(event.target.value);
     updateQnty(id, event.target.value);
+  };
+
+  const handleInputNote = event => {
+    setNotetInput(event.target.value);
+    updateNote(id, event.target.value);
   };
 
   const handleRemoveItem = event => {
@@ -48,7 +54,8 @@ const Component = ({className, updateQnty, removeItem, ...props}) => {
           id='note'
           placeholder='You can add some note...'
           maxLength='70'
-          //onChange={}
+          value={noteInput}
+          onChange={handleInputNote}
         ></textarea>
       </Col>
 
@@ -60,7 +67,7 @@ const Component = ({className, updateQnty, removeItem, ...props}) => {
             name='quantity'
             id={id}
             value={amountInput}
-            onChange={handleInputChange}
+            onChange={handleInputAmount}
             min={1}
             max={10}
             step={1}
@@ -85,6 +92,7 @@ Component.propTypes = {
   quantity: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   size: PropTypes.string,
   updateQnty: PropTypes.func,
+  updateNote: PropTypes.func,
   removeItem: PropTypes.func,
 };
 
@@ -94,6 +102,7 @@ Component.propTypes = {
 
 const mapDispatchToProps = dispatch => ({
   updateQnty: (id, value) => dispatch(updateItemQnty(id, value)),
+  updateNote: (id, value) => dispatch(updateItemNote(id, value)),
   removeItem: (id, size) => dispatch(removeItem(id, size)),
 });
 
