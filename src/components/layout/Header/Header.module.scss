@@ -156,14 +156,14 @@ $header-logo-text-color: #242322;
         top: -35%;
       }
       @include extra-small {
-        transform: rotate(40deg) scale(0.8);
+        transform: rotate(40deg) scale(0.7);
         top: -37%;
-        left: -25%
+        left: -25%;
       }
       @include extra-extra-small {
-        transform: rotate(40deg) scale(0.5);
+        transform: rotate(10deg) scale(0.5);
         top: -40%;
-        left: -50%;
+        left: -30%;
       }
     }
 
@@ -187,15 +187,18 @@ $header-logo-text-color: #242322;
         top: -30%;
       }
       @include extra-small {
-        transform: rotate(30deg) scale(0.7);
+        transform: rotate(15deg) scale(0.5);
         top: -35%;
         left: 0;
       }
       @include extra-extra-small {
-        transform: rotate(25deg) scale(0.5);
+        transform: rotate(5deg) scale(0.5);
         top: -37%;
-        left: -20%;
+        left: -10%;
       }
     }
+  }
+  @include extra-small {
+    max-height: 620px;
   }
 }

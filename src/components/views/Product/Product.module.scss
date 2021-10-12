@@ -14,8 +14,6 @@ $product-radio-color: #eac000;
 
   .container {
     padding: 24px 12px;
-    height: 100%;
-    max-height: 780px;
 
     .product_wrapper {
       height: 100%;
@@ -140,8 +138,8 @@ $product-radio-color: #eac000;
                   margin-left: 6px;
                   background: transparent;
                   border-radius: 15px;
-                  border: none;
-                  padding: 4px 18px;
+                  border: 1px solid $product-text-color;
+                  padding: 0 18px;
                   width: 72px;
                   font-weight: 500;
                 }
@@ -205,9 +203,9 @@ $product-radio-color: #eac000;
   }
 
   @include extra-small {
-    height: 100%;
+    padding-top: 58px;
   }
   @include extra-extra-small {
-    padding-top: 58px;
+    padding-top: 48px;
   }
 }

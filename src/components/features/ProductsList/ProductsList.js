@@ -16,9 +16,7 @@ import Nav from 'react-bootstrap/Nav';
 import Card from 'react-bootstrap/Card';
 
 const Component = ({ className, products, getFruity, getVege, getJuices }) => {
-
-  console.log('products', products);
-  console.log('getFruity', getFruity);
+  //console.log('products', products);
 
   const productsTabs = [
     { id: 'allProducts', name: 'all products', products: products },
@@ -80,7 +78,9 @@ const Component = ({ className, products, getFruity, getVege, getJuices }) => {
                     variant="top"
                   />
                   <Card.Title className={styles.card_title}>{product.name}</Card.Title>
-                  <Card.Subtitle className={styles.card_price}>price: {product.price}$</Card.Subtitle>
+                  <Card.Subtitle className={styles.card_price}>
+                    price: {product.options.map(option => option.default && option.price)}$
+                  </Card.Subtitle>
                 </Card.Body>
               </Card>
             </Col>

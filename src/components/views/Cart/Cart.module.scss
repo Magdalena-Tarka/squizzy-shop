@@ -71,7 +71,7 @@ $cart-btn-bg-color: #eac000;
 
                 .subtotal, .delivery, .total {
                   display: flex;
-                  justify-content: end;
+                  justify-content: flex-end;
 
                   span {
                     margin-right: auto;
