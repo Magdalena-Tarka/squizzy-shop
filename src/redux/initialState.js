@@ -42,12 +42,32 @@ export const initialState = {
       },
       {
         id: '3',
-        name: 'milky red smoothie',
+        name: 'milk red smoothie',
         description: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.',
         image: '/images/3.jpeg',
         ingredients: [
-          'strawberies',
+          'strawberry',
           'banana',
+          'milk',
+          'coconut',
+        ],
+        options: [
+          { size: '300ml', price: 9, default: true },
+          { size: '500ml', price: 12 },
+        ],
+        fruit: true,
+        vege: false,
+        pressedJuice: false,
+        milk: true,
+      },
+      {
+        id: '4',
+        name: 'milk brown smoothie',
+        description: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.',
+        image: '/images/4.jpeg',
+        ingredients: [
+          'banana',
+          'peanut buter',
           'milk',
           'vanilla',
         ],
@@ -61,40 +81,19 @@ export const initialState = {
         milk: true,
       },
       {
-        id: '4',
-        name: 'name 4',
-        price: 9,
-        description: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.',
-        image: '/images/4.jpeg',
-        params: {
-          size: {
-            label: 'size',
-            options: {
-              small: { label: '300ml', price: 0, default: true },
-              big: { label: '500ml', price: 3 },
-            },
-          },
-        },
-        fruit: true,
-        vege: false,
-        pressedJuice: false,
-        milk: true,
-      },
-      {
         id: '5',
-        name: 'name 5',
-        price: 9,
+        name: 'orange pressed juice',
         description: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.',
         image: '/images/5.jpeg',
-        params: {
-          size: {
-            label: 'size',
-            options: {
-              small: { label: '300ml', price: 0, default: true },
-              big: { label: '500ml', price: 3 },
-            },
-          },
-        },
+        ingredients: [
+          'orange',
+          'carrot',
+          'apple',
+        ],
+        options: [
+          { size: '300ml', price: 7, default: true },
+          { size: '500ml', price: 10 },
+        ],
         fruit: true,
         vege: true,
         pressedJuice: true,
@@ -102,19 +101,18 @@ export const initialState = {
       },
       {
         id: '6',
-        name: 'name 6',
-        price: 9,
+        name: 'milk pink smoothie',
         description: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.',
         image: '/images/6.jpeg',
-        params: {
-          size: {
-            label: 'size',
-            options: {
-              small: { label: '300ml', price: 0, default: true },
-              big: { label: '500ml', price: 3 },
-            },
-          },
-        },
+        ingredients: [
+          'strawberry',
+          'milk',
+          'vanilla',
+        ],
+        options: [
+          { size: '300ml', price: 9, default: true },
+          { size: '500ml', price: 12 },
+        ],
         fruit: true,
         vege: false,
         pressedJuice: false,
@@ -122,19 +120,19 @@ export const initialState = {
       },
       {
         id: '7',
-        name: 'name 7',
-        price: 9,
+        name: 'milk aloe smoothie',
         description: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.',
         image: '/images/7.jpeg',
-        params: {
-          size: {
-            label: 'size',
-            options: {
-              small: { label: '300ml', price: 0, default: true },
-              big: { label: '500ml', price: 3 },
-            },
-          },
-        },
+        ingredients: [
+          'watermelon',
+          'strawberry',
+          'aloes',
+          'milk',
+        ],
+        options: [
+          { size: '300ml', price: 9, default: true },
+          { size: '500ml', price: 12 },
+        ],
         fruit: true,
         vege: false,
         pressedJuice: false,
@@ -142,19 +140,19 @@ export const initialState = {
       },
       {
         id: '8',
-        name: 'name 8',
-        price: 9,
+        name: 'hot pink pressed juice',
         description: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.',
         image: '/images/8.jpeg',
-        params: {
-          size: {
-            label: 'size',
-            options: {
-              small: { label: '300ml', price: 0, default: true },
-              big: { label: '500ml', price: 3 },
-            },
-          },
-        },
+        ingredients: [
+          'dragon fruit',
+          'beetroot',
+          'blueberry',
+          'coconut water',
+        ],
+        options: [
+          { size: '300ml', price: 7, default: true },
+          { size: '500ml', price: 10 },
+        ],
         fruit: true,
         vege: true,
         pressedJuice: true,
@@ -162,19 +160,19 @@ export const initialState = {
       },
       {
         id: '9',
-        name: 'name 9',
+        name: 'purple pressed juice',
         price: 9,
         description: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.',
         image: '/images/9.jpeg',
-        params: {
-          size: {
-            label: 'size',
-            options: {
-              small: { label: '300ml', price: 0, default: true },
-              big: { label: '500ml', price: 3 },
-            },
-          },
-        },
+        ingredients: [
+          'beetroot',
+          'apple',
+          'cucumber',
+        ],
+        options: [
+          { size: '300ml', price: 7, default: true },
+          { size: '500ml', price: 10 },
+        ],
         fruit: false,
         vege: true,
         pressedJuice: true,
@@ -182,19 +180,20 @@ export const initialState = {
       },
       {
         id: '10',
-        name: 'name 10',
+        name: 'milk white smoothie',
         price: 9,
         description: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.',
         image: '/images/10.jpeg',
-        params: {
-          size: {
-            label: 'size',
-            options: {
-              small: { label: '300ml', price: 0, default: true },
-              big: { label: '500ml', price: 3 },
-            },
-          },
-        },
+        ingredients: [
+          'banana',
+          'melon',
+          'milk',
+          'ginger',
+        ],
+        options: [
+          { size: '300ml', price: 9, default: true },
+          { size: '500ml', price: 12 },
+        ],
         fruit: true,
         vege: false,
         pressedJuice: false,

@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 import clsx from 'clsx';
 
 import { connect } from 'react-redux';
-import { getAll, getFruity, getVege, getJuices/*, reduxActionCreator*/ } from '../../../redux/productsRedux.js';
+import { getAll, getMilky, getVege, getJuices/*, reduxActionCreator*/ } from '../../../redux/productsRedux.js';
 
 import styles from './ProductsList.module.scss';
 
@@ -15,12 +15,12 @@ import Row from 'react-bootstrap/Row';
 import Nav from 'react-bootstrap/Nav';
 import Card from 'react-bootstrap/Card';
 
-const Component = ({ className, products, getFruity, getVege, getJuices }) => {
+const Component = ({ className, products, getMilky, getVege, getJuices }) => {
   //console.log('products', products);
 
   const productsTabs = [
     { id: 'allProducts', name: 'all products', products: products },
-    { id: 'fruitSmoothies', name: 'fruit smoothies', products: getFruity },
+    { id: 'milkSmoothies', name: 'milk smoothies', products: getMilky },
     { id: 'vegeSmoothies', name: 'vege smoothies', products: getVege },
     { id: 'pressedJuices', name: 'pressed juices', products: getJuices },
   ];
@@ -96,14 +96,14 @@ Component.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
   products: PropTypes.array,
-  getFruity: PropTypes.array,
+  getMilky: PropTypes.array,
   getVege: PropTypes.array,
   getJuices: PropTypes.array,
 };
 
 const mapStateToProps = state => ({
   products: getAll(state),
-  getFruity: getFruity(state),
+  getMilky: getMilky(state),
   getVege: getVege(state),
   getJuices: getJuices(state),
 });
