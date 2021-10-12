@@ -1,4 +1,42 @@
 @import '../../../styles/settings.scss';
 
-// .root {
-// }
+$nf-text-color: #212529;
+$nf-btn-bg-color: #eac000;
+
+.root {
+  background: url('https://images.pexels.com/photos/8215134/pexels-photo-8215134.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260') no-repeat center;
+  background-size: cover;
+  min-height: 100vh;
+  padding-top: 74px;
+  color: $nf-text-color;
+
+  .container {
+    padding: 24px 0;
+
+    .card_wrapper {
+      margin: auto;
+      height: 200px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+
+      .inner {
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+
+        .btn {
+          padding: 4px 18px;
+          border-radius: 12px;
+          background: $nf-btn-bg-color;
+          color: $nf-text-color;
+          opacity: 0.9;
+          text-transform: uppercase;
+          font-size: 14px;
+          font-weight: 500;
+          margin: auto;
+        }
+      }
+    }
+  }
+}

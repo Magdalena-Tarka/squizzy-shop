@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
 
 import clsx from 'clsx';
 
@@ -8,10 +9,34 @@ import clsx from 'clsx';
 
 import styles from './NotFound.module.scss';
 
-const Component = ({className, children}) => (
+import Container from 'react-bootstrap/Container';
+import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
+
+const Component = ({className}) => (
   <div className={clsx(className, styles.root)}>
-    <h2>NotFound</h2>
-    {children}
+    <Container className={styles.container}>
+      <Col className={clsx('glassEffect', styles.card_wrapper)}
+        lg={12}
+        xl={11}
+      >
+        <Col
+          className={styles.inner}
+        >
+          <h3>404</h3>
+          <h3>Not Found</h3>
+          <p>
+            The page you are looking for seems to not exist..
+          </p>
+          <Button className={styles.btn}
+            type="button"
+            variant="warning"
+            as={NavLink}
+            to='/'
+          >go to homepage</Button>
+        </Col>
+      </Col>
+    </Container>
   </div>
 );
 
