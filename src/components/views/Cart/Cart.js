@@ -12,7 +12,6 @@ import { CartProduct } from '../../features/CartProduct/CartProduct';
 
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
-import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 
 const Component = ({ className, cartItems }) => {
@@ -38,19 +37,18 @@ const Component = ({ className, cartItems }) => {
   return (
     <div className={clsx(className, styles.root)}>
       <Container className={styles.container}>
-        <Col className={clsx('glassEffect', styles.card_wrapper)}
+        <Col className={clsx('glassEffect', styles.wrapper)}
           lg={12}
           xl={11}
         >
-          <Card className={styles.card}>
-            <Card.Body className={clsx('g-4', styles.card_body)}>
+          <div className={styles.content}>
 
-              <h3 className={styles.card_title}>
-                Cart<span> ({cartQnty} pcs)</span>
-              </h3>
-
-              {!cartItems.length ? (
-                <Col className={styles.emptyCardInfo}>
+            {!cartItems.length ? (
+              <div className={styles.emptyCartBox_wrapper}>
+                <h3 className={styles.title}>
+                  Cart<span> ({cartQnty} pcs)</span>
+                </h3>
+                <Col className={styles.emptyCartBox}>
                   <p>There is no any items in your cart yet</p>
                   <Button className={styles.cart_btn}
                     type="button"
@@ -59,31 +57,34 @@ const Component = ({ className, cartItems }) => {
                     to='/'
                   >go to homepage</Button>
                 </Col>
-              ) : (
-                <div className={styles.card_content}>
-                  <Col className={styles.productsList_wrapper}
-                    sm={12}
-                    md={9}
-                  >
+              </div>
+            ) : (
+              <div className={styles.body}>
+
+                <div className={styles.main}>
+                  <h3 className={styles.title}>
+                    Cart<span> ({cartQnty} pcs)</span>
+                  </h3>
+
+                  <Col className={styles.productsList_wrapper} sm={12}>
                     {cartItems.map((cartItem, index) => (
                       <CartProduct key={index} {...cartItem} />
                     ))}
                   </Col>
+                </div>
 
-                  <Col className={styles.cartSummary_wrapper}
-                    sm={12}
-                    md={3}
-                  >
+                <div className={styles.aside}>
+                  <div className={styles.stickyBox}>
                     <div className={styles.cartSummary}>
-                      <Card.Text className={styles.subtotal}>
+                      <p className={styles.subtotal}>
                         <span>subtotal: </span>{subtotalPrice}$
-                      </Card.Text>
-                      <Card.Text className={styles.delivery}>
+                      </p>
+                      <p className={styles.delivery}>
                         <span>delivery: </span>{delivery}$
-                      </Card.Text>
-                      <Card.Text className={styles.total}>
+                      </p>
+                      <p className={styles.total}>
                         <span>total: </span>{totalPrice}$
-                      </Card.Text>
+                      </p>
                       <Button className={styles.cart_btn}
                         type="button"
                         variant="warning"
@@ -91,11 +92,11 @@ const Component = ({ className, cartItems }) => {
                         to='/order'
                       >make order</Button>
                     </div>
-                  </Col>
+                  </div>
                 </div>
-              )}
-            </Card.Body>
-          </Card>
+              </div>
+            )}
+          </div>
         </Col>
       </Container>
     </div>

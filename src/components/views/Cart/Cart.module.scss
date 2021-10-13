@@ -11,45 +11,69 @@ $cart-btn-bg-color: #eac000;
   padding-top: 74px;
   color: $cart-text-color;
 
+  .title {
+    text-transform: uppercase;
+    padding: 0 12px;
+    margin-bottom: 18px;
+
+    span {
+      font-size: 18px;
+      margin-left: 18px;
+      text-transform: none;
+    }
+
+    @include extra-small {
+      text-align: center;
+    }
+  }
+
   .container {
     padding: 24px 0;
 
-    .card_wrapper {
+    .wrapper {
       margin: auto;
 
-      .card {
+      .content {
         background: transparent;
         border: none;
         height: 100%;
         width: 100%;
-        padding-bottom: 12px;
+        padding: 24px 16px;
 
-        .card_body {
-          font-weight: 500;
+        .emptyCartBox_wrapper {
+          display: flex;
+          flex-direction: column;
 
-          .card_title {
-            text-transform: uppercase;
-            padding: 0 12px;
-            margin-bottom: 18px;
+          .emptyCartBox {
+            text-align: center;
 
-            span {
-              font-size: 18px;
-              margin-left: 18px;
-              text-transform: none;
-            }
-
-            @include extra-small {
-              text-align: center;
+            .cart_btn {
+              padding: 4px 18px;
+              border-radius: 12px;
+              background: $cart-btn-bg-color;
+              color: $cart-text-color;
+              opacity: 0.9;
+              text-transform: uppercase;
+              font-size: 14px;
+              font-weight: 500;
             }
           }
+        }
 
-          .card_content {
+        .body {
+          display: flex;
+          font-weight: 500;
+
+          .main {
             display: flex;
-            flex-direction: row;
+            width: 70%;
+            border-right: 2px solid $cart-borders-color;
+            padding-right: 16px;
+            flex-direction: column;
 
             .productsList_wrapper {
-              border-right: 2px solid $cart-borders-color;
               padding: 0 12px;
+              padding-top: 28px;
 
               > :not(:last-child) {
                 border-bottom: 1px solid $cart-borders-color;
@@ -61,9 +85,38 @@ $cart-btn-bg-color: #eac000;
               }
             }
 
-            .cartSummary_wrapper {
-              padding: 12px;
-              display: flex;
+            @include medium {
+              .productsList_wrapper {
+                padding: 0;
+                padding-top: 34px;
+              }
+            }
+            @include small {
+              width: 100%;
+              border: none;
+              padding-right: 0;
+
+              .productsList_wrapper {
+                border-right: none;
+                padding-top: 18px;
+              }
+            }
+            @include extra-small {
+              .productsList_wrapper {
+                height: 100%;
+              }
+            }
+          }
+
+          .aside {
+            padding-left: 16px;
+            min-height: 100%;
+            width: 30%;
+
+            .stickyBox {
+              padding: 84px 12px 18px 12px;
+              position: sticky;
+              top: 0;
 
               .cartSummary {
                 width: 100%;
@@ -76,6 +129,10 @@ $cart-btn-bg-color: #eac000;
                   span {
                     margin-right: auto;
                   }
+                }
+
+                .subtotal {
+                  margin: 0;
                 }
 
                 .total {
@@ -95,51 +152,42 @@ $cart-btn-bg-color: #eac000;
                   font-size: 14px;
                   font-weight: 500;
                 }
+              }
+            }
+            @include medium {
+              .stickyBox {
+                padding: 84px 0 18px 0;
+              }
+            }
+            @include small {
+              width: 100%;
+              padding-left: 0;
 
-                @include small {
+              .stickyBox {
+                padding: 12px 0;
+
+                .cartSummary {
                   border-top: 2px solid $cart-borders-color;
                   padding-top: 12px;
-
-                  .subtotal {
-                    margin: 0;
-                  }
+                  font-size: 14px;
                 }
               }
             }
-
-            @include small {
-              flex-direction: column;
-
-              .productsList_wrapper {
-                border-right: none;
-              }
-            }
-            @include extra-small {
-              .productsList_wrapper {
-                height: 100%;
-              }
-            }
           }
+
+          @include small {
+            flex-direction: column;
+          }
+        }
+        @include extra-small {
+          padding: 16px 10%;
+        }
+        @include extra-extra-small {
+          padding: 16px 5%;
         }
       }
     }
   }
-
-  .emptyCardInfo {
-    text-align: center;
-
-    .cart_btn {
-      padding: 4px 18px;
-      border-radius: 12px;
-      background: $cart-btn-bg-color;
-      color: $cart-text-color;
-      opacity: 0.9;
-      text-transform: uppercase;
-      font-size: 14px;
-      font-weight: 500;
-    }
-  }
-
   @include extra-small {
     padding-top: 58px;
   }

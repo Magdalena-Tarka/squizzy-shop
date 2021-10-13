@@ -2,20 +2,20 @@
 
 $cartProd-text-color: #212529;
 $cartProd-borders-color: #212529;
-$cartProd-wrapper-height-sm: 130px;
-$cartProd-wrapper-height-xs: 100px;
-$cartProd-wrapper-height-xxs: 80px;
+$cartProd-box-height: 160px;
+$cartProd-box-height-sm: 130px;
+$cartProd-box-height-xs: 100px;
+$cartProd-box-height-xxs: 80px;
 
 .root {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
-  max-height: 180px;
   color: $cartProd-text-color;
 
   .cartProduct_img {
-    height: 100%;
+    height: $cartProd-box-height;
+
     display: flex;
     justify-content: center;
 
@@ -27,18 +27,18 @@ $cartProd-wrapper-height-xxs: 80px;
     }
 
     @include small {
-      height: $cartProd-wrapper-height-sm;
+      height: $cartProd-box-height-sm;
       width: 120px;
     }
     @include extra-small {
-      height: $cartProd-wrapper-height-xs;
+      height: $cartProd-box-height-xs;
       width: 30%;
       order: 2;
       margin-left: 12px;
       margin-top: 12px;
     }
     @include extra-extra-small {
-      height: $cartProd-wrapper-height-xxs;
+      height: $cartProd-box-height-xxs;
       margin-left: 0;
     }
   }
@@ -48,8 +48,8 @@ $cartProd-wrapper-height-xxs: 80px;
     flex-direction: column;
     justify-content: space-between;
     padding: 12px;
-    padding-left: 36px;
-    height: 100%;
+    padding-left: 28px;
+    height: $cartProd-box-height;
     border-right: 1px solid $cartProd-borders-color;
 
     p {
@@ -79,7 +79,7 @@ $cartProd-wrapper-height-xxs: 80px;
       }
     }
     @include small {
-      height: $cartProd-wrapper-height-sm;
+      height: $cartProd-box-height-sm;
       padding: 0 12px;
 
       .cartProduct_title {
@@ -121,7 +121,7 @@ $cartProd-wrapper-height-xxs: 80px;
     justify-content: space-between;
     align-items: flex-end;
     padding: 12px 0;
-    height: 100%;
+    height: $cartProd-box-height;
 
     .cartProduct_qnty input {
       margin-left: 6px;
@@ -149,7 +149,7 @@ $cartProd-wrapper-height-xxs: 80px;
     }
 
     @include small {
-      height: $cartProd-wrapper-height-sm;
+      height: $cartProd-box-height-sm;
       padding: 0;
 
       p {
@@ -157,12 +157,12 @@ $cartProd-wrapper-height-xxs: 80px;
       }
     }
     @include extra-small {
-      height: $cartProd-wrapper-height-xs;
+      height: $cartProd-box-height-xs;
       order: 3;
       margin: 12px 12px 0;
     }
     @include extra-extra-small {
-      height: $cartProd-wrapper-height-xxs;
+      height: $cartProd-box-height-xxs;
       margin-right: 0;
 
       .cartProduct_qnty input {
