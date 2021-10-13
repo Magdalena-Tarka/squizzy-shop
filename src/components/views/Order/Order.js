@@ -39,7 +39,13 @@ const Component = ({ className, cartItems, removeItem, addOrder }) => {
 
   const getCurrentDate = () => {
     const currentDate = new Date();
-    const [minute, hour, day, month, year] = [currentDate.getUTCMinutes(), currentDate.getUTCHours(), currentDate.getUTCDate(), currentDate.getUTCMonth()+1, currentDate.getUTCFullYear()];
+    const [minute, hour, day, month, year] = [
+      currentDate.getUTCMinutes(),
+      currentDate.getUTCHours(),
+      currentDate.getUTCDate(),
+      currentDate.getUTCMonth()+1,
+      currentDate.getUTCFullYear(),
+    ];
     let newDate = month + '/' + day + '/' + year + ', ' + hour + ':' + (minute < 10 ? ('0' + minute) : minute);
     return newDate;
   };
@@ -57,11 +63,33 @@ const Component = ({ className, cartItems, removeItem, addOrder }) => {
 
   const handleAddOrder = event => {
     event.preventDefault();
-    order.data = getCurrentDate();
-    addOrder(order);
-    removeItem();
-    history.push('/');
-    //window.location.reload();
+
+    if(!order.personalData.firstName ||
+      !order.personalData.lastName ||
+      !order.personalData.street ||
+      !order.personalData.number ||
+      !order.personalData.city ||
+      !order.personalData.phone)
+    {
+      alert('You can\'t leave required fields empty!');
+    } else if(order.personalData.firstName.length < 2) {
+      alert('Name can\'t be shorter than 2 characters');
+    } else if(order.personalData.lastName.length < 2) {
+      alert('Name can\'t be shorter than 2 characters');
+    } else if(order.personalData.street.length < 2) {
+      alert('Street can\'t be shorter than 2 characters');
+    } else if(order.personalData.city.length < 2) {
+      alert('City can\'t be shorter than 2 characters');
+    } else if(order.personalData.phone.length < 9) {
+      alert('Phone nr can\'t be shorter than 9 numbers');
+    } else {
+
+      order.data = getCurrentDate();
+      addOrder(order);
+      removeItem();
+      history.push('/');
+      //window.location.reload();
+    }
   };
 
   return (
@@ -84,24 +112,30 @@ const Component = ({ className, cartItems, removeItem, addOrder }) => {
                         xs={12}
                         sm={6}
                       >
-                        <label>first name</label>
+                        <label>first name*</label>
                         <input
                           type='text'
                           id='firstName'
                           name='firstName'
                           onChange={handleOrderFormData}
+                          required
+                          minLength='2'
+                          maxLength='20'
                         />
                       </Col>
                       <Col className={styles.input}
                         xs={12}
                         sm={6}
                       >
-                        <label>last name</label>
+                        <label>last name*</label>
                         <input
                           type='text'
                           id='lastName'
                           name='lastName'
                           onChange={handleOrderFormData}
+                          required
+                          minLength='2'
+                          maxLength='20'
                         />
                       </Col>
                     </Row>
@@ -111,23 +145,28 @@ const Component = ({ className, cartItems, removeItem, addOrder }) => {
                         xs={12}
                         sm={9}
                       >
-                        <label>street</label>
+                        <label>street*</label>
                         <input
                           type='text'
                           id='street'
                           name='street'
                           onChange={handleOrderFormData}
+                          required
+                          minLength='2'
+                          maxLength='20'
                         />
                       </Col>
                       <Col className={styles.input}
                         sm={3}
                       >
-                        <label>number</label>
+                        <label>number*</label>
                         <input
                           type='text'
                           id='number'
                           name='number'
                           onChange={handleOrderFormData}
+                          required
+                          maxLength='10'
                         />
                       </Col>
                     </Row>
@@ -137,24 +176,30 @@ const Component = ({ className, cartItems, removeItem, addOrder }) => {
                         xs={12}
                         sm={6}
                       >
-                        <label>city</label>
+                        <label>city*</label>
                         <input
                           type='text'
                           id='city'
                           name='city'
                           onChange={handleOrderFormData}
+                          required
+                          minLength='2'
+                          maxLength='20'
                         />
                       </Col>
                       <Col className={styles.input}
                         xs={12}
                         sm={6}
                       >
-                        <label>phone nr</label>
+                        <label>phone nr*</label>
                         <input
                           type='text'
                           id='phone'
                           name='phone'
                           onChange={handleOrderFormData}
+                          required
+                          minLength='9'
+                          maxLength='14'
                         />
                       </Col>
                     </Row>
