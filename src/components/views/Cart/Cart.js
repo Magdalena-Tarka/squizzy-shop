@@ -9,10 +9,10 @@ import { getCartItems } from '../../../redux/cartRedux.js';
 
 import styles from './Cart.module.scss';
 import { CartProduct } from '../../features/CartProduct/CartProduct';
+import { Button } from '../../common/Button/Button';
 
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
-import Button from 'react-bootstrap/Button';
 
 const Component = ({ className, cartItems }) => {
   //console.log('cartItems:', cartItems);
@@ -51,8 +51,7 @@ const Component = ({ className, cartItems }) => {
                 <Col className={styles.emptyCartBox}>
                   <p>There is no any items in your cart yet</p>
                   <Button className={styles.cart_btn}
-                    type="button"
-                    variant="warning"
+                    variant="basic"
                     as={NavLink}
                     to='/'
                   >go to homepage</Button>
@@ -86,8 +85,7 @@ const Component = ({ className, cartItems }) => {
                         <span>total: </span>{totalPrice}$
                       </p>
                       <Button className={styles.cart_btn}
-                        type="button"
-                        variant="warning"
+                        variant="basic"
                         as={NavLink}
                         to='/order'
                       >make order</Button>

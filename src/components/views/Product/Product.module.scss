@@ -14,6 +14,7 @@ $product-radio-color: #eac000;
 
   .container {
     padding: 24px 12px;
+    //height: 100%;
 
     .product_wrapper {
       height: 100%;
@@ -154,14 +155,6 @@ $product-radio-color: #eac000;
 
               .card_btn {
                 margin: 0 auto;
-                padding: 4px 18px;
-                border-radius: 12px;
-                background: $product-btn-bg-color;
-                color: $product-text-color;
-                opacity: 0.9;
-                text-transform: uppercase;
-                font-size: 14px;
-                font-weight: 500;
               }
 
               @include small {
@@ -203,9 +196,9 @@ $product-radio-color: #eac000;
   }
 
   @include extra-small {
-    padding-top: 58px;
+    height: 100%;
   }
   @include extra-extra-small {
-    padding-top: 48px;
+    padding-top: 58px;
   }
 }

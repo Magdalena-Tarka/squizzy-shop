@@ -9,13 +9,13 @@ import { getAll } from '../../../redux/productsRedux.js';
 import { addToCart } from '../../../redux/cartRedux.js';
 
 import styles from './Product.module.scss';
+import { Button } from '../../common/Button/Button';
 
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
 
 const Component = ({ className, products, addToCart, ...props }) => {
 
@@ -135,8 +135,7 @@ const Component = ({ className, products, addToCart, ...props }) => {
                   </Card.Text>
 
                   <Button className={styles.card_btn}
-                    type="button"
-                    variant="warning"
+                    variant='basic'
                     onClick={handleAddToCart}
                   >add to cart</Button>
                 </Col>

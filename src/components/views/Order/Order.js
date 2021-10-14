@@ -10,12 +10,12 @@ import { addOrder } from '../../../redux/orderRedux.js';
 
 import styles from './Order.module.scss';
 import { OrderListItem } from '../../features/OrderListItem/OrderListItem';
+import { Button } from '../../common/Button/Button';
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
 
 const Component = ({ className, cartItems, removeItem, addOrder }) => {
   const [ cartQnty, setCartQnty ] = useState(0);
@@ -228,8 +228,7 @@ const Component = ({ className, cartItems, removeItem, addOrder }) => {
                       <span>total: </span>{totalPrice}$
                     </p>
                     <Button className={styles.order_btn}
-                      type="button"
-                      variant="warning"
+                      variant="basic"
                       onClick={handleAddOrder}
                     >order</Button>
                   </div>

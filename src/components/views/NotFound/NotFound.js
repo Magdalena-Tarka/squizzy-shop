@@ -8,10 +8,10 @@ import clsx from 'clsx';
 // import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux.js';
 
 import styles from './NotFound.module.scss';
+import { Button } from '../../common/Button/Button';
 
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
-import Button from 'react-bootstrap/Button';
 
 const Component = ({className}) => (
   <div className={clsx(className, styles.root)}>
@@ -28,9 +28,8 @@ const Component = ({className}) => (
           <p>
             The page you are looking for seems to not exist..
           </p>
-          <Button className={styles.btn}
-            type="button"
-            variant="warning"
+          <Button className={styles.nf_btn}
+            variant="basic"
             as={NavLink}
             to='/'
           >go to homepage</Button>

@@ -25,16 +25,11 @@ $nf-btn-bg-color: #eac000;
         display: flex;
         flex-direction: column;
 
-        .btn {
-          padding: 4px 18px;
-          border-radius: 12px;
-          background: $nf-btn-bg-color;
-          color: $nf-text-color;
-          opacity: 0.9;
-          text-transform: uppercase;
-          font-size: 14px;
-          font-weight: 500;
+        .nf_btn {
           margin: auto;
+          background: $nf-btn-bg-color;
+          border-color: $nf-btn-bg-color;
+          color: $nf-text-color;
         }
       }
     }
