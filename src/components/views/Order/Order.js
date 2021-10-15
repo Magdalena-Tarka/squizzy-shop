@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 
@@ -11,6 +11,7 @@ import { getPersonalData, addOrder, cleanOrderForm } from '../../../redux/orderR
 import styles from './Order.module.scss';
 import { OrderListItem } from '../../features/OrderListItem/OrderListItem';
 import { PersonalDataForm } from '../../features/PersonalDataForm/PersonalDataForm';
+import { OrderSummary } from '../../features/OrderSummary/OrderSummary';
 import { Button } from '../../common/Button/Button';
 
 import Container from 'react-bootstrap/Container';
@@ -18,24 +19,7 @@ import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 
 const Component = ({ className, cartItems, addOrder, personalData, cleanCartItems, cleanOrderForm }) => {
-
-  const [ cartQnty, setCartQnty ] = useState(0);
-  const [ subtotalPrice, setSubtotalPrice ] = useState(0);
   const history  = useHistory();
-
-  useEffect(() => {
-    let count = 0;
-    let price = 0;
-    cartItems.forEach(item => {
-      count += parseInt(item.quantity);
-      price += parseInt(item.priceSingle) * parseInt(item.quantity);
-    });
-    setCartQnty(count);
-    setSubtotalPrice(price);
-  }, [cartItems, cartQnty]);
-
-  const delivery = 0;
-  const totalPrice = subtotalPrice + delivery;
 
   const getCurrentDate = () => {
     const currentDate = new Date();
@@ -110,7 +94,9 @@ const Component = ({ className, cartItems, addOrder, personalData, cleanCartItem
                 <Col className={clsx('_wrapper', styles.orderList_wrapper)} sm={12}>
                   <h5 className={clsx('_title', styles.orderList_title)}>Your order details</h5>
                   <div className={styles.orderList}>
-                    {!cartItems.length ? '' : cartItems.map(item => (
+                    {!cartItems.length ? (
+                      <p>There is nothing in your cart yet, go back to homepage.</p>
+                    ) : cartItems.map(item => (
                       <OrderListItem key={item.id} {...item} />
                     ))}
                   </div>
@@ -118,21 +104,13 @@ const Component = ({ className, cartItems, addOrder, personalData, cleanCartItem
 
                 <Col className={clsx('_wrapper', styles.orderSummary_wrapper)} sm={12}>
                   <h5 className={clsx('_title', styles.orderSummary_title)}>Order summary</h5>
-                  <div className={styles.orderSummary}>
-                    <p className={styles.subtotal}>
-                      <span>subtotal: </span>{subtotalPrice}$
-                    </p>
-                    <p className={styles.delivery}>
-                      <span>delivery: </span>{delivery}$
-                    </p>
-                    <p className={styles.total}>
-                      <span>total: </span>{totalPrice}$
-                    </p>
+
+                  <OrderSummary className={styles.orderSummary}>
                     <Button className={styles.order_btn}
                       variant="basic"
                       onClick={handleAddOrder}
                     >order</Button>
-                  </div>
+                  </OrderSummary>
                 </Col>
               </div>
 

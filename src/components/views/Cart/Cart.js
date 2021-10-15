@@ -9,6 +9,7 @@ import { getCartItems } from '../../../redux/cartRedux.js';
 
 import styles from './Cart.module.scss';
 import { CartProduct } from '../../features/CartProduct/CartProduct';
+import { OrderSummary } from '../../features/OrderSummary/OrderSummary';
 import { Button } from '../../common/Button/Button';
 
 import Container from 'react-bootstrap/Container';
@@ -18,21 +19,14 @@ const Component = ({ className, cartItems }) => {
   //console.log('cartItems:', cartItems);
 
   const [ cartQnty, setCartQnty ] = useState(0);
-  const [ subtotalPrice, setSubtotalPrice ] = useState(0);
 
   useEffect(() => {
     let count = 0;
-    let price = 0;
     cartItems.forEach(item => {
       count += parseInt(item.quantity);
-      price += parseInt(item.priceSingle) * parseInt(item.quantity);
     });
     setCartQnty(count);
-    setSubtotalPrice(price);
   }, [cartItems, cartQnty]);
-
-  const delivery = 0;
-  const totalPrice = subtotalPrice + delivery;
 
   return (
     <div className={clsx(className, styles.root)}>
@@ -64,7 +58,6 @@ const Component = ({ className, cartItems }) => {
                   <h3 className={styles.title}>
                     Cart<span> ({cartQnty} pcs)</span>
                   </h3>
-
                   <Col className={styles.productsList_wrapper} sm={12}>
                     {cartItems.map((cartItem, index) => (
                       <CartProduct key={index} {...cartItem} />
@@ -74,22 +67,13 @@ const Component = ({ className, cartItems }) => {
 
                 <div className={styles.aside}>
                   <div className={styles.stickyBox}>
-                    <div className={styles.cartSummary}>
-                      <p className={styles.subtotal}>
-                        <span>subtotal: </span>{subtotalPrice}$
-                      </p>
-                      <p className={styles.delivery}>
-                        <span>delivery: </span>{delivery}$
-                      </p>
-                      <p className={styles.total}>
-                        <span>total: </span>{totalPrice}$
-                      </p>
+                    <OrderSummary className={styles.cartSummary}>
                       <Button className={styles.cart_btn}
                         variant="basic"
                         as={NavLink}
                         to='/order'
                       >make order</Button>
-                    </div>
+                    </OrderSummary>
                   </div>
                 </div>
               </div>

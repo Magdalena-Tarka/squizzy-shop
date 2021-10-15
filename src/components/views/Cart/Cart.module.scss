@@ -114,30 +114,10 @@ $cart-btn-bg-color: #eac000;
               top: 0;
 
               .cartSummary {
-                width: 100%;
                 text-align: center;
 
-                .subtotal, .delivery, .total {
-                  display: flex;
-                  justify-content: flex-end;
-
-                  span {
-                    margin-right: auto;
-                  }
-                }
-
-                .subtotal {
-                  margin: 0;
-                }
-
-                .total {
-                  border-top: 2px solid $cart-borders-color;
-                  font-weight: 700;
-                  text-transform: uppercase;
-                }
-
                 .cart_btn {
-                  margin: 12px auto;
+                  margin: 12px;
                 }
               }
             }

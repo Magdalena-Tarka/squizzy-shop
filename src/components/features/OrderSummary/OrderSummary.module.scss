@@ -1,0 +1,26 @@
+@import '../../../styles/settings.scss';
+
+$sum-borders-color: #212529;
+
+.root {
+  width: 100%;
+
+  .subtotal, .delivery, .total {
+    display: flex;
+    justify-content: flex-end;
+
+    span {
+      margin-right: auto;
+    }
+  }
+
+  .subtotal {
+    margin: 0;
+  }
+
+  .total {
+    border-top: 2px solid $sum-borders-color;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+}

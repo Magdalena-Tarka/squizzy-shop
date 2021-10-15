@@ -87,30 +87,10 @@ $order-btn-bg-color: #eac000;
 
             .orderSummary {
               padding: 12px 0;
-              width: 100%;
               text-align: center;
 
-              .subtotal, .delivery, .total {
-                display: flex;
-                justify-content: flex-end;
-
-                span {
-                  margin-right: auto;
-                }
-              }
-
-              .subtotal {
-                margin: 0;
-              }
-
-              .total {
-                border-top: 2px solid $order-borders-color;
-                font-weight: 700;
-                text-transform: uppercase;
-              }
-
               .order_btn {
-                margin: 12px auto;
+                margin: 12px;
               }
             }
 
