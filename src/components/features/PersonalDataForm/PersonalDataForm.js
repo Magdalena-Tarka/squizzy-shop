@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
-//import clsx from 'clsx';
+import clsx from 'clsx';
 
 import { connect } from 'react-redux';
 import { updateOrderForm } from '../../../redux/orderRedux.js';
@@ -11,7 +11,7 @@ import styles from './PersonalDataForm.module.scss';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-const Component = ({ updateOrderForm }) => {
+const Component = ({ className, updateOrderForm }) => {
 
   const [ orderFormData, setOrderFormData ] = useState('');
 
@@ -26,7 +26,7 @@ const Component = ({ updateOrderForm }) => {
   };
 
   return (
-    <form className={styles.orderForm}>
+    <form className={clsx(className, styles.orderForm)}>
       <Row className={styles.row}>
         <Col className={styles.input}
           xs={12}
@@ -129,6 +129,7 @@ const Component = ({ updateOrderForm }) => {
 
 Component.propTypes = {
   children: PropTypes.node,
+  className: PropTypes.string,
   updateOrderForm: PropTypes.func,
 };
 

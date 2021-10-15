@@ -39,123 +39,120 @@ $order-btn-bg-color: #eac000;
   .container {
     padding: 24px 0;
 
-    .card_wrapper {
+    .wrapper {
       margin: auto;
 
-      .card {
+      .content {
         background: transparent;
         border: none;
         height: 100%;
         width: 100%;
-        padding-bottom: 12px;
+        padding: 24px 16px;
+        display: flex;
+        font-weight: 500;
 
-        .card_body {
-          font-weight: 500;
+        .main {
           display: flex;
+          flex-direction: column;
+          width: 70%;
+          border-right: 2px solid $order-borders-color;
+          padding-right: 16px;
 
-          .card_content {
-            display: flex;
-            flex-direction: column;
-            width: 70%;
-            border-right: 2px solid $order-borders-color;
-            padding-right: 16px;
+          > :not(:last-child) {
+            padding-bottom: 12px;
+          }
+
+          > :not(:first-child) {
+            padding-top: 12px;
+          }
+
+          .orderForm {
+            padding: 12px 6px;
+          }
+
+          .orderList {
+            padding: 12px 0;
 
             > :not(:last-child) {
+              border-bottom: 1px solid $order-borders-color;
               padding-bottom: 12px;
             }
 
             > :not(:first-child) {
               padding-top: 12px;
             }
-
-            .orderForm {
-              padding: 12px 6px;
-            }
-
-            .orderList {
-              padding: 12px 0;
-
-              > :not(:last-child) {
-                border-bottom: 1px solid $order-borders-color;
-                padding-bottom: 12px;
-              }
-
-              > :not(:first-child) {
-                padding-top: 12px;
-              }
-            }
-
-            .orderSummary {
-              padding: 12px 0;
-              text-align: center;
-
-              .order_btn {
-                margin: 12px;
-              }
-            }
-
-            @include medium {
-              width: 100%;
-              border: none;
-              padding-right: 0;
-
-              > :not(:last-child) {
-                padding-bottom: 6px;
-              }
-              > :not(:first-child) {
-                padding-bottom: 6px;
-              }
-            }
-            @include small {
-              font-size: 14px;
-            }
           }
 
-          .card_content_aside {
-            padding-left: 16px;
-            min-height: 100%;
-            width: 30%;
+          .orderSummary {
+            padding: 12px 0;
+            text-align: center;
 
-            .aside {
-              padding: 96px 12px 18px 24px;
-              position: sticky;
-              top: 0;
-              display: flex;
-              flex-direction: column;
-
-              .aside_title {
-                white-space: pre-line;
-                text-transform: uppercase;
-              }
-
-              .aside_contacts {
-                padding-left: 18px;
-
-                i {
-                  margin-right: 12px;
-                }
-              }
-            }
-
-            @include medium {
-              width: 100%;
-              padding-left: 0;
-
-              .aside {
-                padding: 18px 12px 18px 12px;
-              }
-            }
-            @include small {
-              font-size: 14px;
-            }
-            @include extra-small {
-              font-size: 12px;
+            .order_btn {
+              margin: 12px;
             }
           }
 
           @include medium {
-            flex-direction: column;
+            width: 100%;
+            border: none;
+            padding-right: 0;
+
+            > :not(:last-child) {
+              padding-bottom: 6px;
+            }
+            > :not(:first-child) {
+              padding-bottom: 6px;
+            }
           }
+          @include small {
+            font-size: 14px;
+          }
+        }
+
+        .aside {
+          padding-left: 16px;
+          min-height: 100%;
+          width: 30%;
+
+          .stickyBox {
+            padding: 96px 12px 18px 24px;
+            position: sticky;
+            top: 0;
+            display: flex;
+            flex-direction: column;
+
+            .contactsBox_title {
+              white-space: pre-line;
+              text-transform: uppercase;
+            }
+
+            .contactsBox {
+              padding-left: 18px;
+
+              i {
+                margin-right: 12px;
+              }
+            }
+          }
+
+          @include medium {
+            width: 100%;
+            padding-left: 0;
+
+            .stickyBox {
+              padding: 18px 12px 18px 12px;
+            }
+          }
+          @include small {
+            font-size: 14px;
+          }
+          @include extra-small {
+            font-size: 12px;
+          }
+        }
+
+        @include medium {
+          flex-direction: column;
         }
       }
     }

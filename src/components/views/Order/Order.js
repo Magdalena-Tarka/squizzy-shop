@@ -16,7 +16,6 @@ import { Button } from '../../common/Button/Button';
 
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
-import Card from 'react-bootstrap/Card';
 
 const Component = ({ className, cartItems, addOrder, personalData, cleanCartItems, cleanOrderForm }) => {
   const history  = useHistory();
@@ -78,54 +77,50 @@ const Component = ({ className, cartItems, addOrder, personalData, cleanCartItem
   return (
     <div className={clsx(className, styles.root)}>
       <Container className={styles.container}>
-        <Col className={clsx('glassEffect', styles.card_wrapper)}
+        <Col className={clsx('glassEffect', styles.wrapper)}
           lg={12}
           xl={11}
         >
-          <Card className={styles.card}>
-            <Card.Body className={clsx('g-4', styles.card_body)}>
-              <div className={styles.card_content}>
+          <div className={styles.content}>
+            <div className={styles.main}>
+              <Col className={clsx('_wrapper', styles.orderForm_wrapper)} sm={12}>
+                <h5 className={clsx('_title', styles.orderForm_title)}>Fill your data</h5>
+                <PersonalDataForm className={styles.orderForm} />
+              </Col>
 
-                <Col className={clsx('_wrapper', styles.orderForm_wrapper)} sm={12}>
-                  <h5 className={clsx('_title', styles.orderForm_title)}>Fill your data</h5>
-                  <PersonalDataForm />
-                </Col>
+              <Col className={clsx('_wrapper', styles.orderList_wrapper)} sm={12}>
+                <h5 className={clsx('_title', styles.orderList_title)}>Your order details</h5>
+                <div className={styles.orderList}>
+                  {!cartItems.length ? (
+                    <p>There is nothing in your cart yet, go back to homepage.</p>
+                  ) : cartItems.map(item => (
+                    <OrderListItem key={item.id} {...item} />
+                  ))}
+                </div>
+              </Col>
 
-                <Col className={clsx('_wrapper', styles.orderList_wrapper)} sm={12}>
-                  <h5 className={clsx('_title', styles.orderList_title)}>Your order details</h5>
-                  <div className={styles.orderList}>
-                    {!cartItems.length ? (
-                      <p>There is nothing in your cart yet, go back to homepage.</p>
-                    ) : cartItems.map(item => (
-                      <OrderListItem key={item.id} {...item} />
-                    ))}
-                  </div>
-                </Col>
+              <Col className={clsx('_wrapper', styles.orderSummary_wrapper)} sm={12}>
+                <h5 className={clsx('_title', styles.orderSummary_title)}>Order summary</h5>
+                <OrderSummary className={styles.orderSummary}>
+                  <Button className={styles.order_btn}
+                    variant="basic"
+                    onClick={handleAddOrder}
+                  >order</Button>
+                </OrderSummary>
+              </Col>
+            </div>
 
-                <Col className={clsx('_wrapper', styles.orderSummary_wrapper)} sm={12}>
-                  <h5 className={clsx('_title', styles.orderSummary_title)}>Order summary</h5>
-
-                  <OrderSummary className={styles.orderSummary}>
-                    <Button className={styles.order_btn}
-                      variant="basic"
-                      onClick={handleAddOrder}
-                    >order</Button>
-                  </OrderSummary>
-                </Col>
-              </div>
-
-              <div className={styles.card_content_aside}>
-                <div className={styles.aside}>
-                  <p className={styles.aside_title}>Do You need help?{'\n'}Feel free to contact us.</p>
-                  <div className={styles.aside_contacts}>
-                    <p><i className='bi bi-telephone-fill' /><span>987-654-321</span></p>
-                    <p><i className='bi bi-clock-fill' /><span>mon-fri 9-17</span></p>
-                    <p><i className='bi bi-envelope-fill' /><span>squizzy@example.com</span></p>
-                  </div>
+            <div className={styles.aside}>
+              <div className={styles.stickyBox}>
+                <p className={styles.contactsBox_title}>Do You need help?{'\n'}Feel free to contact us.</p>
+                <div className={styles.contactsBox}>
+                  <p><i className='bi bi-telephone-fill' /><span>987-654-321</span></p>
+                  <p><i className='bi bi-clock-fill' /><span>mon-fri 9-17</span></p>
+                  <p><i className='bi bi-envelope-fill' /><span>squizzy@example.com</span></p>
                 </div>
               </div>
-            </Card.Body>
-          </Card>
+            </div>
+          </div>
         </Col>
       </Container>
     </div>
