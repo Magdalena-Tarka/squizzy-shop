@@ -10,12 +10,14 @@ const ADD_TO_CART = createActionName('ADD_TO_CART');
 const REMOVE_ITEM = createActionName('REMOVE_ITEM');
 const UPDATE_ITEM_QNTY = createActionName('UPDATE_ITEM_QNTY');
 const UPDATE_ITEM_NOTE = createActionName('UPDATE_ITEM_NOTE');
+const CLEAN_CART_ITEMS = createActionName('CLEAN_CART_ITEMS');
 
 /* action creators */
 export const addToCart = payload => ({ payload, type: ADD_TO_CART });
 export const removeItem = (id, size) => ({ payload: {id, size}, type: REMOVE_ITEM });
-export const updateItemQnty = (itemId, qnty) => ({ payload: {id: itemId, qnty}, type: UPDATE_ITEM_QNTY });
-export const updateItemNote = (itemId, note) => ({ payload: {id: itemId, note}, type: UPDATE_ITEM_NOTE });
+export const updateItemQnty = (id, qnty) => ({ payload: {id, qnty}, type: UPDATE_ITEM_QNTY });
+export const updateItemNote = (id, note) => ({ payload: {id, note}, type: UPDATE_ITEM_NOTE });
+export const cleanCartItems = payload => ({ payload, type: CLEAN_CART_ITEMS });
 
 /* thunk creators */
 
@@ -56,6 +58,12 @@ export const reducer = (statePart = [], action = {}) => {
       return {
         ...statePart,
         items: newArray,
+      };
+    }
+    case CLEAN_CART_ITEMS: {
+      return {
+        ...statePart,
+        items: [],
       };
     }
     default:

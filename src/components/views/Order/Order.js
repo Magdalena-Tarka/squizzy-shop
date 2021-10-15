@@ -5,22 +5,22 @@ import { useHistory } from 'react-router-dom';
 import clsx from 'clsx';
 
 import { connect } from 'react-redux';
-import { getCartItems, removeItem } from '../../../redux/cartRedux.js';
-import { addOrder } from '../../../redux/orderRedux.js';
+import { getCartItems, cleanCartItems } from '../../../redux/cartRedux.js';
+import { getPersonalData, addOrder, cleanOrderForm } from '../../../redux/orderRedux.js';
 
 import styles from './Order.module.scss';
 import { OrderListItem } from '../../features/OrderListItem/OrderListItem';
+import { PersonalDataForm } from '../../features/PersonalDataForm/PersonalDataForm';
 import { Button } from '../../common/Button/Button';
 
 import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 
-const Component = ({ className, cartItems, removeItem, addOrder }) => {
+const Component = ({ className, cartItems, addOrder, personalData, cleanCartItems, cleanOrderForm }) => {
+
   const [ cartQnty, setCartQnty ] = useState(0);
   const [ subtotalPrice, setSubtotalPrice ] = useState(0);
-  const [ orderFormData, setOrderFormData ] = useState({});
   const history  = useHistory();
 
   useEffect(() => {
@@ -52,13 +52,7 @@ const Component = ({ className, cartItems, removeItem, addOrder }) => {
 
   const order = {
     orderItems: cartItems,
-    personalData: orderFormData,
-  };
-
-  const handleOrderFormData = event => {
-    setOrderFormData({...orderFormData,
-      [event.target.name]: event.target.value,
-    });
+    personalData: personalData,
   };
 
   const handleAddOrder = event => {
@@ -84,11 +78,16 @@ const Component = ({ className, cartItems, removeItem, addOrder }) => {
       alert('Phone nr can\'t be shorter than 9 numbers');
     } else {
 
-      order.data = getCurrentDate();
-      addOrder(order);
-      removeItem();
-      history.push('/');
-      //window.location.reload();
+      order.date = getCurrentDate();
+      if(!order.orderItems.length) {
+        alert('There is nothing in your cart yet, go back to homepage.');
+      } else {
+        addOrder(order);
+        cleanCartItems();
+        cleanOrderForm();
+        history.push('/');
+        //window.location.reload();
+      }
     }
   };
 
@@ -105,105 +104,7 @@ const Component = ({ className, cartItems, removeItem, addOrder }) => {
 
                 <Col className={clsx('_wrapper', styles.orderForm_wrapper)} sm={12}>
                   <h5 className={clsx('_title', styles.orderForm_title)}>Fill your data</h5>
-                  <form className={styles.orderForm}>
-
-                    <Row className={styles.row}>
-                      <Col className={styles.input}
-                        xs={12}
-                        sm={6}
-                      >
-                        <label>first name*</label>
-                        <input
-                          type='text'
-                          id='firstName'
-                          name='firstName'
-                          onChange={handleOrderFormData}
-                          required
-                          minLength='2'
-                          maxLength='20'
-                        />
-                      </Col>
-                      <Col className={styles.input}
-                        xs={12}
-                        sm={6}
-                      >
-                        <label>last name*</label>
-                        <input
-                          type='text'
-                          id='lastName'
-                          name='lastName'
-                          onChange={handleOrderFormData}
-                          required
-                          minLength='2'
-                          maxLength='20'
-                        />
-                      </Col>
-                    </Row>
-
-                    <Row className={styles.row}>
-                      <Col className={styles.input}
-                        xs={12}
-                        sm={9}
-                      >
-                        <label>street*</label>
-                        <input
-                          type='text'
-                          id='street'
-                          name='street'
-                          onChange={handleOrderFormData}
-                          required
-                          minLength='2'
-                          maxLength='20'
-                        />
-                      </Col>
-                      <Col className={styles.input}
-                        sm={3}
-                      >
-                        <label>number*</label>
-                        <input
-                          type='text'
-                          id='number'
-                          name='number'
-                          onChange={handleOrderFormData}
-                          required
-                          maxLength='10'
-                        />
-                      </Col>
-                    </Row>
-
-                    <Row className={styles.row}>
-                      <Col className={styles.input}
-                        xs={12}
-                        sm={6}
-                      >
-                        <label>city*</label>
-                        <input
-                          type='text'
-                          id='city'
-                          name='city'
-                          onChange={handleOrderFormData}
-                          required
-                          minLength='2'
-                          maxLength='20'
-                        />
-                      </Col>
-                      <Col className={styles.input}
-                        xs={12}
-                        sm={6}
-                      >
-                        <label>phone nr*</label>
-                        <input
-                          type='text'
-                          id='phone'
-                          name='phone'
-                          onChange={handleOrderFormData}
-                          required
-                          minLength='9'
-                          maxLength='14'
-                        />
-                      </Col>
-                    </Row>
-                  </form>
+                  <PersonalDataForm />
                 </Col>
 
                 <Col className={clsx('_wrapper', styles.orderList_wrapper)} sm={12}>
@@ -258,16 +159,20 @@ Component.propTypes = {
   className: PropTypes.string,
   cartItems: PropTypes.array,
   addOrder: PropTypes.func,
-  removeItem: PropTypes.func,
+  personalData: PropTypes.object,
+  cleanOrderForm: PropTypes.func,
+  cleanCartItems: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
   cartItems: getCartItems(state),
+  personalData: getPersonalData(state),
 });
 
 const mapDispatchToProps = dispatch => ({
   addOrder: arg => dispatch(addOrder(arg)),
-  removeItem: () => dispatch(removeItem()),
+  cleanOrderForm: arg => dispatch(cleanOrderForm(arg)),
+  cleanCartItems: arg => dispatch(cleanCartItems(arg)),
 });
 
 const OrderContainer = connect(mapStateToProps, mapDispatchToProps)(Component);
