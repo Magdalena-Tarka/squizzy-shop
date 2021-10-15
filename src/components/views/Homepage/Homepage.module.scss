@@ -1,5 +1,32 @@
 @import '../../../styles/settings.scss';
 
+$home-bg-color: rgba(214, 208, 199, 1);
+
 .root {
-  background: rgba(214, 208, 199, 1);
+  background: $home-bg-color;
+
+  .productsList_wrapper {
+    background: url('https://images.pexels.com/photos/6413585/pexels-photo-6413585.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260') no-repeat center  fixed;
+    background-size: cover;
+    overflow: hidden;
+
+    .div1 {
+      height: 220px;
+      background: $home-bg-color;
+    }
+
+    .div2 {
+      height: 70px;
+      background: $home-bg-color;
+    }
+
+    .container {
+      padding: 0;
+
+      .wrapper {
+        margin-top: -190px;
+        margin-bottom: -20px;
+      }
+    }
+  }
 }

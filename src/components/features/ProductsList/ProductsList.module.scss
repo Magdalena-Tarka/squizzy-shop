@@ -1,86 +1,74 @@
 @import '../../../styles/settings.scss';
 
-//$list-bg-color: #e5ddd0;
-$list-bg-color: rgba(214, 208, 199, 1);
 $list-tab-text-color: #242322;
 $list-tab-text-color: seashell;
 $list-tab-text-hover: #eac000;
 $list-card-bg-color: rgba(214, 208, 199, 1);
 $list-card-text-color: #242322;
-//$list-card-text-color: seashell;
 
 .root {
-  background: url('https://images.pexels.com/photos/6413585/pexels-photo-6413585.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260') no-repeat center  fixed;
-  background-size: cover;
-  overflow: hidden;
+  .tabs {
+    padding: 6px 12px 18px;
 
-  .div1 {
-    height: 220px;
-    background: $list-bg-color;
+    .tab {
+      .tab_link {
+        color: $list-tab-text-color;
+        text-transform: uppercase;
+        font-weight: 500;
+        padding: 12px;
+        padding-bottom: 0;
+
+        &:hover, &.active {
+          color: $list-tab-text-hover;
+        }
+      }
+    }
+    @include small {
+      font-size: 15px;
+    }
+    @include extra-small {
+      font-size: 14px;
+    }
+    @include extra-extra-small {
+      font-size: 13px;
+    }
   }
 
-  .div2 {
-    height: 70px;
-    background: $list-bg-color;
-  }
+  .products_wrapper {
+    padding: 0 24px 36px;
 
-  .container {
-    margin-top: -190px;
-    margin-bottom: -20px;
+    .product_wrapper {
+      .product_card {
+        height: 100%;
+        border: none;
+        border-radius: 15px;
+        background: $list-card-bg-color;
+        border-top: 1px solid rgba(255, 255, 255, 0.5);
+        border-left: 1px solid rgba(255, 255, 255, 0.5);
+        text-decoration: none;
 
-    .tabs {
-      padding: 6px 24px;
+        .card_body {
+          text-align: center;
 
-      .tab {
-        .tab_link {
-          color: $list-tab-text-color;
-          text-transform: uppercase;
-          font-weight: 500;
-          padding: 12px;
+          .card_img {
+            border-radius: 15px;
+            height: 200px;
+            object-fit: cover;
+          }
 
-          &:hover, &.active {
-            color: $list-tab-text-hover;
+          .card_title {
+            color: $list-card-text-color;
+          }
+
+          .card_price {
+            color: $list-card-text-color;
+            text-transform: uppercase;
           }
         }
       }
     }
-
-    .products_wrapper {
-      padding: 0 24px 36px;
-
-      .product_wrapper {
-        .product_card {
-          height: 100%;
-          border: none;
-          border-radius: 15px;
-          background: $list-card-bg-color;
-          border-top: 1px solid rgba(255, 255, 255, 0.5);
-          border-left: 1px solid rgba(255, 255, 255, 0.5);
-          text-decoration: none;
-
-          .card_body {
-            text-align: center;
-
-            .card_img {
-              border-radius: 15px;
-              height: 200px;
-              object-fit: cover;
-            }
-
-            .card_title {
-              color: $list-card-text-color;
-            }
-
-            .card_price {
-              color: $list-card-text-color;
-              text-transform: uppercase;
-            }
-          }
-        }
-      }
-      @include extra-small {
-        justify-content: center;
-      }
+    @include extra-small {
+      justify-content: center;
     }
   }
 }

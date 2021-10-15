@@ -9,7 +9,6 @@ import { getAll, getMilky, getVege, getJuices/*, reduxActionCreator*/ } from '..
 
 import styles from './ProductsList.module.scss';
 
-import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Nav from 'react-bootstrap/Nav';
@@ -35,59 +34,53 @@ const Component = ({ className, products, getMilky, getVege, getJuices }) => {
 
   return (
     <div className={clsx(className, styles.root)}>
-      <div className={styles.div1}></div>
-      <Container className={clsx('glassEffect', styles.container)}>
-
-        <Nav className={clsx('justify-content-center', styles.tabs)}
-          //variant="tabs"
-          defaultActiveKey="active"
-        >
-          {productsTabs.map(tab => (
-            <Nav.Item key={tab.id} className={styles.tab}>
-              <Nav.Link
-                className={clsx(tab === activeTab && 'active',
-                  tab === activeTab && styles.active,
-                  styles.tab_link)}
-                onClick={e => {
-                  e.preventDefault();
-                  changeActiveTab(productsTabs.indexOf(tab));
-                }}
-              >
-                {tab.name}
-              </Nav.Link>
-            </Nav.Item>
-          ))}
-        </Nav>
-
-        <Row className={clsx('g-4', styles.products_wrapper)}>
-          {activeProducts.map(product => (
-            <Col className={styles.product_wrapper}
-              key={product.id}
-              xs={11}
-              sm={6}
-              md={4}
-              lg={3}
+      <Nav className={clsx('justify-content-center', styles.tabs)}
+        defaultActiveKey="active"
+      >
+        {productsTabs.map(tab => (
+          <Nav.Item key={tab.id} className={styles.tab}>
+            <Nav.Link
+              className={clsx(tab === activeTab && 'active',
+                tab === activeTab && styles.active,
+                styles.tab_link)}
+              onClick={e => {
+                e.preventDefault();
+                changeActiveTab(productsTabs.indexOf(tab));
+              }}
             >
-              <Card className={styles.product_card}
-                as={NavLink}
-                to={`/product/${product.id}`}
-              >
-                <Card.Body className={clsx(styles.card_body)}>
-                  <Card.Img className={clsx('mb-2', styles.card_img)}
-                    src={product.image}
-                    variant="top"
-                  />
-                  <Card.Title className={styles.card_title}>{product.name}</Card.Title>
-                  <Card.Subtitle className={styles.card_price}>
-                    price: {product.options.map(option => option.default && option.price)}$
-                  </Card.Subtitle>
-                </Card.Body>
-              </Card>
-            </Col>
-          ))}
-        </Row>
-      </Container>
-      <div className={styles.div2}></div>
+              {tab.name}
+            </Nav.Link>
+          </Nav.Item>
+        ))}
+      </Nav>
+
+      <Row className={clsx('g-4', styles.products_wrapper)}>
+        {activeProducts.map(product => (
+          <Col className={styles.product_wrapper}
+            key={product.id}
+            xs={11}
+            sm={6}
+            md={4}
+            lg={3}
+          >
+            <Card className={styles.product_card}
+              as={NavLink}
+              to={`/product/${product.id}`}
+            >
+              <Card.Body className={clsx(styles.card_body)}>
+                <Card.Img className={clsx('mb-2', styles.card_img)}
+                  src={product.image}
+                  variant="top"
+                />
+                <Card.Title className={styles.card_title}>{product.name}</Card.Title>
+                <Card.Subtitle className={styles.card_price}>
+                  price: {product.options.map(option => option.default && option.price)}$
+                </Card.Subtitle>
+              </Card.Body>
+            </Card>
+          </Col>
+        ))}
+      </Row>
     </div>
   );
 };
