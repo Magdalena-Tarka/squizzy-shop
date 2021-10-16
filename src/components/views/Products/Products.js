@@ -15,10 +15,7 @@ import Col from 'react-bootstrap/Col';
 const Component = ({ className }) => (
   <div className={clsx(className, styles.root)}>
     <Container className={styles.container}>
-      <Col className={clsx('glassEffect', styles.wrapper)}
-        lg={12}
-        xl={11}
-      >
+      <Col className={clsx('glassEffect', styles.wrapper)}>
         <ProductsList className={styles.productsList} />
       </Col>
     </Container>

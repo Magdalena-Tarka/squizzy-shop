@@ -59,89 +59,83 @@ const Component = ({ className, products, addToCart, ...props }) => {
   return (
     <div className={clsx(className, styles.root)}>
       <Container className={styles.container}>
-        <Col className={clsx('glassEffect', styles.product_wrapper)}
-          xs={11}
-          sm={12}
-          lg={11}
+        <Col className={clsx('glassEffect', styles.wrapper)}
+          lg={12}
+          xl={11}
         >
-          <Card className={styles.product_card}>
-            <Card.Body className={clsx('g-4', styles.card_body)}>
-              <Row className={styles.row}
-              >
-                <Col className={styles.card_image}
-                  xs={12}
-                  sm={6}
-                >
-                  <img className={clsx(styles.img)}
-                    src={product.image}
-                    alt={product.name}
-                  />
-                </Col>
+          <div className={styles.content}>
+            <Col className={styles.image_wrapper}
+              xs={12}
+              md={6}
+            >
+              <img className={clsx(styles.img)}
+                src={product.image}
+                alt={product.name}
+              />
+            </Col>
 
-                <Col className={styles.card_details}
-                  xs={12}
-                  sm={6}
-                >
-                  <Card.Title className={styles.card_title}>{product.name}</Card.Title>
-                  <Card.Text className={styles.card_description}>{product.description}</Card.Text>
-                  <Card.Text className={styles.card_ingredients}>
-                    <span>ingredients: </span>
-                    {product.ingredients.join(', ')}.
-                  </Card.Text>
+            <Col className={styles.details_wrapper}
+              xs={12}
+              md={6}
+            >
+              <h4 className={styles.details_title}>{product.name}</h4>
+              <p className={styles.details_description}>{product.description}</p>
+              <p className={styles.details_ingredients}>
+                <span>ingredients: </span>
+                {product.ingredients.join(', ')}.
+              </p>
 
-                  <Form>
-                    <Card.Text className={styles.card_size}>
-                      <span> select size: </span>
-                    </Card.Text>
-                    <Form.Group className={styles.radios}>
-                      {product.options.map(option => (
-                        <div className={styles.radio} key={option.size}>
-                          <label>
-                            {`${option.size} ${option.price}$`}
-                            <input
-                              type='radio'
-                              name='size'
-                              id={option.size}
-                              value={option.price}
-                              label={`${option.size} ${option.price}$`}
-                              defaultChecked={option.default}
-                              onChange={handleSizeChange}
-                            ></input>
-                            <span className={styles.checkmark}></span>
-                          </label>
-                        </div>
-                      ))}
-                    </Form.Group>
+              <form>
+                <p className={styles.details_size}>
+                  <span>select size: </span>
+                </p>
+                <div className={styles.radios}>
+                  {product.options.map(option => (
+                    <div className={styles.radio} key={option.size}>
+                      <label>
+                        {`${option.size} ${option.price}$`}
+                        <input
+                          type='radio'
+                          name='size'
+                          id={option.size}
+                          value={option.price}
+                          label={`${option.size} ${option.price}$`}
+                          defaultChecked={option.default}
+                          onChange={handleSizeChange}
+                        ></input>
+                        <span className={styles.checkmark}></span>
+                      </label>
+                    </div>
+                  ))}
+                </div>
 
-                    <Form.Group className={styles.card_quantity}>
-                      <Card.Text>
-                        <span>select quantity: </span>
-                      </Card.Text>
-                      <input
-                        type='number'
-                        name='quantity'
-                        value={itemToCart.quantity}
-                        onChange={handleQntyChange}
-                        min={1}
-                        max={10}
-                        step={1}
-                      ></input>
-                    </Form.Group>
-                  </Form>
+                <div className={styles.details_quantity}>
+                  <p>
+                    <span>select quantity: </span>
+                  </p>
+                  <input
+                    type='number'
+                    name='quantity'
+                    value={itemToCart.quantity}
+                    onChange={handleQntyChange}
+                    min={1}
+                    max={10}
+                    step={1}
+                  ></input>
+                </div>
+              </form>
 
-                  <Card.Text className={styles.card_price}>
-                    <span>total: </span>
-                    {total}$
-                  </Card.Text>
+              <p className={styles.details_price}>
+                <span>total: </span>
+                {total}$
+              </p>
 
-                  <Button className={styles.card_btn}
-                    variant='basic'
-                    onClick={handleAddToCart}
-                  >add to cart</Button>
-                </Col>
-              </Row>
-            </Card.Body>
-          </Card>
+              <Button className={styles.details_btn}
+                variant='basic'
+                onClick={handleAddToCart}
+              >add to cart</Button>
+            </Col>
+          </div>
         </Col>
       </Container>
     </div>

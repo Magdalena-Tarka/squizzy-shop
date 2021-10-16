@@ -7,198 +7,194 @@ $product-radio-color: #eac000;
 .root {
   background: url('https://images.pexels.com/photos/6413585/pexels-photo-6413585.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260') no-repeat center  fixed;
   background-size: cover;
-  min-height: 550px;
-  height: 100vh;
+  min-height: 100vh;
   padding-top: 74px;
-  display: flex;
+  color: $product-text-color;
 
   .container {
-    padding: 24px 12px;
-    //height: 100%;
+    padding: 24px 0;
 
-    .product_wrapper {
-      height: 100%;
+    .wrapper {
       margin: auto;
 
-      .product_card {
+      .content {
         background: transparent;
         border: none;
         height: 100%;
         width: 100%;
+        padding: 24px 16px;
+        display: flex;
+        font-weight: 500;
 
-        .card_body {
-          height: 100%;
+        .image_wrapper {
+          height: 450px;
+          padding: 12px;
+          padding-right: 0;
 
-          .row {
+          .img {
+            border-radius: 15px;
+            width: 100%;
             height: 100%;
+            object-fit: cover;
+          }
 
-            .card_image {
-              height: 100%;
+          @include small {
+            padding-right: 12px;
+          }
+          @include extra-small {
+            height: 350px;
+            margin-bottom: 12px;
+          }
+          @include extra-small {
+            height: 300px;
+            padding: 0;
+          }
+        }
 
-              .img {
-                border-radius: 15px;
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-              }
+        .details_wrapper {
+          padding: 12px;
+          padding-left: 28px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          color: $product-text-color;
+          font-size: 18px;
 
-              @include extra-small {
-                height: 280px;
-                margin-bottom: 12px;
-              }
+          span {
+            text-transform: uppercase;
+          }
+
+          .details_title {
+            font-size: 24px;
+            text-transform: capitalize;
+          }
+
+          .details_size {
+            margin-bottom: 4px;
+          }
+
+          .radio {
+            display: block;
+            position: relative;
+            padding-left: 24px;
+            margin-left: 12px;
+            user-select: none;
+
+            label {
+              cursor: pointer;
             }
+            input {
+              position: absolute;
+              opacity: 0;
+              height: 0;
+              width: 0;
+              cursor: pointer;
+            }
+            .checkmark {
+              position: absolute;
+              top: 6px;
+              left: 0;
+              height: 16px;
+              width: 16px;
+              border: 1px solid $product-text-color;
+              border-radius: 50%;
 
-            .card_details {
-              display: flex;
-              flex-direction: column;
-              justify-content: center;
-              padding: 0 24px;
-              color: $product-text-color;
-              font-size: 18px;
-
-              span {
-                text-transform: uppercase;
-                font-weight: 500;
+              &:after {
+                content: "";
+                position: absolute;
+                display: none;
+                width: 9px;
+                height: 5px;
+                border-left: 2px solid $product-radio-color;
+                border-bottom: 2px solid $product-radio-color;
+                transform: rotate(-45deg);
+                top: 4px;
+                left: 3px;
               }
 
-              .card_title {
-                font-size: 24px;
-                text-transform: capitalize;
-
-                @include extra-extra-small {
-                  font-size: 18px;
-                }
-              }
-
-              .card_description {
-                font-size: 16px;
-
-                @include extra-extra-small {
-                  font-size: 14px;
-                }
-              }
-
-              .card_size {
-                margin-bottom: 6px;
-              }
-
-              .radio {
-                display: block;
-                position: relative;
-                padding-left: 24px;
-                margin-left: 12px;
-                user-select: none;
-                font-weight: 500;
-
-                label {
-                  cursor: pointer;
-                }
-                input {
-                  position: absolute;
-                  opacity: 0;
-                  height: 0;
-                  width: 0;
-                  cursor: pointer;
-                }
-                .checkmark {
-                  position: absolute;
-                  top: 6px;
-                  left: 0;
-                  height: 16px;
-                  width: 16px;
-                  border: 1px solid $product-text-color;
-                  border-radius: 50%;
-
-                  &:after {
-                    content: "";
-                    position: absolute;
-                    display: none;
-                    width: 9px;
-                    height: 5px;
-                    border-left: 2px solid $product-radio-color;
-                    border-bottom: 2px solid $product-radio-color;
-                    transform: rotate(-45deg);
-                    top: 4px;
-                    left: 3px;
-                  }
-
-                  @include extra-extra-small {
-                    top: 2px;
-                  }
-                }
-                &:hover input ~ .checkmark {
-                  content: none;
-                }
-                input:checked ~ .checkmark:after {
-                  display: block;
-                }
-              }
-
-              .card_quantity {
-                input {
-                  margin-left: 6px;
-                  background: transparent;
-                  border-radius: 15px;
-                  border: 1px solid $product-text-color;
-                  padding: 0 18px;
-                  width: 72px;
-                  font-weight: 500;
-                }
-                * {
-                  display: inline-flex;
-                }
-              }
-
-              .card_price {
-                font-weight: 500;
-              }
-
-              .card_btn {
-                margin: 0 auto;
-              }
-
-              @include small {
-                font-size: 16px;
-              }
-              @include extra-small {
-                padding: 0 12px;
-              }
               @include extra-extra-small {
-                font-size: 14px;
-
-                > * {
-                  margin-bottom: 6px;
-                }
-                .card_quantity {
-                  height: 24px;
-                }
+                top: 2px;
               }
             }
-
-            @include extra-small {
-              padding: 12px 24px;
+            &:hover input ~ .checkmark {
+              content: none;
             }
-            @include extra-extra-small {
-              padding: 0;
+            input:checked ~ .checkmark:after {
+              display: block;
+            }
+          }
+
+          .details_quantity {
+            input {
+              margin-left: 6px;
+              background: transparent;
+              border-radius: 15px;
+              border: 1px solid $product-text-color;
+              padding: 0 18px;
+              width: 72px;
+              font-weight: 500;
+            }
+            * {
+              display: inline-flex;
+            }
+          }
+
+          .details_btn {
+            margin: 0 auto;
+          }
+
+          @include medium {
+            .details_description {
+              font-size: 16px;
+            }
+          }
+          @include small {
+            padding-left: 12px;
+            font-size: 16px;
+
+            .details_title {
+              font-size: 20px;
+              font-weight: 700;
+            }
+            span {
               font-size: 14px;
+              font-weight: 700;
+            }
+          }
+          @include extra-small {
+            > * {
+              margin-bottom: 8px;
+            }
+            .details_description {
+              font-size: 14px;
+            }
+            .details_quantity {
+              height: 24px;
+            }
+          }
+          @include extra-extra-small {
+            padding: 0;
+            font-size: 14px;
+            margin-top: 12px;
+
+            > * {
+              margin-bottom: 6px;
+            }
+            .details_title {
+              font-size: 18px;
             }
           }
         }
+        @include small {
+          flex-direction: column;
+        }
       }
     }
-
-    @include small {
-      padding: 12px 0;
-    }
-    @include extra-small {
-      padding: 12px 24px;
-    }
   }
-
   @include extra-small {
-    height: 100%;
+    padding-top: 58px;
   }
   @include extra-extra-small {
-    padding-top: 58px;
+    padding-top: 48px;
   }
 }
