@@ -11,13 +11,13 @@ import styles from './NavBar.module.scss';
 
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 
 const Component = ({ className, cartItems }) => {
 
   const [cartQty, setCartQty] = useState(0);
+  const [isOpen, toggleOpen] = useState(false);
+  const toggle = () => toggleOpen(!isOpen);
 
   useEffect(() => {
     let count = 0;
@@ -29,30 +29,38 @@ const Component = ({ className, cartItems }) => {
 
   return (
     <div className={clsx(className, styles.root)}>
-      <Navbar className={styles.navbar} expand="md" fixed="top" variant="dark">
+      <Navbar className={styles.navbar} expand='md' fixed='top' variant='dark'>
         <Container className={clsx('glassEffect', styles.container)}>
 
-          <Col className={styles.logo_wrapper} xs='auto'>
-            <Button className={styles.logo} href="/">squizzy</Button>
+          <Col className={styles.nav_logo_wrapper}
+            xs='auto'
+          >
+            <div className={clsx('ms-auto', styles.nav_logo)}>
+              <NavLink className={styles.logo} to='/'>squizzy</NavLink>
+            </div>
           </Col>
 
-          <Col className={clsx('ms-md-auto', styles.menu_wrapper)}
+          <Col className={clsx('ms-md-auto', styles.nav_menu_wrapper)}
             xs={3}
             md='auto'
           >
-            <Navbar.Toggle className={styles.hamburger} aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse className={styles.nav_collapse} id="basic-navbar-nav">
-              <Nav className={clsx('ms-auto', styles.nav)}>
-                <Nav.Link className={styles.nav_link} as={NavLink} to="/">Home</Nav.Link>
-                <Nav.Link className={styles.nav_link} as={NavLink} to="/cart">Products</Nav.Link>
-                <Nav.Link className={styles.nav_link} as={NavLink} to="/order">contact</Nav.Link>
-              </Nav>
-            </Navbar.Collapse>
+            <div className={styles.hamburger} onClick={toggle}>
+              <i className={isOpen ? 'bi bi-x' : 'bi bi-list'}></i>
+            </div>
+            <div className={clsx('ms-auto', isOpen && styles.visible, styles.nav_menu)}>
+              <NavLink className={clsx('nav_link', styles.nav_link)} to='/'>Home</NavLink>
+              <NavLink className={clsx('nav_link', styles.nav_link)} to='/products'>Products</NavLink>
+              {/*<NavLink className={clsx('nav_link', styles.nav_link)} to='/'>Contact</NavLink>*/}
+            </div>
           </Col>
 
-          <Col className={styles.right_nav_wrapper} xs='auto'>
-            <Nav.Link className={styles.nav_link} as={NavLink} to="/">Login</Nav.Link>
-            <Nav.Link className={styles.nav_link} as={NavLink} to="/cart">Cart ({cartQty})</Nav.Link>
+          <Col className={styles.nav_right_wrapper}
+            xs='auto'
+          >
+            <div className={clsx('ms-auto', styles.nav_right)}>
+              <NavLink className={clsx('nav_link', styles.nav_right_link)} to='/order'>Login</NavLink>
+              <NavLink className={clsx('nav_link', styles.nav_right_link)} to='/cart'>Cart ({cartQty})</NavLink>
+            </div>
           </Col>
         </Container>
       </Navbar>
