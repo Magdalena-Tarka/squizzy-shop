@@ -1,8 +1,5 @@
 @import '../../../styles/settings.scss';
 
-$order-text-color: #212529;
-$order-borders-color: #212529;
-
 .row {
   .input {
     display: flex;
@@ -18,8 +15,8 @@ $order-borders-color: #212529;
 
     input {
       background: transparent;
-      border-radius: 15px;
-      border: 1px solid $order-borders-color;
+      border-radius: $form-border-radius;
+      border: 1px solid $form-border-color;
       padding: 2px 10px;
     }
   }

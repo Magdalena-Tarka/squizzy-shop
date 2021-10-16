@@ -1,9 +1,5 @@
 @import '../../../styles/settings.scss';
 
-$cart-text-color: #212529;
-$cart-borders-color: #212529;
-$cart-btn-bg-color: #eac000;
-
 .root {
   background: url('https://images.pexels.com/photos/8215134/pexels-photo-8215134.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260') no-repeat center;
   background-size: cover;
@@ -57,7 +53,7 @@ $cart-btn-bg-color: #eac000;
 
         .body {
           display: flex;
-          font-weight: 500;
+          font-weight: $cart-font-weight-basic;
 
           .main {
             display: flex;

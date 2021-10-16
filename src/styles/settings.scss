@@ -1,4 +1,133 @@
-// media
+$text-fair-color: seashell;
+$text-lightGray-color: #c5bdb0;
+$text-dark-color: #212529;
+$text-dark2-color: #242322;
+$text-almostBlack-color: #060605;
+
+$hover-text-color: #eac000;
+
+$logo-font-fam: 'Fredericka the Great', cursive;
+$creeppy-font-fam: 'Preahvihear', sans-serif;
+
+$text-font-weight-basic: 500;
+$text-font-weight-bold: 700;
+
+$bg-fair-color: rgba(214, 208, 199, 1);
+$bg-lightGray-color: rgba(255, 255, 255, 0.5);
+$bg-darkGray-color: #565656;
+$bg-yellow-color: #eac000;
+
+$container-border-radius: 15px;
+$input-border-radius: 15px;
+$btn-border-radius: 12px;
+
+
+/* button */
+$btn-basic-bg-color: $bg-yellow-color;
+$btn-basic-text-color: $text-dark-color
+;
+$btn-text-font-weight: $text-font-weight-basic;
+$btn-basic-border-radius: $btn-border-radius;
+
+// FEATURES
+/* CartProduct */
+$cartProd-text-color: $text-dark-color;
+$cartProd-border-color: $text-dark-color;
+$cartProd-font-weight-basic: $text-font-weight-basic;
+$cartProd-font-weight-bold: $text-font-weight-bold;
+$cartProd-border-radius: $container-border-radius;
+$cartProd-input-border-radius: $container-border-radius;
+$cartProd-box-height: 160px;
+$cartProd-box-height-sm: 130px;
+$cartProd-box-height-xs: 100px;
+$cartProd-box-height-xxs: 80px;
+
+/* InfoBoxes */
+$infoBox-text-color: $text-almostBlack-color;
+
+/* NavBar */
+$nav-link-text-color: $text-fair-color;
+$nav-link-text-hover: $hover-text-color;
+$nav-logo-font-fam: $logo-font-fam;
+$nav-border-radius: $container-border-radius;
+
+/* OrderListItem */
+$orderList-text-color: $text-dark-color;
+$orderList-font-weight-basic: $text-font-weight-basic;
+$orderList-font-weight-bold: $text-font-weight-bold;
+$orderList-border-radius: $container-border-radius;
+$orderList-wrapper-height-lg: 100px;
+$orderList-wrapper-height-xs: 90px;
+$orderList-wrapper-height-xxs: 80px;
+
+/* OrderSummary */
+$sum-border-color: $text-dark-color;
+$orderSum-font-weight-bold: $text-font-weight-bold;
+
+/* PersonalDataForm */
+$form-border-color: $text-dark-color;
+$form-border-radius: $input-border-radius;
+
+/* ProductList */
+$prodList-tab-text-color: $text-fair-color;
+$prodList-tab-text-hover: $hover-text-color;
+$prodList-card-bg-color: $bg-fair-color;
+$prodList-card-text-color: $text-dark-color;
+$prodList-border-radius: $container-border-radius;
+$prodList-border-color: $bg-lightGray-color;
+$prodList-nav-font-weight: $text-font-weight-basic;
+
+// LAYOUT
+/* Header */
+$header-logo-text-color: $text-dark2-color;
+$header-logo-font-fam: $logo-font-fam;
+$header-logo-font-size: 144px;
+$header-content-text-color: $text-fair-color;
+$header-content-font-fam: $creeppy-font-fam;
+$header-content-font-size: 16px;
+
+/* Footer */
+$footer-text-color: $text-lightGray-color;
+$footer-text-font-weight: $text-font-weight-basic;
+$footer-logo-font-fam: $logo-font-fam;
+$footer-icons-text-color: $text-fair-color;
+$footer-icons-font-size: 24px;
+$footer-bg-color: $bg-darkGray-color;
+
+/* MainLayout */
+
+// VIEWS
+/* Cart */
+$cart-text-color: $text-dark-color;
+$cart-borders-color: $text-dark-color;
+$cart-btn-bg-color: $btn-basic-bg-color;
+$cart-font-weight-basic: $text-font-weight-basic;
+
+/* Homepage */
+$home-bg-color: $bg-fair-color;
+
+/* NotFound */
+$nf-text-color: $text-dark-color;
+$nf-btn-bg-color: $btn-basic-bg-color;
+
+/* Order */
+$order-text-color: $text-dark-color;
+$order-border-color: $text-dark-color;
+$order-btn-bg-color: $btn-basic-bg-color;
+$order-font-weight-basic: $text-font-weight-basic;
+$order-font-weight-bold: $text-font-weight-bold;
+
+/* Product */
+$product-text-color: $text-dark-color;
+$product-btn-bg-color: $btn-basic-bg-color;
+$product-radio-color: $bg-yellow-color;
+$product-font-weight-basic: $text-font-weight-basic;
+$product-font-weight-bold: $text-font-weight-bold;
+$product-border-radius: $container-border-radius;
+
+/* Products */
+
+// media mixin
 @mixin large {
   @media (max-width: 1199px) {
     @content;

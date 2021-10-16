@@ -1,13 +1,10 @@
 @import '../../../styles/settings.scss';
 
-$products-text-color: #212529;
-
 .root {
   background: url('https://images.pexels.com/photos/6413585/pexels-photo-6413585.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260') no-repeat center  fixed;
   background-size: cover;
   min-height: 100vh;
   padding-top: 74px;
-  color: $products-text-color;
 
   .container {
     padding: 24px 0;

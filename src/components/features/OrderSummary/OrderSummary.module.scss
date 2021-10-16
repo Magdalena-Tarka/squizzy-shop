@@ -1,7 +1,5 @@
 @import '../../../styles/settings.scss';
 
-$sum-borders-color: #212529;
-
 .root {
   width: 100%;
 
@@ -19,8 +17,8 @@ $sum-borders-color: #212529;
   }
 
   .total {
-    border-top: 2px solid $sum-borders-color;
-    font-weight: 700;
+    border-top: 2px solid $sum-border-color;
+    font-weight: $orderSum-font-weight-bold;
     text-transform: uppercase;
   }
 }

@@ -1,25 +1,19 @@
 @import '../../../styles/settings.scss';
 
-$list-tab-text-color: #242322;
-$list-tab-text-color: seashell;
-$list-tab-text-hover: #eac000;
-$list-card-bg-color: rgba(214, 208, 199, 1);
-$list-card-text-color: #242322;
-
 .root {
   .tabs {
     padding: 6px 12px 18px;
 
     .tab {
       .tab_link {
-        color: $list-tab-text-color;
+        color: $prodList-tab-text-color;
         text-transform: uppercase;
-        font-weight: 500;
+        font-weight: $prodList-nav-font-weight;
         padding: 12px;
         padding-bottom: 0;
 
         &:hover, &.active {
-          color: $list-tab-text-hover;
+          color: $prodList-tab-text-hover;
         }
       }
     }
@@ -41,27 +35,27 @@ $list-card-text-color: #242322;
       .product_card {
         height: 100%;
         border: none;
-        border-radius: 15px;
-        background: $list-card-bg-color;
-        border-top: 1px solid rgba(255, 255, 255, 0.5);
-        border-left: 1px solid rgba(255, 255, 255, 0.5);
+        border-radius: $prodList-border-radius;
+        background: $prodList-card-bg-color;
+        border-top: 1px solid $prodList-border-color;
+        border-left: 1px solid $prodList-border-color;
         text-decoration: none;
 
         .card_body {
           text-align: center;
 
           .card_img {
-            border-radius: 15px;
+            border-radius: $prodList-border-radius;
             height: 200px;
             object-fit: cover;
           }
 
           .card_title {
-            color: $list-card-text-color;
+            color: $prodList-card-text-color;
           }
 
           .card_price {
-            color: $list-card-text-color;
+            color: $prodList-card-text-color;
             text-transform: uppercase;
           }
         }

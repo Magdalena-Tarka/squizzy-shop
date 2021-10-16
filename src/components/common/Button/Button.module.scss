@@ -1,16 +1,13 @@
 @import '../../../styles/settings.scss';
 
-$btn-bg-color: #eac000;
-$btn-text-color: #212529;
-
 .basic {
   padding: 4px 18px;
-  border-radius: 12px;
-  background: $btn-bg-color;
-  color: $btn-text-color;
+  border-radius: $btn-basic-border-radius;
+  background: $btn-basic-bg-color;
+  color: $btn-basic-text-color;
   opacity: 0.9;
   text-transform: uppercase;
   font-size: 14px;
-  font-weight: 500;
-  border-color: $btn-bg-color;
+  font-weight: $btn-text-font-weight;
+  border-color: $btn-basic-bg-color;
 }

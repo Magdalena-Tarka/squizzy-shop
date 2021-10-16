@@ -1,9 +1,5 @@
 @import '../../../styles/settings.scss';
 
-$order-text-color: #212529;
-$order-borders-color: #212529;
-$order-btn-bg-color: #eac000;
-
 .root {
   background: url('https://images.pexels.com/photos/8215134/pexels-photo-8215134.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260') no-repeat center;
   background-size: cover;
@@ -32,7 +28,7 @@ $order-btn-bg-color: #eac000;
     }
     @include extra-small {
       font-size: 14px;
-      font-weight: 700;
+      font-weight: $order-font-weight-bold;
     }
   }
 
@@ -49,13 +45,13 @@ $order-btn-bg-color: #eac000;
         width: 100%;
         padding: 24px 16px;
         display: flex;
-        font-weight: 500;
+        font-weight: $order-font-weight-basic;
 
         .main {
           display: flex;
           flex-direction: column;
           width: 70%;
-          border-right: 2px solid $order-borders-color;
+          border-right: 2px solid $order-border-color;
           padding-right: 16px;
 
           > :not(:last-child) {
@@ -74,7 +70,7 @@ $order-btn-bg-color: #eac000;
             padding: 12px 0;
 
             > :not(:last-child) {
-              border-bottom: 1px solid $order-borders-color;
+              border-bottom: 1px solid $order-border-color;
               padding-bottom: 12px;
             }
 

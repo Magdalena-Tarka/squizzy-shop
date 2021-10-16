@@ -1,12 +1,5 @@
 @import '../../../styles/settings.scss';
 
-$cartProd-text-color: #212529;
-$cartProd-borders-color: #212529;
-$cartProd-box-height: 160px;
-$cartProd-box-height-sm: 130px;
-$cartProd-box-height-xs: 100px;
-$cartProd-box-height-xxs: 80px;
-
 .root {
   display: flex;
   justify-content: center;
@@ -23,7 +16,7 @@ $cartProd-box-height-xxs: 80px;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      border-radius: 15px;
+      border-radius: $cartProd-border-radius;
     }
 
     @include small {
@@ -50,7 +43,7 @@ $cartProd-box-height-xxs: 80px;
     padding: 12px;
     padding-left: 28px;
     height: $cartProd-box-height;
-    border-right: 1px solid $cartProd-borders-color;
+    border-right: 1px solid $cartProd-border-color;
 
     p {
       margin: 0;
@@ -58,7 +51,7 @@ $cartProd-box-height-xxs: 80px;
 
     .cartProduct_textarea {
       background: transparent;
-      border-radius: 15px;
+      border-radius: $cartProd-input-border-radius;
       border-color: $cartProd-text-color;
       padding: 0 12px;
       max-height: 33%;
@@ -66,7 +59,7 @@ $cartProd-box-height-xxs: 80px;
 
       &::placeholder {
         color: $cartProd-text-color;
-        font-weight: 500;
+        font-weight: $cartProd-font-weight-basic;
       }
     }
 
@@ -85,10 +78,10 @@ $cartProd-box-height-xxs: 80px;
       .cartProduct_title {
         font-size: 16px;
         margin-bottom: 4px;
-        font-weight: 700;
+        font-weight: $cartProd-font-weight-bold;
       }
       .cartProduct_size {
-        font-weight: 700;
+        font-weight: $cartProd-font-weight-bold;
       }
     }
     @include extra-small {
@@ -126,11 +119,11 @@ $cartProd-box-height-xxs: 80px;
     .cartProduct_qnty input {
       margin-left: 6px;
       background: transparent;
-      border-radius: 15px;
+      border-radius: $cartProd-input-border-radius;
       border: 1px solid $cartProd-text-color;
       padding: 0 18px;
       width: 72px;
-      font-weight: 500;
+      font-weight: $cartProd-font-weight-basic;
       color: $cartProd-text-color;
     }
 
@@ -142,7 +135,7 @@ $cartProd-box-height-xxs: 80px;
       background: transparent;
       border: none;
       padding: 0;
-      font-weight: 500;
+      font-weight: $cartProd-font-weight-basic;
       color: $cartProd-text-color;
       margin-left: 6px;
       font-size: 14px;
@@ -153,7 +146,7 @@ $cartProd-box-height-xxs: 80px;
       padding: 0;
 
       p {
-        font-weight: 700;
+        font-weight: $cartProd-font-weight-bold;
       }
     }
     @include extra-small {

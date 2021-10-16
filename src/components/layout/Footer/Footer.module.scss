@@ -1,8 +1,7 @@
 @import '../../../styles/settings.scss';
-@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css");
 
 .root {
-  background: #565656;
+  background: $footer-bg-color;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -13,9 +12,9 @@
     justify-content: center;
 
     a {
-      color: seashell;
+      color: $footer-icons-text-color;
       opacity: 0.9;
-      font-size: 24px;
+      font-size: $footer-icons-font-size;
       padding: 8px 16px 0;
 
       @include extra-small {
@@ -28,8 +27,8 @@
     }
   }
   .paragraph {
-    font-weight: 500;
-    color: #c5bdb0;
+    font-weight: $footer-text-font-weight;
+    color: $footer-text-color;
 
     p {
       font-size: 14px;
@@ -41,7 +40,7 @@
     }
 
     span {
-      font-family: 'Fredericka the Great', cursive;
+      font-family: $footer-logo-font-fam;
       font-size: 18px;
 
       @include extra-small {
