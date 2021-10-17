@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router';
 
 import clsx from 'clsx';
 
 import { connect } from 'react-redux';
-import { getAll } from '../../../redux/productsRedux.js';
+import { getOne, fetchOneFromAPI } from '../../../redux/productsRedux.js';
 import { addToCart } from '../../../redux/cartRedux.js';
 
 import styles from './Product.module.scss';
@@ -13,27 +13,28 @@ import { Button } from '../../common/Button/Button';
 
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
-import Card from 'react-bootstrap/Card';
-import Form from 'react-bootstrap/Form';
 
-const Component = ({ className, products, addToCart, ...props }) => {
+const Component = ({ className, product, addToCart, fetchOneFromAPI, ...props }) => {
 
-  const product = products.filter(product => product.id === props.match.params.id)[0];
-  const defaultPrice = product.options.filter(option => option.default === true)[0].price;
-  const defaultSize = product.options.filter(option => option.default === true)[0].size;
-  //console.log('product', product);
+  const defaultPrice = product && product.options.filter(option => option.default === true)[0].price;
+  const defaultSize = product && product.options.filter(option => option.default === true)[0].size;
 
   const [ size, setSize ] = useState(defaultSize);
   const [ price, setPrice ] = useState(defaultPrice);
   const [ qnty, setQnty ] = useState(1);
   const history = useHistory();
 
+  useEffect(() => {
+    fetchOneFromAPI(props.match.params.id);
+    setSize(defaultSize);
+    setPrice(defaultPrice);
+  }, [fetchOneFromAPI, props.match.params.id, defaultSize, defaultPrice]);
+
   const itemToCart = {
-    id: product.id,
-    name: product.name,
-    image: product.image,
-    ingredients: product.ingredients,
+    _id: product && product._id,
+    name: product && product.name,
+    image: product && product.image,
+    ingredients: product && product.ingredients,
     size: size,
     priceSingle: price,
     quantity: qnty,
@@ -63,79 +64,85 @@ const Component = ({ className, products, addToCart, ...props }) => {
           lg={12}
           xl={11}
         >
-          <div className={styles.content}>
-            <Col className={styles.image_wrapper}
-              xs={12}
-              md={6}
-            >
-              <img className={clsx(styles.img)}
-                src={product.image}
-                alt={product.name}
-              />
-            </Col>
+          {!product ? (
+            <div className={styles.content}>
+              <p>Loading...</p>
+            </div>
+          ) : (
+            <div className={styles.content}>
+              <Col className={styles.image_wrapper}
+                xs={12}
+                md={6}
+              >
+                <img className={clsx(styles.img)}
+                  src={product.image}
+                  alt={product.name}
+                />
+              </Col>
 
-            <Col className={styles.details_wrapper}
-              xs={12}
-              md={6}
-            >
-              <h4 className={styles.details_title}>{product.name}</h4>
-              <p className={styles.details_description}>{product.description}</p>
-              <p className={styles.details_ingredients}>
-                <span>ingredients: </span>
-                {product.ingredients.join(', ')}.
-              </p>
-
-              <form>
-                <p className={styles.details_size}>
-                  <span>select size: </span>
+              <Col className={styles.details_wrapper}
+                xs={12}
+                md={6}
+              >
+                <h4 className={styles.details_title}>{product.name}</h4>
+                <p className={styles.details_description}>{product.description}</p>
+                <p className={styles.details_ingredients}>
+                  <span>ingredients: </span>
+                  {product.ingredients.join(', ')}.
                 </p>
-                <div className={styles.radios}>
-                  {product.options.map(option => (
-                    <div className={styles.radio} key={option.size}>
-                      <label>
-                        {`${option.size} ${option.price}$`}
-                        <input
-                          type='radio'
-                          name='size'
-                          id={option.size}
-                          value={option.price}
-                          label={`${option.size} ${option.price}$`}
-                          defaultChecked={option.default}
-                          onChange={handleSizeChange}
-                        ></input>
-                        <span className={styles.checkmark}></span>
-                      </label>
-                    </div>
-                  ))}
-                </div>
 
-                <div className={styles.details_quantity}>
-                  <p>
-                    <span>select quantity: </span>
+                <form>
+                  <p className={styles.details_size}>
+                    <span>select size: </span>
                   </p>
-                  <input
-                    type='number'
-                    name='quantity'
-                    value={itemToCart.quantity}
-                    onChange={handleQntyChange}
-                    min={1}
-                    max={10}
-                    step={1}
-                  ></input>
-                </div>
-              </form>
+                  <div className={styles.radios}>
+                    {product.options.map(option => (
+                      <div className={styles.radio} key={option.size}>
+                        <label>
+                          {`${option.size} ${option.price}$`}
+                          <input
+                            type='radio'
+                            name='size'
+                            id={option.size}
+                            value={option.price}
+                            label={`${option.size} ${option.price}$`}
+                            defaultChecked={option.default}
+                            onChange={handleSizeChange}
+                          ></input>
+                          <span className={styles.checkmark}></span>
+                        </label>
+                      </div>
+                    ))}
+                  </div>
 
-              <p className={styles.details_price}>
-                <span>total: </span>
-                {total}$
-              </p>
+                  <div className={styles.details_quantity}>
+                    <p>
+                      <span>select quantity: </span>
+                    </p>
+                    <input
+                      type='number'
+                      name='quantity'
+                      value={itemToCart.quantity}
+                      onChange={handleQntyChange}
+                      min={1}
+                      max={10}
+                      step={1}
+                    ></input>
+                  </div>
+                </form>
 
-              <Button className={styles.details_btn}
-                variant='basic'
-                onClick={handleAddToCart}
-              >add to cart</Button>
-            </Col>
-          </div>
+                <p className={styles.details_price}>
+                  <span>total: </span>
+                  {total}$
+                </p>
+
+                <Button className={styles.details_btn}
+                  variant='basic'
+                  onClick={handleAddToCart}
+                >add to cart</Button>
+              </Col>
+            </div>
+          )}
         </Col>
       </Container>
     </div>
@@ -146,16 +153,18 @@ Component.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
   match: PropTypes.object,
-  products: PropTypes.array,
+  product: PropTypes.object,
   addToCart: PropTypes.func,
+  fetchOneFromAPI: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
-  products: getAll(state),
+  product: getOne(state),
 });
 
 const mapDispatchToProps = dispatch => ({
   addToCart: arg => dispatch(addToCart(arg)),
+  fetchOneFromAPI: id => dispatch(fetchOneFromAPI(id)),
 });
 
 const ProductContainer = connect(mapStateToProps, mapDispatchToProps)(Component);

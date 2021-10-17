@@ -1,7 +1,9 @@
 import Axios from 'axios';
+import { API_URL } from '../config';
 
 /* selectors */
 export const getAll = ({products}) => products.data;
+export const getOne = ({products}) => products.oneProduct;
 export const getMilky = ({products}) => products.data.filter(item => item.milk === true);
 export const getVege = ({products}) => products.data.filter(item => item.vege === true);
 export const getJuices = ({products}) => products.data.filter(item => item.pressedJuice === true);
@@ -14,11 +16,13 @@ const createActionName = name => `app/${reducerName}/${name}`;
 const FETCH_START = createActionName('FETCH_START');
 const FETCH_SUCCESS = createActionName('FETCH_SUCCESS');
 const FETCH_ERROR = createActionName('FETCH_ERROR');
+const FETCH_ONE_PRODUCT = createActionName('FETCH_ONE_PRODUCT');
 
 /* action creators */
 export const fetchStarted = payload => ({ payload, type: FETCH_START });
 export const fetchSuccess = payload => ({ payload, type: FETCH_SUCCESS });
 export const fetchError = payload => ({ payload, type: FETCH_ERROR });
+export const fetchOneProduct = payload => ({ payload, type: FETCH_ONE_PRODUCT });
 
 /* thunk creators */
 export const fetchAllProducts = () => {
@@ -27,7 +31,7 @@ export const fetchAllProducts = () => {
 
     if(!getState().products.data.length && getState().products.loading.active === false) {
       Axios
-        .get('http://localhost:8000/api/products')
+        .get(`${API_URL}/products`)
         .then(res => {
           dispatch(fetchSuccess(res.data));
         })
@@ -35,6 +39,20 @@ export const fetchAllProducts = () => {
           dispatch(fetchError(err.message || true));
         });
     }
+  };
+};
+export const fetchOneFromAPI = (id) => {
+  return (dispatch, getState) => {
+    dispatch(fetchStarted);
+
+    Axios
+      .get(`${API_URL}/product/${id}`)
+      .then(res => {
+        dispatch(fetchOneProduct(res.data));
+      })
+      .catch(err => {
+        dispatch(fetchError(err.message || true));
+      });
   };
 };
 
@@ -67,6 +85,16 @@ export const reducer = (statePart = [], action = {}) => {
           active: false,
           error: action.payload,
         },
+      };
+    }
+    case FETCH_ONE_PRODUCT: {
+      return {
+        ...statePart,
+        loading: {
+          active: false,
+          error: false,
+        },
+        oneProduct: action.payload,
       };
     }
     default:

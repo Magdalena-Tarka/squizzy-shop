@@ -14,4 +14,15 @@ router.get('/products', async (req, res) => {
   }
 });
 
+router.get('/product/:id', async (req, res) => {
+  try {
+    const result = await Product.findById(req.params.id);
+    if(!result) res.status(404).json({ products: 'Not found' });
+    else res.json(result);
+  }
+  catch(err) {
+    res.status(500).json(err);
+  }
+});
+
 module.exports = router;
