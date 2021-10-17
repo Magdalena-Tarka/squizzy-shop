@@ -15,11 +15,7 @@ import Nav from 'react-bootstrap/Nav';
 import Card from 'react-bootstrap/Card';
 
 const Component = ({ className, products, getMilky, getVege, getJuices, fetchAllProducts }) => {
-  console.log('products', products);
-
-  useEffect(() => {
-    fetchAllProducts();
-  }, [fetchAllProducts]);
+  //console.log('products', products);
 
   const productsTabs = [
     { id: 'allProducts', name: 'all products', products: products },
@@ -28,8 +24,16 @@ const Component = ({ className, products, getMilky, getVege, getJuices, fetchAll
     { id: 'pressedJuices', name: 'pressed juices', products: getJuices },
   ];
 
-  const [ activeTab, setActiveTab ] = useState(productsTabs[0]);
-  const [ activeProducts, setActiveProducts ] = useState(activeTab.products);
+  const defaultTab = productsTabs[0];
+
+  const [ activeTab, setActiveTab ] = useState(defaultTab);
+  const [ activeProducts, setActiveProducts ] = useState(defaultTab.products);
+
+  useEffect(() => {
+    fetchAllProducts();
+    //setActiveTab(defaultTab);
+    setActiveProducts(defaultTab.products);
+  }, [fetchAllProducts, defaultTab]);
 
 
   const changeActiveTab = (index) => {
