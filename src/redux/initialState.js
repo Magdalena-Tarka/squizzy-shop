@@ -1,6 +1,6 @@
 export const initialState = {
   products: {
-    data: [
+    data: [/*
       {
         id: '1',
         name: 'vegetable red smoothie',
@@ -161,7 +161,6 @@ export const initialState = {
       {
         id: '9',
         name: 'purple pressed juice',
-        price: 9,
         description: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.',
         image: '/images/9.jpeg',
         ingredients: [
@@ -181,7 +180,6 @@ export const initialState = {
       {
         id: '10',
         name: 'milk white smoothie',
-        price: 9,
         description: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.',
         image: '/images/10.jpeg',
         ingredients: [
@@ -199,7 +197,7 @@ export const initialState = {
         pressedJuice: false,
         milk: true,
       },
-    ],
+    */],
     loading: {
       active: false,
       error: false,

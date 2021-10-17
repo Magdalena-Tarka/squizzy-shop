@@ -1,3 +1,5 @@
+import Axios from 'axios';
+
 /* selectors */
 export const getAll = ({products}) => products.data;
 export const getMilky = ({products}) => products.data.filter(item => item.milk === true);
@@ -19,6 +21,22 @@ export const fetchSuccess = payload => ({ payload, type: FETCH_SUCCESS });
 export const fetchError = payload => ({ payload, type: FETCH_ERROR });
 
 /* thunk creators */
+export const fetchAllProducts = () => {
+  return (dispatch, getState) => {
+    dispatch(fetchStarted);
+
+    if(!getState().products.data.length && getState().products.loading.active === false) {
+      Axios
+        .get('http://localhost:8000/api/products')
+        .then(res => {
+          dispatch(fetchSuccess(res.data));
+        })
+        .catch(err => {
+          dispatch(fetchError(err.message || true));
+        });
+    }
+  };
+};
 
 /* reducer */
 export const reducer = (statePart = [], action = {}) => {

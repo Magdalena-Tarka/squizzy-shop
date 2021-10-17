@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 
 import clsx from 'clsx';
 
 import { connect } from 'react-redux';
-import { getAll, getMilky, getVege, getJuices/*, reduxActionCreator*/ } from '../../../redux/productsRedux.js';
+import { getAll, getMilky, getVege, getJuices, fetchAllProducts/*, reduxActionCreator*/ } from '../../../redux/productsRedux.js';
 
 import styles from './ProductsList.module.scss';
 
@@ -14,8 +14,12 @@ import Row from 'react-bootstrap/Row';
 import Nav from 'react-bootstrap/Nav';
 import Card from 'react-bootstrap/Card';
 
-const Component = ({ className, products, getMilky, getVege, getJuices }) => {
-  //console.log('products', products);
+const Component = ({ className, products, getMilky, getVege, getJuices, fetchAllProducts }) => {
+  console.log('products', products);
+
+  useEffect(() => {
+    fetchAllProducts();
+  }, [fetchAllProducts]);
 
   const productsTabs = [
     { id: 'allProducts', name: 'all products', products: products },
@@ -26,6 +30,7 @@ const Component = ({ className, products, getMilky, getVege, getJuices }) => {
 
   const [ activeTab, setActiveTab ] = useState(productsTabs[0]);
   const [ activeProducts, setActiveProducts ] = useState(activeTab.products);
+
 
   const changeActiveTab = (index) => {
     setActiveTab(productsTabs[index]);
@@ -57,7 +62,7 @@ const Component = ({ className, products, getMilky, getVege, getJuices }) => {
       <Row className={clsx('g-4', styles.products_wrapper)}>
         {activeProducts.map(product => (
           <Col className={styles.product_wrapper}
-            key={product.id}
+            key={product._id}
             xs={11}
             sm={6}
             md={4}
@@ -65,7 +70,7 @@ const Component = ({ className, products, getMilky, getVege, getJuices }) => {
           >
             <Card className={styles.product_card}
               as={NavLink}
-              to={`/product/${product.id}`}
+              to={`/product/${product._id}`}
             >
               <Card.Body className={clsx(styles.card_body)}>
                 <Card.Img className={clsx('mb-2', styles.card_img)}
@@ -92,6 +97,7 @@ Component.propTypes = {
   getMilky: PropTypes.array,
   getVege: PropTypes.array,
   getJuices: PropTypes.array,
+  fetchAllProducts: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
@@ -101,11 +107,11 @@ const mapStateToProps = state => ({
   getJuices: getJuices(state),
 });
 
-// const mapDispatchToProps = dispatch => ({
-//   someAction: arg => dispatch(reduxActionCreator(arg)),
-// });
+const mapDispatchToProps = dispatch => ({
+  fetchAllProducts: () => dispatch(fetchAllProducts()),
+});
 
-const ProductsListContainer = connect(mapStateToProps/*, mapDispatchToProps*/)(Component);
+const ProductsListContainer = connect(mapStateToProps, mapDispatchToProps)(Component);
 
 export {
   //Component as ProductsList,
