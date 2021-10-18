@@ -6,7 +6,7 @@ import clsx from 'clsx';
 
 import { connect } from 'react-redux';
 import { getCartItems, cleanCartItems } from '../../../redux/cartRedux.js';
-import { getPersonalData, addOrder, cleanOrderForm } from '../../../redux/orderRedux.js';
+import { getPersonalData, addOrderInAPI, cleanOrderForm } from '../../../redux/orderRedux.js';
 
 import styles from './Order.module.scss';
 import { OrderListItem } from '../../features/OrderListItem/OrderListItem';
@@ -17,7 +17,7 @@ import { Button } from '../../common/Button/Button';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 
-const Component = ({ className, cartItems, addOrder, personalData, cleanCartItems, cleanOrderForm }) => {
+const Component = ({ className, cartItems, addOrderInAPI, personalData, cleanCartItems, cleanOrderForm }) => {
   const history  = useHistory();
 
   const getCurrentDate = () => {
@@ -65,7 +65,7 @@ const Component = ({ className, cartItems, addOrder, personalData, cleanCartItem
       if(!order.orderItems.length) {
         alert('There is nothing in your cart yet, go back to homepage.');
       } else {
-        addOrder(order);
+        addOrderInAPI(order);
         cleanCartItems();
         cleanOrderForm();
         history.push('/');
@@ -94,7 +94,7 @@ const Component = ({ className, cartItems, addOrder, personalData, cleanCartItem
                   {!cartItems.length ? (
                     <p>There is nothing in your cart yet, go back to homepage.</p>
                   ) : cartItems.map(item => (
-                    <OrderListItem key={item.id} {...item} />
+                    <OrderListItem key={item._id} {...item} />
                   ))}
                 </div>
               </Col>
@@ -131,7 +131,7 @@ Component.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
   cartItems: PropTypes.array,
-  addOrder: PropTypes.func,
+  addOrderInAPI: PropTypes.func,
   personalData: PropTypes.object,
   cleanOrderForm: PropTypes.func,
   cleanCartItems: PropTypes.func,
@@ -143,7 +143,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  addOrder: arg => dispatch(addOrder(arg)),
+  addOrderInAPI: arg => dispatch(addOrderInAPI(arg)),
   cleanOrderForm: arg => dispatch(cleanOrderForm(arg)),
   cleanCartItems: arg => dispatch(cleanCartItems(arg)),
 });
