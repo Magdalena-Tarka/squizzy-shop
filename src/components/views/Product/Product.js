@@ -10,9 +10,11 @@ import { addToCart } from '../../../redux/cartRedux.js';
 
 import styles from './Product.module.scss';
 import { Button } from '../../common/Button/Button';
+import { OrderListItem } from '../../features/OrderListItem/OrderListItem';
 
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
+import Modal from 'react-bootstrap/Modal';
 
 const Component = ({ className, product, addToCart, fetchOneFromAPI, ...props }) => {
 
@@ -22,6 +24,7 @@ const Component = ({ className, product, addToCart, fetchOneFromAPI, ...props })
   const [ size, setSize ] = useState(defaultSize);
   const [ price, setPrice ] = useState(defaultPrice);
   const [ qnty, setQnty ] = useState(1);
+  const [show, setShow] = useState(false);
   const history = useHistory();
 
   useEffect(() => {
@@ -54,8 +57,20 @@ const Component = ({ className, product, addToCart, fetchOneFromAPI, ...props })
   const handleAddToCart = event => {
     event.preventDefault();
     addToCart(itemToCart);
+    setShow(true);
+  };
+
+  const handleGoToCart = event => {
+    setShow(false);
+    history.push('/cart');
+  };
+
+  const handleContinue = event => {
+    setShow(false);
     history.push('/');
   };
+
+  const handleClose = () => setShow(false);
 
   return (
     <div className={clsx(className, styles.root)}>
@@ -144,6 +159,31 @@ const Component = ({ className, product, addToCart, fetchOneFromAPI, ...props })
             </div>
           )}
         </Col>
+
+        {product && (
+          <Modal show={show} onHide={handleClose}>
+            <Modal.Header closeButton>
+              <Modal.Title>You&apos;ve added {product.name} to your cart</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <OrderListItem
+                image={product.image}
+                name={product.name}
+                priceSingle={price}
+                quantity={qnty}
+                size={size}
+              />
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant='basic' onClick={handleGoToCart}>
+                Go to the cart
+              </Button>
+              <Button variant='dark' onClick={handleContinue}>
+                continiue shopping
+              </Button>
+            </Modal.Footer>
+          </Modal>
+        )}
       </Container>
     </div>
   );

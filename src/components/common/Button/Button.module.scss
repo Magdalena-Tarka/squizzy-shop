@@ -11,3 +11,15 @@
   font-weight: $btn-text-font-weight;
   border-color: $btn-basic-bg-color;
 }
+
+.dark {
+  padding: 4px 18px;
+  border-radius: $btn-basic-border-radius;
+  background: $btn-dark-bg-color;
+  color: $btn-dark-text-color;
+  opacity: 0.9;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: $btn-text-font-weight;
+  border-color: $btn-dark-bg-color;
+}
