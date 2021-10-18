@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 
@@ -16,8 +16,11 @@ import { Button } from '../../common/Button/Button';
 
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
+import Modal from 'react-bootstrap/Modal';
 
 const Component = ({ className, cartItems, addOrderInAPI, personalData, cleanCartItems, cleanOrderForm }) => {
+
+  const [show, setShow] = useState(false);
   const history  = useHistory();
 
   const getCurrentDate = () => {
@@ -68,11 +71,18 @@ const Component = ({ className, cartItems, addOrderInAPI, personalData, cleanCar
         addOrderInAPI(order);
         cleanCartItems();
         cleanOrderForm();
-        history.push('/');
+        setShow(true);
         //window.location.reload();
       }
     }
   };
+
+  const handleGoToHp = event => {
+    setShow(false);
+    history.push('/');
+  };
+
+  const handleClose = () => setShow(false);
 
   return (
     <div className={clsx(className, styles.root)}>
@@ -122,6 +132,18 @@ const Component = ({ className, cartItems, addOrderInAPI, personalData, cleanCar
             </div>
           </div>
         </Col>
+
+        <Modal show={show} onHide={handleClose} centered>
+          <Modal.Body>
+            <Modal.Title>Thank you for your order!</Modal.Title>
+            <Modal.Title>We will contact to you soon.</Modal.Title>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant='basic' onClick={handleGoToHp}>
+              Go to homepage
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </Container>
     </div>
   );

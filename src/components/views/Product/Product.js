@@ -161,7 +161,7 @@ const Component = ({ className, product, addToCart, fetchOneFromAPI, ...props })
         </Col>
 
         {product && (
-          <Modal show={show} onHide={handleClose}>
+          <Modal show={show} onHide={handleClose} centered>
             <Modal.Header closeButton>
               <Modal.Title>You&apos;ve added {product.name} to your cart</Modal.Title>
             </Modal.Header>
