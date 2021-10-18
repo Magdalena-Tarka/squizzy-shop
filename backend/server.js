@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const mongoose = require('mongoose');
+require('dotenv').config();
 
 const productsRoutes = require('./routes/products.routes');
 const ordersRoutes = require('./routes/orders.routes');
@@ -29,7 +30,11 @@ app.use('*', (req, res) => {
 });
 
 /* MONGOOSE */
-mongoose.connect('mongodb://localhost:27017/squizzyShopDB', { useNewUrlParser: true, useUnifiedTopology: true });
+const dbURI = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.si5h3.mongodb.net/SquizzyDB?retryWrites=true&w=majority`;
+//const dbURI = process.env.NODE_ENV === 'production' ?
+//  `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.si5h3.mongodb.net/SquizzyDB?retryWrites=true&w=majority`
+//  : 'mongodb://localhost:27017/squizzyShopDB';
+mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 db.once('open', () => {
   console.log('Successfully connected to the database');
