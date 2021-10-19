@@ -12,23 +12,23 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 
 const Component = ({className, updateQnty, updateNote, removeItem, ...props}) => {
-  const {id, image, name, note, ingredients, priceSingle, quantity, size} = props;
+  const {_id, image, name, note, ingredients, priceSingle, quantity, size} = props;
 
   const [amountInput, setAmountInput] = useState(quantity);
-  const [noteInput, setNotetInput] = useState(note);
+  const [noteInput, setNotetInput] = useState('');
 
   const handleInputAmount = event => {
     setAmountInput(event.target.value);
-    updateQnty(id, event.target.value);
+    updateQnty(_id, size, event.target.value);
   };
 
   const handleInputNote = event => {
     setNotetInput(event.target.value);
-    updateNote(id, event.target.value);
+    updateNote(_id, size, event.target.value);
   };
 
   const handleRemoveItem = event => {
-    removeItem(id, size);
+    removeItem(_id, size);
   };
 
   return (
@@ -54,7 +54,7 @@ const Component = ({className, updateQnty, updateNote, removeItem, ...props}) =>
           id='note'
           placeholder='You can add some note...'
           maxLength='70'
-          value={noteInput}
+          value={note}
           onChange={handleInputNote}
         ></textarea>
       </Col>
@@ -65,8 +65,8 @@ const Component = ({className, updateQnty, updateNote, removeItem, ...props}) =>
           <input
             type='number'
             name='quantity'
-            id={id}
-            value={amountInput}
+            id='quantity'
+            value={quantity}
             onChange={handleInputAmount}
             min={1}
             max={10}
@@ -84,7 +84,7 @@ const Component = ({className, updateQnty, updateNote, removeItem, ...props}) =>
 Component.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
-  id: PropTypes.string,
+  _id: PropTypes.string,
   image: PropTypes.string,
   name: PropTypes.string,
   note: PropTypes.string,
@@ -102,8 +102,8 @@ Component.propTypes = {
 // });
 
 const mapDispatchToProps = dispatch => ({
-  updateQnty: (id, value) => dispatch(updateItemQnty(id, value)),
-  updateNote: (id, value) => dispatch(updateItemNote(id, value)),
+  updateQnty: (id, size, value) => dispatch(updateItemQnty(id, size, value)),
+  updateNote: (id, size, value) => dispatch(updateItemNote(id, size, value)),
   removeItem: (id, size) => dispatch(removeItem(id, size)),
 });
 
