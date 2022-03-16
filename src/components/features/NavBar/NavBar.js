@@ -48,9 +48,17 @@ const Component = ({ className, cartItems }) => {
               <i className={isOpen ? 'bi bi-x' : 'bi bi-list'}></i>
             </div>
             <div className={clsx('ms-auto', isOpen && styles.visible, styles.nav_menu)}>
-              <NavLink className={clsx('nav_link', styles.nav_link)} to='/'>Home</NavLink>
-              <NavLink className={clsx('nav_link', styles.nav_link)} to='/products'>Products</NavLink>
-              {/*<NavLink className={clsx('nav_link', styles.nav_link)} to='/'>Contact</NavLink>*/}
+              <NavLink
+                className={clsx('nav_link', styles.nav_link)}
+                activeClassName={styles.active}
+                exact
+                to='/'
+              >Home</NavLink>
+              <NavLink
+                className={clsx('nav_link', styles.nav_link)}
+                activeClassName={styles.active}
+                to='/products'
+              >Products</NavLink>
             </div>
           </Col>
 
@@ -58,8 +66,16 @@ const Component = ({ className, cartItems }) => {
             xs='auto'
           >
             <div className={clsx('ms-auto', styles.nav_right)}>
-              <NavLink className={clsx('nav_link', styles.nav_right_link)} to='/order'>Login</NavLink>
-              <NavLink className={clsx('nav_link', styles.nav_right_link)} to='/cart'>Cart ({cartQty})</NavLink>
+              <NavLink
+                className={clsx('nav_link', styles.nav_right_link)}
+                activeClassName={styles.active}
+                to='/order'
+              >Login</NavLink>
+              <NavLink
+                className={clsx('nav_link', styles.nav_right_link)}
+                activeClassName={styles.active}
+                to='/cart'
+              >Cart ({cartQty})</NavLink>
             </div>
           </Col>
         </Container>

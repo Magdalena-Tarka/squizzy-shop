@@ -13,7 +13,7 @@
     margin-left: 36px;
     text-decoration: none;
 
-    &:hover {
+    &:hover, &.active {
       color: $nav-link-text-hover;
     }
   }
