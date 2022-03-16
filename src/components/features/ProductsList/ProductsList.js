@@ -15,30 +15,28 @@ import Nav from 'react-bootstrap/Nav';
 import Card from 'react-bootstrap/Card';
 
 const Component = ({ className, products, getMilky, getVege, getJuices, fetchAllProducts }) => {
-  //console.log('products', products);
 
   const productsTabs = [
-    { id: 'allProducts', name: 'all products', products: products },
+    { id: 'allProducts', name: 'all products', products: products.length && products },
     { id: 'milkSmoothies', name: 'milk smoothies', products: getMilky },
     { id: 'vegeSmoothies', name: 'vege smoothies', products: getVege },
     { id: 'pressedJuices', name: 'pressed juices', products: getJuices },
   ];
-
   const defaultTab = productsTabs[0];
 
-  const [ activeTab, setActiveTab ] = useState(defaultTab);
-  const [ activeProducts, setActiveProducts ] = useState(defaultTab.products);
+  const [ activeTab, setActiveTab ] = useState(productsTabs[0]);
 
   useEffect(() => {
     fetchAllProducts();
-    //setActiveTab(defaultTab);
-    setActiveProducts(defaultTab.products);
-  }, [fetchAllProducts, defaultTab]);
+  }, [fetchAllProducts]);
 
+  useEffect(() => {
+    setActiveTab(defaultTab);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [defaultTab.name, defaultTab.products]);
 
   const changeActiveTab = (index) => {
     setActiveTab(productsTabs[index]);
-    setActiveProducts(productsTabs[index].products);
   };
 
   return (
@@ -49,13 +47,8 @@ const Component = ({ className, products, getMilky, getVege, getJuices, fetchAll
         {productsTabs.map(tab => (
           <Nav.Item key={tab.id} className={styles.tab}>
             <Nav.Link
-              className={clsx(tab === activeTab && 'active',
-                tab === activeTab && styles.active,
-                styles.tab_link)}
-              onClick={e => {
-                e.preventDefault();
-                changeActiveTab(productsTabs.indexOf(tab));
-              }}
+              className={clsx(tab.name === activeTab.name && styles.active, styles.tab_link)}
+              onClick={() => {changeActiveTab(productsTabs.indexOf(tab));}}
             >
               {tab.name}
             </Nav.Link>
@@ -64,7 +57,7 @@ const Component = ({ className, products, getMilky, getVege, getJuices, fetchAll
       </Nav>
 
       <Row className={clsx('g-4', styles.products_wrapper)}>
-        {activeProducts.map(product => (
+        {activeTab.products.length && activeTab.products.map(product => (
           <Col className={styles.product_wrapper}
             key={product._id}
             xs={11}

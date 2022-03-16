@@ -50,6 +50,7 @@
     "dotenv": "^10.0.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.6",
+    "eslint-plugin-react-hooks": "^4.2.1-rc.2-next-2bf7c02f0-20220314",
     "express": "4.17.1",
     "mongodb": "3.3.2",
     "mongoose": "5.7.1",
