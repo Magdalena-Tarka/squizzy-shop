@@ -26,7 +26,6 @@ export const reducer = (statePart = [], action = {}) => {
   switch (action.type) {
     case ADD_TO_CART: {
       const inCart = statePart.items.find(item => (item._id === action.payload._id && item.size === action.payload.size) ? true : false);
-      console.log('inCart1', inCart);
       return {
         ...statePart,
         items: inCart
