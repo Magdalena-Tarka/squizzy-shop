@@ -4,14 +4,14 @@ import PropTypes from 'prop-types';
 import clsx from 'clsx';
 
 import { connect } from 'react-redux';
-import { updateItemQnty, updateItemNote, removeItem } from '../../../redux/cartRedux.js';
+import { updateItemQuantity, updateItemNote, removeItem } from '../../../redux/cartRedux.js';
 
 import styles from './CartProduct.module.scss';
 
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 
-const Component = ({className, updateQnty, updateNote, removeItem, ...props}) => {
+const Component = ({className, updateQuantity, updateNote, removeItem, ...props}) => {
   const {_id, image, name, note, ingredients, priceSingle, quantity, size} = props;
 
   const [amountInput, setAmountInput] = useState(quantity);
@@ -19,7 +19,7 @@ const Component = ({className, updateQnty, updateNote, removeItem, ...props}) =>
 
   const handleInputAmount = event => {
     setAmountInput(event.target.value);
-    updateQnty(_id, size, event.target.value);
+    updateQuantity(_id, size, event.target.value);
   };
 
   const handleInputNote = event => {
@@ -61,7 +61,7 @@ const Component = ({className, updateQnty, updateNote, removeItem, ...props}) =>
 
       <Col className={styles.cartProduct_details} sm={2}>
         <p>{parseInt(priceSingle) * parseInt(amountInput)}$</p>
-        <div className={styles.cartProduct_qnty}>
+        <div className={styles.cartProduct_quantity}>
           <input
             type='number'
             name='quantity'
@@ -92,7 +92,7 @@ Component.propTypes = {
   priceSingle: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   quantity: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   size: PropTypes.string,
-  updateQnty: PropTypes.func,
+  updateQuantity: PropTypes.func,
   updateNote: PropTypes.func,
   removeItem: PropTypes.func,
 };
@@ -102,7 +102,7 @@ Component.propTypes = {
 // });
 
 const mapDispatchToProps = dispatch => ({
-  updateQnty: (id, size, value) => dispatch(updateItemQnty(id, size, value)),
+  updateQuantity: (id, size, value) => dispatch(updateItemQuantity(id, size, value)),
   updateNote: (id, size, value) => dispatch(updateItemNote(id, size, value)),
   removeItem: (id, size) => dispatch(removeItem(id, size)),
 });
