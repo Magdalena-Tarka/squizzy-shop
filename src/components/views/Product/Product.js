@@ -21,7 +21,7 @@ const Component = ({ className, product, addToCart, fetchOneFromAPI, ...props })
 
   const [ size, setSize ] = useState(defaultSize);
   const [ price, setPrice ] = useState(defaultPrice);
-  const [ qnty, setQnty ] = useState(1);
+  const [ quantity, setQuantity ] = useState(1);
   const [show, setShow] = useState(false);
 
   useEffect(() => {
@@ -33,13 +33,13 @@ const Component = ({ className, product, addToCart, fetchOneFromAPI, ...props })
     setPrice(defaultPrice);
   }, [defaultSize, defaultPrice]);
 
-  const total = price * qnty;
+  const total = price * quantity;
 
   const handleChange = (value) => {
     if(typeof value === 'object') {
       setSize(value.size);
       setPrice(value.price);
-    } else setQnty(value);
+    } else setQuantity(value);
   };
 
   const handleAddToCart = () => {
@@ -48,9 +48,9 @@ const Component = ({ className, product, addToCart, fetchOneFromAPI, ...props })
       name: product.name,
       image: product.image,
       ingredients: product.ingredients,
-      size: size,
+      size,
       priceSingle: price,
-      quantity: qnty,
+      quantity,
     });
     setShow(true);
   };
@@ -94,8 +94,8 @@ const Component = ({ className, product, addToCart, fetchOneFromAPI, ...props })
                 <ProductDetailsForm
                   size={size}
                   price={price}
-                  qnty={qnty}
-                  onQnty={handleChange}
+                  quantity={quantity}
+                  onQuantity={handleChange}
                   onOption={handleChange}
                   options={product.options}
                 />
@@ -121,7 +121,7 @@ const Component = ({ className, product, addToCart, fetchOneFromAPI, ...props })
             isShow={show}
             size={size}
             price={price}
-            qnty={qnty}
+            quantity={quantity}
             onHide={setShowFalse}
           />
         )}

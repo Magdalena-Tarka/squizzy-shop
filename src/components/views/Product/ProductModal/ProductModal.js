@@ -5,7 +5,7 @@ import Modal from 'react-bootstrap/Modal';
 import { Button } from '../../../common/Button/Button';
 import { OrderListItem } from '../../../features/OrderListItem/OrderListItem';
 
-const Component = ({ isShow, size, price, qnty, name, image, onHide }) => {
+const Component = ({ isShow, size, price, quantity, name, image, onHide }) => {
   const history = useHistory();
 
   const handleClose = () => onHide();
@@ -25,7 +25,7 @@ const Component = ({ isShow, size, price, qnty, name, image, onHide }) => {
           image={image}
           name={name}
           priceSingle={price}
-          quantity={qnty}
+          quantity={quantity}
           size={size}
         />
       </Modal.Body>
@@ -47,7 +47,7 @@ Component.propTypes = {
   image: PropTypes.string,
   size: PropTypes.string,
   price: PropTypes.number,
-  qnty: PropTypes.number,
+  quantity: PropTypes.number,
   onHide: PropTypes.func,
 };
 

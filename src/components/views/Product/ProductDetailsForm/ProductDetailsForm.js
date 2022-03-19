@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import styles from './ProductDetailsForm.module.scss';
 
-const Component = ({className, onQnty, onOption, options}) => {
+const Component = ({className, onQuantity, onOption, options}) => {
 
   const handleChange = (event, option) => {
     if(option) {
       onOption(option);
     } else {
-      onQnty(parseInt(event.target.value));
+      onQuantity(parseInt(event.target.value));
     }
   };
 
@@ -62,7 +62,7 @@ Component.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
   options: PropTypes.array,
-  onQnty: PropTypes.func,
+  onQuantity: PropTypes.func,
   onOption: PropTypes.func,
 };
 

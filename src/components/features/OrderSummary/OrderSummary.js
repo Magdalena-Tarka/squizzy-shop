@@ -10,7 +10,7 @@ import styles from './OrderSummary.module.scss';
 
 const Component = ({ className, children, cartItems }) => {
 
-  const [ cartQnty, setCartQnty ] = useState(0);
+  const [ cartQuantity, setCartQuantity ] = useState(0);
   const [ subtotalPrice, setSubtotalPrice ] = useState(0);
 
   useEffect(() => {
@@ -20,9 +20,9 @@ const Component = ({ className, children, cartItems }) => {
       count += parseInt(item.quantity);
       price += parseInt(item.priceSingle) * parseInt(item.quantity);
     });
-    setCartQnty(count);
+    setCartQuantity(count);
     setSubtotalPrice(price);
-  }, [cartItems, cartQnty]);
+  }, [cartItems, cartQuantity]);
 
   const delivery = 0;
   const totalPrice = subtotalPrice + delivery;
