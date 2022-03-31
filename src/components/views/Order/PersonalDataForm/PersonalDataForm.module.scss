@@ -1,0 +1,9 @@
+@import '../../../../styles/settings.scss';
+
+.row {
+  .inputWrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 0 6px;
+  }
+}

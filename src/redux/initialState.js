@@ -1,3 +1,13 @@
+import { inputFields } from '../components/views/Order/PersonalDataForm/config';
+
+const orderForm = {};
+inputFields.forEach(field => {
+  orderForm[field.name] = {
+    isInvalid: false,
+    isTouched: false,
+  };
+});
+
 export const initialState = {
   products: {
     data: [/*
@@ -208,5 +218,8 @@ export const initialState = {
   },
   order: {
     data: [],
+  },
+  validation: {
+    orderForm,
   },
 };
