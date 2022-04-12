@@ -1,5 +1,5 @@
 /* selectors */
-export const getOrderValidation = ({validation}) => validation.orderForm;
+export const getValidation = ({validation}) => validation;
 
 /* action name creator */
 const reducerName = 'validation';
@@ -8,10 +8,12 @@ const createActionName = name => `app/${reducerName}/${name}`;
 /* action types */
 const SET_VALIDATION_PARAM = createActionName('SET_VALIDATION_PARAM');
 const SET_IS_TOUCHED = createActionName('SET_IS_TOUCHED');
+const UPDATE_ERROR_MSG = createActionName('UPDATE_ERROR_MSG');
 
 /* action creators */
 export const setValidationParam = (form, key, value) => ({ payload: {form, key, value}, type: SET_VALIDATION_PARAM });
 export const setIsTouched = (form, key) => ({ payload: {form, key}, type: SET_IS_TOUCHED });
+export const updateErrorMsg = (form, key, value) => ({ payload: {form, key, value}, type: UPDATE_ERROR_MSG });
 
 /* thunk creators */
 /* reducer */
@@ -37,6 +39,18 @@ export const reducer = (statePart = [], action = {}) => {
           [action.payload.key]: {
             ...statePart[action.payload.form][action.payload.key],
             isInvalid: action.payload.value,
+          },
+        },
+      };
+    }
+    case UPDATE_ERROR_MSG: {
+      return {
+        ...statePart,
+        [action.payload.form]: {
+          ...statePart[action.payload.form],
+          [action.payload.key]: {
+            ...statePart[action.payload.form][action.payload.key],
+            errorMsgs: action.payload.value,
           },
         },
       };

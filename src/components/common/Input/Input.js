@@ -8,28 +8,40 @@ const Component = ({className, ...props }) => {
     type = 'text',
     label,
     name,
-    isRequired,
-    isTouched,
-    isInvalid,
-    onChange,
-    onBlur,
-    onFocus,
-    errorMsg,
+    validationRules,
+    handleValidationEvents,
+    handleValidationParams,
+    handleInputValue,
   } = props;
+
+  const params = {
+    isRequired: handleValidationParams(name, 'isRequired', validationRules),
+    isTouched: handleValidationParams(name, 'isTouched'),
+    isInvalid: handleValidationParams(name, 'isInvalid'),
+    errorMsgs: handleValidationParams(name, 'errorMsgs'),
+  };
+
+  const eventHandler = (e) => {
+    //onChange && onChange(e);
+    handleValidationEvents(e, validationRules);
+  };
 
   return (
     <div className={clsx(className, styles.root)}>
-      <label htmlFor={name}>{label}{isRequired  && '*'}</label>
+      <label htmlFor={name}>{label}{params.isRequired  && '*'}</label>
       <input
-        className={clsx(isInvalid && isTouched && styles.warning)}
+        className={clsx(params.isInvalid && params.isTouched && styles.warning)}
         type={type}
         id={name}
         name={name}
-        onChange={onChange}
-        onBlur={onBlur}
-        onFocus={onFocus}
+        onChange={eventHandler}
+        onBlur={eventHandler}
+        onFocus={eventHandler}
+        value={handleInputValue(name)}
       />
-      <p className={clsx(isInvalid && isTouched && styles.warning, styles.errorMsg)}>{errorMsg}</p>
+      <p className={clsx(params.isInvalid && params.isTouched && styles.warning, styles.errorMsg)}>
+        {label} {params.errorMsgs}.
+      </p>
     </div>
   );
 };
@@ -37,15 +49,12 @@ const Component = ({className, ...props }) => {
 Component.propTypes = {
   className: PropTypes.string,
   type: PropTypes.string,
-  name: PropTypes.string,
-  label: PropTypes.string,
-  isRequired: PropTypes.bool,
-  isInvalid: PropTypes.bool,
-  isTouched: PropTypes.bool,
-  onChange: PropTypes.func,
-  onBlur: PropTypes.func,
-  onFocus: PropTypes.func,
-  errorMsg: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  handleValidationEvents: PropTypes.func,
+  validationRules: PropTypes.object,
+  handleValidationParams: PropTypes.func,
+  handleInputValue: PropTypes.func,
 };
 
 export {

@@ -7,7 +7,7 @@ import clsx from 'clsx';
 import { connect } from 'react-redux';
 import { getCartItems, cleanCartItems } from '../../../redux/cartRedux.js';
 import { getPersonalData, addOrderInAPI, cleanOrderForm } from '../../../redux/orderRedux.js';
-import { getOrderValidation } from '../../../redux/validationRedux';
+import { getValidation } from '../../../redux/validationRedux';
 
 import styles from './Order.module.scss';
 import { getCurrentDate } from '../../../utils';
@@ -31,20 +31,19 @@ const Component = ({ className, ...props }) => {
     orderValidation,
   } = props;
 
-  const requiredFields = Object.keys(inputFields)
-    .map(item => inputFields[item])
-    .filter(item => item.validationRules.required)
-    .map(item => item.name);
+  const requiredFields = inputFields
+    .map(field => field.validationRules.required && field.name)
+    .filter(item => !!item);
 
   const [show, setShow] = useState(false);
   const [showError, setShowError] = useState(false);
   const [areRequiredFieldsFilled, setAreRequiredFieldsFilled] = useState(false);
-  const [isFormValid, setIisFormValid] = useState(false);
+  const [isFormValid, setIsFormValid] = useState(true);
   const history  = useHistory();
 
   const order = {
     orderItems: cartItems,
-    personalData: personalData,
+    personalData,
   };
 
   useEffect(() => {
@@ -52,12 +51,13 @@ const Component = ({ className, ...props }) => {
       && requiredFields.every(field => order.personalData[field]
       && order.personalData[field].length));
 
-    setIisFormValid(Object.keys(orderValidation).every(field => !orderValidation[field].isInvalid));
+    setIsFormValid(Object.keys(orderValidation.orderForm)
+      .every(field => orderValidation.orderForm[field].isInvalid === false));
 
   }, [areRequiredFieldsFilled, isFormValid, order.personalData, orderValidation, requiredFields]);
 
   const emptyCartMsg = 'There is nothing in your cart yet, go back to homepage.';
-  const emptyFormMsg = 'Please fill your data.';
+  const invalidFormMsg = 'Please check your data, there is an error.';
 
   const handleAddOrder = () => {
     if (!order.orderItems.length) return;
@@ -68,7 +68,7 @@ const Component = ({ className, ...props }) => {
     order.date = getCurrentDate();
     addOrderInAPI(order);
     cleanCartItems();
-    cleanOrderForm();
+    cleanOrderForm(Object.keys(personalData));
     setShow(true);
   };
 
@@ -110,7 +110,7 @@ const Component = ({ className, ...props }) => {
                   <Button className={styles.order_btn}
                     variant="basic"
                     onClick={handleAddOrder}
-                    disabled={!cartItems.length}
+                    disabled={!cartItems.length || !areRequiredFieldsFilled || !isFormValid}
                   >order</Button>
                 </OrderSummary>
               </Col>
@@ -143,7 +143,7 @@ const Component = ({ className, ...props }) => {
 
         <Modal show={showError} onHide={handleCloseError} centered>
           <Modal.Body>
-            <Modal.Title>{emptyFormMsg}</Modal.Title>
+            <Modal.Title>{invalidFormMsg}</Modal.Title>
           </Modal.Body>
         </Modal>
       </Container>
@@ -152,7 +152,6 @@ const Component = ({ className, ...props }) => {
 };
 
 Component.propTypes = {
-  children: PropTypes.node,
   className: PropTypes.string,
   cartItems: PropTypes.array,
   addOrderInAPI: PropTypes.func,
@@ -165,7 +164,7 @@ Component.propTypes = {
 const mapStateToProps = state => ({
   cartItems: getCartItems(state),
   personalData: getPersonalData(state),
-  orderValidation: getOrderValidation(state),
+  orderValidation: getValidation(state),
 });
 
 const mapDispatchToProps = dispatch => ({
