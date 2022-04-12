@@ -36,18 +36,20 @@ export default WrappedComponent => {
       });
     };
 
-    const handleChange = e => updateAction(e.target.name, e.target.value);
+    const handleChange = (name, value) => updateAction(name, value);
     const handleFocus = (form, field) => setValidationParam(form, field, false);
 
     const handleBlur = (form, field, rules, value) => {
-      setIsTouched(form, field);
+      setIsTouched(form, field, true);
       checkValidation(form, field, value, rules);
     };
 
     const handleValidationEvents = (e, rules) => {
-      if (e._reactName === 'onChange') handleChange(e);
-      if (e._reactName === 'onFocus') handleFocus(e.target.form.id, e.target.name);
-      if (e._reactName === 'onBlur') handleBlur(e.target.form.id, e.target.name, rules, e.target.value);
+      const eventType = e.type;
+      const { form, name, value } = e.target;
+      if (eventType === 'change') handleChange(name, value);
+      if (eventType === 'focus') handleFocus(form.id, name);
+      if (eventType === 'blur') handleBlur(form.id, name, rules, value);
     };
 
     const handleValidationParams = (field, param, rules) => {
@@ -81,7 +83,7 @@ export default WrappedComponent => {
 
   const mapDispatchToProps = dispatch => ({
     setValidationParam: (form, key, value) => dispatch(setValidationParam(form, key, value)),
-    setIsTouched: (form, key) => dispatch(setIsTouched(form, key)),
+    setIsTouched: (form, key, value) => dispatch(setIsTouched(form, key, value)),
     updateErrorMsg: (form, key, value) => dispatch(updateErrorMsg(form, key, value)),
   });
 
