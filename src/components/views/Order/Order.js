@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 
@@ -7,10 +7,13 @@ import clsx from 'clsx';
 import { connect } from 'react-redux';
 import { getCartItems, cleanCartItems } from '../../../redux/cartRedux.js';
 import { getPersonalData, addOrderInAPI, cleanOrderForm } from '../../../redux/orderRedux.js';
+import { getValidation } from '../../../redux/validationRedux';
 
 import styles from './Order.module.scss';
+import { getCurrentDate } from '../../../utils';
+import { inputFields } from './PersonalDataForm/config';
 import { OrderListItem } from '../../features/OrderListItem/OrderListItem';
-import { PersonalDataForm } from '../../features/PersonalDataForm/PersonalDataForm';
+import { PersonalDataForm } from './PersonalDataForm/PersonalDataForm';
 import { OrderSummary } from '../../features/OrderSummary/OrderSummary';
 import { Button } from '../../common/Button/Button';
 
@@ -18,71 +21,63 @@ import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Modal from 'react-bootstrap/Modal';
 
-const Component = ({ className, cartItems, addOrderInAPI, personalData, cleanCartItems, cleanOrderForm }) => {
+const Component = ({ className, ...props }) => {
+  const {
+    cartItems,
+    addOrderInAPI,
+    personalData,
+    cleanCartItems,
+    cleanOrderForm,
+    orderValidation,
+  } = props;
+
+  const requiredFields = inputFields
+    .map(field => field.validationRules.required && field.name)
+    .filter(item => !!item);
 
   const [show, setShow] = useState(false);
+  const [showError, setShowError] = useState(false);
+  const [areRequiredFieldsFilled, setAreRequiredFieldsFilled] = useState(false);
+  const [isFormValid, setIsFormValid] = useState(true);
   const history  = useHistory();
-
-  const getCurrentDate = () => {
-    const currentDate = new Date();
-    const [minute, hour, day, month, year] = [
-      currentDate.getUTCMinutes(),
-      currentDate.getUTCHours(),
-      currentDate.getUTCDate(),
-      currentDate.getUTCMonth()+1,
-      currentDate.getUTCFullYear(),
-    ];
-    let newDate = month + '/' + day + '/' + year + ', ' + hour + ':' + (minute < 10 ? ('0' + minute) : minute);
-    return newDate;
-  };
 
   const order = {
     orderItems: cartItems,
-    personalData: personalData,
+    personalData,
   };
 
-  const handleAddOrder = event => {
-    event.preventDefault();
+  useEffect(() => {
+    setAreRequiredFieldsFilled(order.personalData
+      && requiredFields.every(field => order.personalData[field]
+      && order.personalData[field].length));
 
-    if(!order.personalData.firstName ||
-      !order.personalData.lastName ||
-      !order.personalData.street ||
-      !order.personalData.number ||
-      !order.personalData.city ||
-      !order.personalData.phone)
-    {
-      alert('You can\'t leave required fields empty!');
-    } else if(order.personalData.firstName.length < 2) {
-      alert('Name can\'t be shorter than 2 characters');
-    } else if(order.personalData.lastName.length < 2) {
-      alert('Name can\'t be shorter than 2 characters');
-    } else if(order.personalData.street.length < 2) {
-      alert('Street can\'t be shorter than 2 characters');
-    } else if(order.personalData.city.length < 2) {
-      alert('City can\'t be shorter than 2 characters');
-    } else if(order.personalData.phone.length < 9) {
-      alert('Phone nr can\'t be shorter than 9 numbers');
-    } else {
+    setIsFormValid(Object.keys(orderValidation.orderForm)
+      .every(field => orderValidation.orderForm[field].isInvalid === false));
 
-      order.date = getCurrentDate();
-      if(!order.orderItems.length) {
-        alert('There is nothing in your cart yet, go back to homepage.');
-      } else {
-        addOrderInAPI(order);
-        cleanCartItems();
-        cleanOrderForm();
-        setShow(true);
-        //window.location.reload();
-      }
+  }, [areRequiredFieldsFilled, isFormValid, order.personalData, orderValidation, requiredFields]);
+
+  const emptyCartMsg = 'There is nothing in your cart yet, go back to homepage.';
+  const invalidFormMsg = 'Please check your data, there is an error.';
+
+  const handleAddOrder = () => {
+    if (!order.orderItems.length) return;
+    if (!areRequiredFieldsFilled || !isFormValid) {
+      setShowError(true);
+      return;
     }
-  };
-
-  const handleGoToHp = event => {
-    setShow(false);
-    history.push('/');
+    order.date = getCurrentDate();
+    addOrderInAPI(order);
+    cleanCartItems();
+    cleanOrderForm(Object.keys(personalData));
+    setShow(true);
   };
 
   const handleClose = () => setShow(false);
+  const handleCloseError = () => setShowError(false);
+  const handleGoToHp = () => {
+    setShow(false);
+    history.push('/');
+  };
 
   return (
     <div className={clsx(className, styles.root)}>
@@ -102,7 +97,7 @@ const Component = ({ className, cartItems, addOrderInAPI, personalData, cleanCar
                 <h5 className={clsx('_title', styles.orderList_title)}>Your order details</h5>
                 <div className={styles.orderList}>
                   {!cartItems.length ? (
-                    <p>There is nothing in your cart yet, go back to homepage.</p>
+                    <p>{emptyCartMsg}</p>
                   ) : cartItems.map(item => (
                     <OrderListItem key={item._id} {...item} />
                   ))}
@@ -115,6 +110,7 @@ const Component = ({ className, cartItems, addOrderInAPI, personalData, cleanCar
                   <Button className={styles.order_btn}
                     variant="basic"
                     onClick={handleAddOrder}
+                    disabled={!cartItems.length || !areRequiredFieldsFilled || !isFormValid}
                   >order</Button>
                 </OrderSummary>
               </Col>
@@ -144,24 +140,31 @@ const Component = ({ className, cartItems, addOrderInAPI, personalData, cleanCar
             </Button>
           </Modal.Footer>
         </Modal>
+
+        <Modal show={showError} onHide={handleCloseError} centered>
+          <Modal.Body>
+            <Modal.Title>{invalidFormMsg}</Modal.Title>
+          </Modal.Body>
+        </Modal>
       </Container>
     </div>
   );
 };
 
 Component.propTypes = {
-  children: PropTypes.node,
   className: PropTypes.string,
   cartItems: PropTypes.array,
   addOrderInAPI: PropTypes.func,
   personalData: PropTypes.object,
   cleanOrderForm: PropTypes.func,
   cleanCartItems: PropTypes.func,
+  orderValidation: PropTypes.object,
 };
 
 const mapStateToProps = state => ({
   cartItems: getCartItems(state),
   personalData: getPersonalData(state),
+  orderValidation: getValidation(state),
 });
 
 const mapDispatchToProps = dispatch => ({

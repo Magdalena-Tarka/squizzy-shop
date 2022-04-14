@@ -1,0 +1,73 @@
+@import '../../../../styles/settings.scss';
+
+.root {
+  .details_size {
+    margin-bottom: 4px;
+  }
+
+  .radio {
+    display: block;
+    position: relative;
+    padding-left: 24px;
+    margin-left: 12px;
+    user-select: none;
+
+    label {
+      cursor: pointer;
+    }
+    input {
+      position: absolute;
+      opacity: 0;
+      height: 0;
+      width: 0;
+      cursor: pointer;
+    }
+    .checkmark {
+      position: absolute;
+      top: 6px;
+      left: 0;
+      height: 16px;
+      width: 16px;
+      border: 1px solid $product-text-color;
+      border-radius: 50%;
+
+      &:after {
+        content: "";
+        position: absolute;
+        display: none;
+        width: 9px;
+        height: 5px;
+        border-left: 2px solid $product-radio-color;
+        border-bottom: 2px solid $product-radio-color;
+        transform: rotate(-45deg);
+        top: 4px;
+        left: 3px;
+      }
+
+      @include extra-extra-small {
+        top: 2px;
+      }
+    }
+    &:hover input ~ .checkmark {
+      content: none;
+    }
+    input:checked ~ .checkmark:after {
+      display: block;
+    }
+  }
+
+  .details_quantity {
+    input {
+      margin-left: 6px;
+      background: transparent;
+      border-radius: $product-border-radius;
+      border: 1px solid $product-text-color;
+      padding: 0 18px;
+      width: 72px;
+      font-weight: $product-font-weight-basic;
+    }
+    * {
+      display: inline-flex;
+    }
+  }
+}

@@ -8,14 +8,14 @@ const createActionName = name => `app/${reducerName}/${name}`;
 /* action types */
 const ADD_TO_CART = createActionName('ADD_TO_CART');
 const REMOVE_ITEM = createActionName('REMOVE_ITEM');
-const UPDATE_ITEM_QNTY = createActionName('UPDATE_ITEM_QNTY');
+const UPDATE_ITEM_QUANTITY = createActionName('UPDATE_ITEM_QUANTITY');
 const UPDATE_ITEM_NOTE = createActionName('UPDATE_ITEM_NOTE');
 const CLEAN_CART_ITEMS = createActionName('CLEAN_CART_ITEMS');
 
 /* action creators */
 export const addToCart = payload => ({ payload, type: ADD_TO_CART });
 export const removeItem = (id, size) => ({ payload: {id, size}, type: REMOVE_ITEM });
-export const updateItemQnty = (id, size, qnty) => ({ payload: {id, size, qnty}, type: UPDATE_ITEM_QNTY });
+export const updateItemQuantity = (id, size, quantity) => ({ payload: {id, size, quantity}, type: UPDATE_ITEM_QUANTITY });
 export const updateItemNote = (id, size, note) => ({ payload: {id, size, note}, type: UPDATE_ITEM_NOTE });
 export const cleanCartItems = payload => ({ payload, type: CLEAN_CART_ITEMS });
 
@@ -26,7 +26,6 @@ export const reducer = (statePart = [], action = {}) => {
   switch (action.type) {
     case ADD_TO_CART: {
       const inCart = statePart.items.find(item => (item._id === action.payload._id && item.size === action.payload.size) ? true : false);
-      console.log('inCart1', inCart);
       return {
         ...statePart,
         items: inCart
@@ -38,12 +37,12 @@ export const reducer = (statePart = [], action = {}) => {
           : [...statePart.items, action.payload],
       };
     }
-    case UPDATE_ITEM_QNTY: {
+    case UPDATE_ITEM_QUANTITY: {
       return {
         ...statePart,
         items: statePart.items.map(item =>
           (item._id === action.payload.id && item.size === action.payload.size)
-            ? {...item, quantity: +action.payload.qnty}
+            ? {...item, quantity: +action.payload.quantity}
             : item
         ),
       };
