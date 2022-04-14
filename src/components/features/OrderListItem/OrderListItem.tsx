@@ -1,15 +1,19 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-
+//import React from 'react';
 import clsx from 'clsx';
-
-// import { connect } from 'react-redux';
-// import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux.js';
-
 import styles from './OrderListItem.module.scss';
 import Col from 'react-bootstrap/Col';
 
-const Component = ({className, image, name, note, priceSingle, quantity, size}) => (
+interface IOrderListItem {
+  image: string;
+  name: string;
+  note: string;
+  priceSingle: number;
+  quantity: number;
+  size: string;
+  className?: string;
+}
+
+const Component = ({ image, name, note, priceSingle, quantity, size, className}: IOrderListItem) => (
   <div className={clsx(className, styles.root)}>
 
     <div className={styles.orderListItem_img}>
@@ -40,28 +44,7 @@ const Component = ({className, image, name, note, priceSingle, quantity, size}) 
   </div>
 );
 
-Component.propTypes = {
-  className: PropTypes.string,
-  image: PropTypes.string,
-  name: PropTypes.string,
-  note: PropTypes.string,
-  priceSingle: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  quantity: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  size: PropTypes.string,
-};
-
-// const mapStateToProps = state => ({
-//   someProp: reduxSelector(state),
-// });
-
-// const mapDispatchToProps = dispatch => ({
-//   someAction: arg => dispatch(reduxActionCreator(arg)),
-// });
-
-// const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
-
 export {
   Component as OrderListItem,
-  // Container as OrderListItem,
   Component as OrderListItemComponent,
 };

@@ -29,7 +29,6 @@ const Component = ({className}) => (
             The page you are looking for seems to not exist..
           </p>
           <Button className={styles.nf_btn}
-            variant="basic"
             as={NavLink}
             to='/'
           >go to homepage</Button>

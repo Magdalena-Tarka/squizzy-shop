@@ -151,10 +151,9 @@ const Component = ({ className, product, addToCart, fetchOneFromAPI, ...props })
                   {total}$
                 </p>
 
-                <Button className={styles.details_btn}
-                  variant='basic'
-                  onClick={handleAddToCart}
-                >add to cart</Button>
+                <Button className={styles.details_btn} onClick={handleAddToCart}>
+                  add to cart
+                </Button>
               </Col>
             </div>
           )}
@@ -175,7 +174,7 @@ const Component = ({ className, product, addToCart, fetchOneFromAPI, ...props })
               />
             </Modal.Body>
             <Modal.Footer>
-              <Button variant='basic' onClick={handleGoToCart}>
+              <Button onClick={handleGoToCart}>
                 Go to the cart
               </Button>
               <Button variant='dark' onClick={handleContinue}>

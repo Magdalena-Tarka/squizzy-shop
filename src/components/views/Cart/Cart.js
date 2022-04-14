@@ -45,7 +45,6 @@ const Component = ({ className, cartItems }) => {
                 <Col className={styles.emptyCartBox}>
                   <p>There is no any items in your cart yet</p>
                   <Button className={styles.cart_btn}
-                    variant="basic"
                     as={NavLink}
                     to='/'
                   >go to homepage</Button>
@@ -69,7 +68,6 @@ const Component = ({ className, cartItems }) => {
                   <div className={styles.stickyBox}>
                     <OrderSummary className={styles.cartSummary}>
                       <Button className={styles.cart_btn}
-                        variant="basic"
                         as={NavLink}
                         to='/order'
                       >make order</Button>

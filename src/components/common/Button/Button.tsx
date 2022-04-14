@@ -1,9 +1,15 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import clsx from 'clsx';
 import styles from './Button.module.scss';
 import Button from 'react-bootstrap/Button';
 
-const Component = ({children, variant, className: propClassName, ...props}) => {
+interface IButtonProps {
+  children?: React.ReactNode;
+  variant?: string;
+  className?: string;
+}
+
+const Component = ({children, variant, className: propClassName, ...props}: IButtonProps) => {
 
   const classes = [];
   if (propClassName) classes.push(propClassName);
@@ -11,7 +17,7 @@ const Component = ({children, variant, className: propClassName, ...props}) => {
 
   return (
     <Button
-      className={classes.join(' ')}
+      className={clsx(styles.basic, classes.join(' '))}
       type='button'
       variant='dark'
       {...props}
@@ -19,12 +25,6 @@ const Component = ({children, variant, className: propClassName, ...props}) => {
       {children}
     </Button>
   );
-};
-
-Component.propTypes = {
-  children: PropTypes.node,
-  className: PropTypes.string,
-  variant: PropTypes.string,
 };
 
 export {
