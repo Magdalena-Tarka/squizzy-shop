@@ -21,7 +21,7 @@ export const fetchStarted = payload => ({ payload, type: FETCH_START });
 export const fetchSuccess = payload => ({ payload, type: FETCH_SUCCESS });
 export const fetchError = payload => ({ payload, type: FETCH_ERROR });
 export const addOrder = payload => ({ payload, type: ADD_ORDER });
-export const updateOrderForm = payload => ({ payload, type: UPDATE_ORDER_FORM });
+export const updateOrderForm = (field, value) => ({ payload: {field, value}, type: UPDATE_ORDER_FORM });
 export const cleanOrderForm = payload => ({ payload, type: CLEAN_ORDER_FORM });
 
 /* thunk creators */
@@ -79,20 +79,18 @@ export const reducer = (statePart = [], action = {}) => {
       return {
         ...statePart,
         personalData: {
-          firstName: action.payload.firstName,
-          lastName: action.payload.lastName,
-          street: action.payload.street,
-          number: action.payload.number,
-          city: action.payload.city,
-          phone: action.payload.phone,
+          ...statePart.personalData,
+          [action.payload.field]: action.payload.value,
         },
       };
     }
     case CLEAN_ORDER_FORM: {
+      const personalData = {};
+      action.payload.forEach(item => personalData[item] = '');
       return {
         ...statePart,
         data: [],
-        personalData: {},
+        personalData,
       };
     }
     default:

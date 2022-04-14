@@ -19,7 +19,7 @@ router.post('/orders', async (req, res) => {
     const { orderItems, personalData, date } = req.body;
     const newPost = new Order({ orderItems, personalData, date });
     await newPost.save();
-    //res.json({ message: 'OK' });
+    //res.json(newPost);
   }
   catch(err) {
     console.log(err);

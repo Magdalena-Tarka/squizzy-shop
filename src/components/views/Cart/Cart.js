@@ -18,15 +18,15 @@ import Col from 'react-bootstrap/Col';
 const Component = ({ className, cartItems }) => {
   //console.log('cartItems:', cartItems);
 
-  const [ cartQnty, setCartQnty ] = useState(0);
+  const [ cartQuantity, setCartQuantity ] = useState(0);
 
   useEffect(() => {
     let count = 0;
     cartItems.forEach(item => {
       count += parseInt(item.quantity);
     });
-    setCartQnty(count);
-  }, [cartItems, cartQnty]);
+    setCartQuantity(count);
+  }, [cartItems, cartQuantity]);
 
   return (
     <div className={clsx(className, styles.root)}>
@@ -40,7 +40,7 @@ const Component = ({ className, cartItems }) => {
             {!cartItems.length ? (
               <div className={styles.emptyCartBox_wrapper}>
                 <h3 className={styles.title}>
-                  Cart<span> ({cartQnty} pcs)</span>
+                  Cart<span> ({cartQuantity} pcs)</span>
                 </h3>
                 <Col className={styles.emptyCartBox}>
                   <p>There is no any items in your cart yet</p>
@@ -56,7 +56,7 @@ const Component = ({ className, cartItems }) => {
 
                 <div className={styles.main}>
                   <h3 className={styles.title}>
-                    Cart<span> ({cartQnty} pcs)</span>
+                    Cart<span> ({cartQuantity} pcs)</span>
                   </h3>
                   <Col className={styles.productsList_wrapper} sm={12}>
                     {cartItems.map((cartItem, index) => (
