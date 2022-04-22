@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 import clsx from 'clsx';
 
 import { connect } from 'react-redux';
-import { getCartItems } from '../../../redux/cartRedux.js';
+import { getCartItems } from '../../../redux/cartRedux';
 
 import styles from './Cart.module.scss';
 import { CartProduct } from '../../features/CartProduct/CartProduct';

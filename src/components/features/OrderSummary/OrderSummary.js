@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import clsx from 'clsx';
 
 import { connect } from 'react-redux';
-import { getCartItems } from '../../../redux/cartRedux.js';
+import { getCartItems } from '../../../redux/cartRedux';
 
 import styles from './OrderSummary.module.scss';
 

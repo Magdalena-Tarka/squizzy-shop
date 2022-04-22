@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import clsx from 'clsx';
 
 import { connect } from 'react-redux';
-import { getOne, fetchOneFromAPI } from '../../../redux/productsRedux.js';
-import { addToCart } from '../../../redux/cartRedux.js';
+import { getOne, fetchOneFromAPI } from '../../../redux/productsRedux';
+import { addToCart } from '../../../redux/cartRedux';
 
 import styles from './Product.module.scss';
 import { Button } from '../../common/Button/Button';

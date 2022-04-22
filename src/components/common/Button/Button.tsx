@@ -7,19 +7,28 @@ interface IButtonProps {
   children?: React.ReactNode;
   variant?: string;
   className?: string;
+  disabled?: boolean,
+  onClick?: () => void,
 }
 
-const Component = ({children, variant, className: propClassName, ...props}: IButtonProps) => {
+const Component = ({ className: propClassName, ...props }: IButtonProps) => {
+  const { children, variant, disabled, onClick } = props;
 
   const classes = [];
   if (propClassName) classes.push(propClassName);
   if (variant) classes.push(styles[variant]);
+
+  const eventHandler = () => {
+    onClick && onClick();
+  };
 
   return (
     <Button
       className={clsx(styles.basic, classes.join(' '))}
       type='button'
       variant='dark'
+      onClick={eventHandler}
+      disabled={disabled}
       {...props}
     >
       {children}

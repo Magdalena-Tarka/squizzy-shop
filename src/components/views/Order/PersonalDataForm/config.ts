@@ -1,4 +1,6 @@
-const patterns = {
+import { IPatterns, InputFields } from '../../../../types';
+
+const patterns: IPatterns = {
   namePattern: {
     label: 'namePattern',
     pattern: /^[A-zĄ-ż ,.-]*$/,
@@ -17,7 +19,7 @@ const patterns = {
   },
 };
 
-export const inputFields = [
+export const inputFields: InputFields = [
   {
     name: 'firstName',
     label: 'first name',
@@ -51,8 +53,6 @@ export const inputFields = [
   {
     name: 'number',
     label: 'number',
-    minLength: 1,
-    maxLength: 10,
     validationRules: {
       required: true,
       pattern: patterns.numberPattern,

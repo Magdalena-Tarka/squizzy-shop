@@ -1,4 +1,3 @@
-//import React from 'react';
 import clsx from 'clsx';
 import styles from './OrderListItem.module.scss';
 import Col from 'react-bootstrap/Col';
@@ -6,7 +5,7 @@ import Col from 'react-bootstrap/Col';
 interface IOrderListItem {
   image: string;
   name: string;
-  note: string;
+  note?: string;
   priceSingle: number;
   quantity: number;
   size: string;

@@ -1,9 +1,46 @@
+import { AnyAction } from 'redux';
+import { IItem, ICart } from '../types';
+import { initialState } from './initialState';
+
+export type CartState = Record<'cart', ICart>;
+export interface IAddToCart {
+  type: 'ADD_TO_CART',
+  payload: IItem,
+}
+export interface IRemoveItem extends AnyAction {
+  type: 'REMOVE_ITEM',
+  payload: {
+    id: string,
+    size: string,
+  },
+}
+export interface IUpdateItemQuantity extends AnyAction {
+  type: 'UPDATE_ITEM_QUANTITY',
+  payload: {
+    id: string,
+    size: string,
+    quantity: number,
+  },
+}
+export interface IUpdateItemNote extends AnyAction {
+  type: 'UPDATE_ITEM_NOTE',
+  payload: {
+    id: string,
+    size: string,
+    note: string,
+  },
+}
+export interface ICleanCartItems extends AnyAction {
+  type: 'CLEAN_CART_ITEMS',
+}
+export type CartAction = IAddToCart | IRemoveItem | IUpdateItemQuantity | IUpdateItemNote | ICleanCartItems;
+
 /* selectors */
-export const getCartItems = ({cart}) => cart.items;
+export const getCartItems = ({cart}: CartState) => cart.items;
 
 /* action name creator */
 const reducerName = 'cart';
-const createActionName = name => `app/${reducerName}/${name}`;
+const createActionName = (name: string) => `app/${reducerName}/${name}`;
 
 /* action types */
 const ADD_TO_CART = createActionName('ADD_TO_CART');
@@ -13,16 +50,16 @@ const UPDATE_ITEM_NOTE = createActionName('UPDATE_ITEM_NOTE');
 const CLEAN_CART_ITEMS = createActionName('CLEAN_CART_ITEMS');
 
 /* action creators */
-export const addToCart = payload => ({ payload, type: ADD_TO_CART });
-export const removeItem = (id, size) => ({ payload: {id, size}, type: REMOVE_ITEM });
-export const updateItemQuantity = (id, size, quantity) => ({ payload: {id, size, quantity}, type: UPDATE_ITEM_QUANTITY });
-export const updateItemNote = (id, size, note) => ({ payload: {id, size, note}, type: UPDATE_ITEM_NOTE });
-export const cleanCartItems = payload => ({ payload, type: CLEAN_CART_ITEMS });
+export const addToCart = (payload: IItem) => ({ payload, type: ADD_TO_CART });
+export const removeItem = (id: string, size: string) => ({ payload: {id, size}, type: REMOVE_ITEM });
+export const updateItemQuantity = (id: string, size: string, quantity: number) => ({ payload: {id, size, quantity}, type: UPDATE_ITEM_QUANTITY });
+export const updateItemNote = (id: string, size: string, note: string) => ({ payload: {id, size, note}, type: UPDATE_ITEM_NOTE });
+export const cleanCartItems = () => ({ type: CLEAN_CART_ITEMS });
 
 /* thunk creators */
 
 /* reducer */
-export const reducer = (statePart = [], action = {}) => {
+export const reducer = (statePart = initialState[reducerName], action: CartAction): ICart => {
   switch (action.type) {
     case ADD_TO_CART: {
       const inCart = statePart.items.find(item => (item._id === action.payload._id && item.size === action.payload.size) ? true : false);
@@ -31,7 +68,7 @@ export const reducer = (statePart = [], action = {}) => {
         items: inCart
           ? statePart.items.map(item =>
             item._id === action.payload._id && item.size === action.payload.size
-              ? { ...item, quantity: parseInt(item.quantity) + parseInt(action.payload.quantity) }
+              ? { ...item, quantity: item.quantity + parseInt(action.payload.quantity) }
               : item
           )
           : [...statePart.items, action.payload],
