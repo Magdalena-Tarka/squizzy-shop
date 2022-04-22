@@ -14,16 +14,16 @@ interface IInputProps {
   handleInputValue?: (field: keyof PersonalData) => string,
 }
 
-const Component = ({className, ...props }: IInputProps) => {
-  const {
-    type = 'text',
-    label,
-    name,
-    validationRules,
-    handleValidationEvents,
-    handleValidationParams,
-    handleInputValue,
-  } = props;
+const Component = ({
+  className,
+  type = 'text',
+  label,
+  name,
+  validationRules,
+  handleValidationEvents,
+  handleValidationParams,
+  handleInputValue,
+}: IInputProps) => {
 
   const params = {
     isRequired: handleValidationParams && handleValidationParams(name, 'isRequired', validationRules),

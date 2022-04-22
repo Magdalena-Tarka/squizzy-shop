@@ -19,8 +19,20 @@ interface IOwnProps {
   size: string,
 }
 
-const Component = ({className, updateQuantity, updateNote, removeItem, ...props}: Props) => {
-  const {_id, image, name, note, ingredients, priceSingle, quantity, size} = props;
+const Component = ({
+  className,
+  _id,
+  image,
+  name,
+  note,
+  ingredients,
+  priceSingle,
+  quantity,
+  size,
+  updateQuantity,
+  updateNote,
+  removeItem,
+}: Props) => {
 
   const [amountInput, setAmountInput] = useState(quantity);
   const [noteInput, setNotetInput] = useState('');
@@ -104,7 +116,6 @@ type Props = PropsFromRedux & IOwnProps;
 const Container = connector(Component);
 
 export {
-  //Component as CartProduct,
   Container as CartProduct,
   Component as CartProductComponent,
 };

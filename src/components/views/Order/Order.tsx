@@ -10,7 +10,7 @@ import { getValidation } from '../../../redux/validationRedux';
 
 import styles from './Order.module.scss';
 import { getCurrentDate } from '../../../utils';
-import { IInitialState, IOrder } from '../../../types';
+import { IInitialState, IOrder, IOrderForm } from '../../../types';
 
 import { inputFields } from './PersonalDataForm/config';
 import { OrderListItem } from '../../features/OrderListItem/OrderListItem';
@@ -26,16 +26,15 @@ interface IOwnProps {
   className?: string,
 }
 
-const Component = ({ ...props }: Props) => {
-  const {
-    className,
-    cartItems,
-    personalData,
-    orderValidation,
-    addOrderInAPI,
-    cleanCartItems,
-    cleanOrderForm,
-  } = props;
+const Component = ({
+  className,
+  cartItems,
+  personalData,
+  orderValidation,
+  addOrderInAPI,
+  cleanCartItems,
+  cleanOrderForm,
+}: Props) => {
 
   const requiredFields = inputFields
     .map(field => field.validationRules.required && field.name)
@@ -60,8 +59,7 @@ const Component = ({ ...props }: Props) => {
         && order.personalData[field].length));
 
     setIsFormValid(Object.keys(orderValidation.orderForm)
-      // @ts-ignore
-      .every((field) => orderValidation.orderForm[field].isInvalid === false));
+      .every((field) => orderValidation.orderForm[field as keyof IOrderForm].isInvalid === false));
 
   }, [areRequiredFieldsFilled, isFormValid, order.personalData, orderValidation, requiredFields]);
 

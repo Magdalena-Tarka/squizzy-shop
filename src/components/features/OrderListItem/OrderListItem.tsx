@@ -12,9 +12,17 @@ interface IOrderListItem {
   className?: string;
 }
 
-const Component = ({ image, name, note, priceSingle, quantity, size, className}: IOrderListItem) => (
-  <div className={clsx(className, styles.root)}>
+const Component = ({
+  image,
+  name,
+  note,
+  priceSingle,
+  quantity,
+  size,
+  className,
+}: IOrderListItem) => (
 
+  <div className={clsx(className, styles.root)}>
     <div className={styles.orderListItem_img}>
       <img src={image} alt={name} />
     </div>

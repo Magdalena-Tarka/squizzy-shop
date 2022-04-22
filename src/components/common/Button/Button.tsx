@@ -11,11 +11,15 @@ interface IButtonProps {
   onClick?: () => void,
 }
 
-const Component = ({ className: propClassName, ...props }: IButtonProps) => {
-  const { children, variant, disabled, onClick } = props;
+const Component = ({
+  className = '',
+  children,
+  variant,
+  disabled,
+  onClick,
+}: IButtonProps) => {
 
-  const classes = [];
-  if (propClassName) classes.push(propClassName);
+  const classes = [styles.basic, className];
   if (variant) classes.push(styles[variant]);
 
   const eventHandler = () => {
@@ -24,12 +28,11 @@ const Component = ({ className: propClassName, ...props }: IButtonProps) => {
 
   return (
     <Button
-      className={clsx(styles.basic, classes.join(' '))}
+      className={clsx(classes.join(' '))}
       type='button'
-      variant='dark'
+      variant='dark' // It is bootstrap button attribute
       onClick={eventHandler}
       disabled={disabled}
-      {...props}
     >
       {children}
     </Button>

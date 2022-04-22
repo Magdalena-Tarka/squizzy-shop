@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
 import PropTypes from 'prop-types';
-import { NavLink } from 'react-router-dom';
 
 import clsx from 'clsx';
 
@@ -16,9 +16,8 @@ import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 
 const Component = ({ className, cartItems }) => {
-  //console.log('cartItems:', cartItems);
-
   const [ cartQuantity, setCartQuantity ] = useState(0);
+  const history = useHistory();
 
   useEffect(() => {
     let count = 0;
@@ -27,6 +26,10 @@ const Component = ({ className, cartItems }) => {
     });
     setCartQuantity(count);
   }, [cartItems, cartQuantity]);
+
+  const handleRedirect = (path) => {
+    history.push(path);
+  };
 
   return (
     <div className={clsx(className, styles.root)}>
@@ -44,9 +47,9 @@ const Component = ({ className, cartItems }) => {
                 </h3>
                 <Col className={styles.emptyCartBox}>
                   <p>There is no any items in your cart yet</p>
-                  <Button className={styles.cart_btn}
-                    as={NavLink}
-                    to='/'
+                  <Button
+                    className={styles.cart_btn}
+                    onClick={() => handleRedirect('/')}
                   >go to homepage</Button>
                 </Col>
               </div>
@@ -67,9 +70,9 @@ const Component = ({ className, cartItems }) => {
                 <div className={styles.aside}>
                   <div className={styles.stickyBox}>
                     <OrderSummary className={styles.cartSummary}>
-                      <Button className={styles.cart_btn}
-                        as={NavLink}
-                        to='/order'
+                      <Button
+                        className={styles.cart_btn}
+                        onClick={() => handleRedirect('/order')}
                       >make order</Button>
                     </OrderSummary>
                   </div>

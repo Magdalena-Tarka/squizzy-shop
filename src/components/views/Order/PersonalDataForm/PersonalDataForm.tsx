@@ -89,7 +89,6 @@ type Props = PropsFromRedux & IOwnProps;
 
 const ComponentWrappedByHOC = withValidation(Component);
 const Container = connector(ComponentWrappedByHOC);
-//const Container = connect(mapStateToProps, mapDispatchToProps)(ComponentWrappedByHOC);
 
 export {
   Container as PersonalDataForm,
