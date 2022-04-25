@@ -1,5 +1,5 @@
 import { Dispatch, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useRedirect } from '../../../hooks/useRedirect';
 
 import clsx from 'clsx';
 
@@ -44,7 +44,7 @@ const Component = ({
   const [showError, setShowError] = useState(false);
   const [areRequiredFieldsFilled, setAreRequiredFieldsFilled] = useState(false);
   const [isFormValid, setIsFormValid] = useState(true);
-  const history  = useHistory();
+  const pushHomepage = useRedirect('/');
 
   const order: IOrder = {
     orderItems: cartItems,
@@ -84,7 +84,7 @@ const Component = ({
   const handleCloseError = () => setShowError(false);
   const handleGoToHp = () => {
     setShow(false);
-    history.push('/');
+    pushHomepage();
   };
 
   return (

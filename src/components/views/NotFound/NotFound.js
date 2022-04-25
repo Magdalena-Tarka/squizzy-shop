@@ -9,13 +9,10 @@ import { Button } from '../../common/Button/Button';
 
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
+import { useRedirect } from '../../../hooks/useRedirect';
 
 const Component = ({className}) => {
-  const history = useHistory();
-
-  const handleRedirect = (path) => {
-    history.push(path);
-  };
+  const pushHomepage = useRedirect('/');
 
   return (
     <div className={clsx(className, styles.root)}>
@@ -33,7 +30,7 @@ const Component = ({className}) => {
               The page you are looking for seems to not exist..
             </p>
             <Button className={styles.nf_btn}
-              onClick={() => handleRedirect('/')}
+              onClick={pushHomepage}
             >go to homepage</Button>
           </Col>
         </Col>

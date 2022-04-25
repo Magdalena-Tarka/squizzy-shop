@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router';
+import { useRedirect } from '../../../hooks/useRedirect';
 import PropTypes from 'prop-types';
 
 import clsx from 'clsx';
@@ -17,7 +17,6 @@ import Col from 'react-bootstrap/Col';
 
 const Component = ({ className, cartItems }) => {
   const [ cartQuantity, setCartQuantity ] = useState(0);
-  const history = useHistory();
 
   useEffect(() => {
     let count = 0;
@@ -27,9 +26,8 @@ const Component = ({ className, cartItems }) => {
     setCartQuantity(count);
   }, [cartItems, cartQuantity]);
 
-  const handleRedirect = (path) => {
-    history.push(path);
-  };
+  const pushHomepage = useRedirect('/');
+  const pushOrder = useRedirect('/order');
 
   return (
     <div className={clsx(className, styles.root)}>
@@ -49,7 +47,7 @@ const Component = ({ className, cartItems }) => {
                   <p>There is no any items in your cart yet</p>
                   <Button
                     className={styles.cart_btn}
-                    onClick={() => handleRedirect('/')}
+                    onClick={pushHomepage}
                   >go to homepage</Button>
                 </Col>
               </div>
@@ -72,7 +70,7 @@ const Component = ({ className, cartItems }) => {
                     <OrderSummary className={styles.cartSummary}>
                       <Button
                         className={styles.cart_btn}
-                        onClick={() => handleRedirect('/order')}
+                        onClick={pushOrder}
                       >make order</Button>
                     </OrderSummary>
                   </div>

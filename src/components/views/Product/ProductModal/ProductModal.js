@@ -1,19 +1,15 @@
 import React from 'react';
-import { useHistory } from 'react-router';
+import { useRedirect } from '../../../../hooks/useRedirect';
 import PropTypes from 'prop-types';
 import Modal from 'react-bootstrap/Modal';
 import { Button } from '../../../common/Button/Button';
 import { OrderListItem } from '../../../features/OrderListItem/OrderListItem';
 
 const Component = ({ isShow, size, price, quantity, name, image, onHide }) => {
-  const history = useHistory();
+  const pushHomepage = useRedirect('/');
+  const pushCart = useRedirect('/cart');
 
   const handleClose = () => onHide();
-
-  const handleRedirect = (path) => {
-    onHide();
-    history.push(path);
-  };
 
   return (
     <Modal show={isShow} onHide={handleClose} centered>
@@ -30,10 +26,10 @@ const Component = ({ isShow, size, price, quantity, name, image, onHide }) => {
         />
       </Modal.Body>
       <Modal.Footer>
-        <Button variant='basic' onClick={() => handleRedirect('/cart')}>
+        <Button variant='basic' onClick={pushCart}>
           Go to the cart
         </Button>
-        <Button variant='dark' onClick={() => handleRedirect('/')}>
+        <Button variant='dark' onClick={pushHomepage}>
           continiue shopping
         </Button>
       </Modal.Footer>
