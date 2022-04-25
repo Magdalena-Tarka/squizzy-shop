@@ -1,7 +1,8 @@
 import { inputFields } from '../components/views/Order/PersonalDataForm/config';
+import { IInitialState, IOrderForm, PersonalData } from '../types';
 
-const orderForm = {};
-const personalData = {};
+const orderForm = {} as IOrderForm;
+const personalData = {} as PersonalData;
 inputFields.forEach(field => {
   orderForm[field.name] = {
     isInvalid: false,
@@ -11,9 +12,10 @@ inputFields.forEach(field => {
   personalData[field.name] = '';
 });
 
-export const initialState = {
+export const initialState: IInitialState = {
   products: {
-    data: [/*
+    data: [],
+    /*data: [
       {
         id: '1',
         name: 'vegetable red smoothie',
@@ -210,7 +212,8 @@ export const initialState = {
         pressedJuice: false,
         milk: true,
       },
-    */],
+    ],*/
+    oneProduct: undefined,
     loading: {
       active: false,
       error: false,
@@ -219,9 +222,13 @@ export const initialState = {
   cart: {
     items: [],
   },
-  order: {
+  orders: {
     data: [],
     personalData,
+    loading: {
+      active: false,
+      error: false,
+    },
   },
   validation: {
     orderForm,

@@ -1,5 +1,11 @@
 {
   "blueprint.templatesPath": [
     "./dev/blueprint-templates"
-  ]
+  ],
+  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+  "editor.formatOnSave": true,
+  "eslint.alwaysShowStatus": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
 }

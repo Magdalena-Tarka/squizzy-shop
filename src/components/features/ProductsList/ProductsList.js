@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 import clsx from 'clsx';
 
 import { connect } from 'react-redux';
-import { getAll, getMilky, getVege, getJuices, fetchAllProducts/*, reduxActionCreator*/ } from '../../../redux/productsRedux.js';
+import { getAll, getMilky, getVege, getJuices, fetchAllProducts/*, reduxActionCreator*/ } from '../../../redux/productsRedux';
 
 import styles from './ProductsList.module.scss';
 
@@ -15,9 +15,10 @@ import Nav from 'react-bootstrap/Nav';
 import Card from 'react-bootstrap/Card';
 
 const Component = ({ className, products, getMilky, getVege, getJuices, fetchAllProducts }) => {
+  //console.log('products 1:', products);
 
   const productsTabs = [
-    { id: 'allProducts', name: 'all products', products: products.length && products },
+    { id: 'allProducts', name: 'all products', products: products && products },
     { id: 'milkSmoothies', name: 'milk smoothies', products: getMilky },
     { id: 'vegeSmoothies', name: 'vege smoothies', products: getVege },
     { id: 'pressedJuices', name: 'pressed juices', products: getJuices },
@@ -27,10 +28,12 @@ const Component = ({ className, products, getMilky, getVege, getJuices, fetchAll
   const [ activeTab, setActiveTab ] = useState(productsTabs[0]);
 
   useEffect(() => {
+    //console.log('products 2:', products);
     fetchAllProducts();
   }, [fetchAllProducts]);
 
   useEffect(() => {
+    //console.log('products 3:', products);
     setActiveTab(defaultTab);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [defaultTab.name, defaultTab.products]);

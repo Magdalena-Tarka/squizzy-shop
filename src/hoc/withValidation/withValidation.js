@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { ruleFunctions, errorMessages } from './config';
 import { getValidation, setValidationParam, setIsTouched, updateErrorMsg } from '../../redux/validationRedux';
 
-// eslint-disable-next-line import/no-anonymous-default-export
 export default WrappedComponent => {
 
   const ValidationHOC = ({ className, ...props }) => {

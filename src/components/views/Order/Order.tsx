@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import { useHistory } from 'react-router-dom';
+import { Dispatch, useEffect, useState } from 'react';
+import { useRedirect } from '../../../hooks/useRedirect';
 
 import clsx from 'clsx';
 
-import { connect } from 'react-redux';
-import { getCartItems, cleanCartItems } from '../../../redux/cartRedux.js';
-import { getPersonalData, addOrderInAPI, cleanOrderForm } from '../../../redux/orderRedux.js';
+import { connect, ConnectedProps } from 'react-redux';
+import { getCartItems, cleanCartItems } from '../../../redux/cartRedux';
+import { getPersonalData, addOrderInAPI, cleanOrderForm } from '../../../redux/orderRedux';
 import { getValidation } from '../../../redux/validationRedux';
 
 import styles from './Order.module.scss';
 import { getCurrentDate } from '../../../utils';
+import { IInitialState, IOrder, IOrderForm } from '../../../types';
+
 import { inputFields } from './PersonalDataForm/config';
 import { OrderListItem } from '../../features/OrderListItem/OrderListItem';
 import { PersonalDataForm } from './PersonalDataForm/PersonalDataForm';
@@ -21,15 +22,19 @@ import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Modal from 'react-bootstrap/Modal';
 
-const Component = ({ className, ...props }) => {
-  const {
-    cartItems,
-    addOrderInAPI,
-    personalData,
-    cleanCartItems,
-    cleanOrderForm,
-    orderValidation,
-  } = props;
+interface IOwnProps {
+  className?: string,
+}
+
+const Component = ({
+  className,
+  cartItems,
+  personalData,
+  orderValidation,
+  addOrderInAPI,
+  cleanCartItems,
+  cleanOrderForm,
+}: Props) => {
 
   const requiredFields = inputFields
     .map(field => field.validationRules.required && field.name)
@@ -39,20 +44,22 @@ const Component = ({ className, ...props }) => {
   const [showError, setShowError] = useState(false);
   const [areRequiredFieldsFilled, setAreRequiredFieldsFilled] = useState(false);
   const [isFormValid, setIsFormValid] = useState(true);
-  const history  = useHistory();
+  const pushHomepage = useRedirect('/');
 
-  const order = {
+  const order: IOrder = {
     orderItems: cartItems,
     personalData,
+    date: '',
   };
 
   useEffect(() => {
     setAreRequiredFieldsFilled(order.personalData
-      && requiredFields.every(field => order.personalData[field]
-      && order.personalData[field].length));
+      && requiredFields.every((field) => field !== false
+        && order.personalData[field]
+        && order.personalData[field].length));
 
     setIsFormValid(Object.keys(orderValidation.orderForm)
-      .every(field => orderValidation.orderForm[field].isInvalid === false));
+      .every((field) => orderValidation.orderForm[field as keyof IOrderForm].isInvalid === false));
 
   }, [areRequiredFieldsFilled, isFormValid, order.personalData, orderValidation, requiredFields]);
 
@@ -66,9 +73,10 @@ const Component = ({ className, ...props }) => {
       return;
     }
     order.date = getCurrentDate();
+    console.log('order:', order);
     addOrderInAPI(order);
     cleanCartItems();
-    cleanOrderForm(Object.keys(personalData));
+    cleanOrderForm();
     setShow(true);
   };
 
@@ -76,7 +84,7 @@ const Component = ({ className, ...props }) => {
   const handleCloseError = () => setShowError(false);
   const handleGoToHp = () => {
     setShow(false);
-    history.push('/');
+    pushHomepage();
   };
 
   return (
@@ -151,32 +159,26 @@ const Component = ({ className, ...props }) => {
   );
 };
 
-Component.propTypes = {
-  className: PropTypes.string,
-  cartItems: PropTypes.array,
-  addOrderInAPI: PropTypes.func,
-  personalData: PropTypes.object,
-  cleanOrderForm: PropTypes.func,
-  cleanCartItems: PropTypes.func,
-  orderValidation: PropTypes.object,
-};
-
-const mapStateToProps = state => ({
+const mapStateToProps = (state: IInitialState) => ({
   cartItems: getCartItems(state),
   personalData: getPersonalData(state),
   orderValidation: getValidation(state),
 });
 
-const mapDispatchToProps = dispatch => ({
-  addOrderInAPI: arg => dispatch(addOrderInAPI(arg)),
-  cleanOrderForm: arg => dispatch(cleanOrderForm(arg)),
-  cleanCartItems: arg => dispatch(cleanCartItems(arg)),
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
+  addOrderInAPI: (newOrder: IOrder) => dispatch(addOrderInAPI(newOrder)),
+  cleanOrderForm: () => dispatch(cleanOrderForm()),
+  cleanCartItems: () => dispatch(cleanCartItems()),
 });
 
-const OrderContainer = connect(mapStateToProps, mapDispatchToProps)(Component);
+const connector = connect(mapStateToProps, mapDispatchToProps);
+type PropsFromRedux = ConnectedProps<typeof connector>
+type Props = PropsFromRedux & IOwnProps;
+
+const OrderContainer = connector(Component);
 
 export {
-  //Component as Order,
   OrderContainer as Order,
   Component as OrderComponent,
 };

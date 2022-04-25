@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
@@ -14,7 +14,7 @@ import { Cart } from './components/views/Cart/Cart';
 import { Order } from './components/views/Order/Order';
 import { NotFound } from './components/views/NotFound/NotFound';
 
-const App = () => (
+const App: FC = () => (
   <Provider store={store}>
     <BrowserRouter>
       <MainLayout>
